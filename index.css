@@ -1,0 +1,259 @@
+/*********************************************
+	Inherited Styles
+**********************************************/
+
+html {
+    box-sizing: border-box;
+    color: #444;
+    font-size: 12pt;
+    font-family: 'Open Sans', sans-serif, Arial;
+    font-weight: 300;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+    color: inherit;
+    font: inherit;
+}
+
+
+/*********************************************
+	Defaults
+**********************************************/
+body {
+    background-color: #4f4e4e;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+h1, h2, h3 {
+    margin: 0;   
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+}
+
+img {
+    border: none;
+}
+
+
+/*********************************************
+	Helpers
+**********************************************/
+
+/*********************************************
+    Layout
+**********************************************/
+.panel {
+    background-color: blue;
+}
+
+.panel > div {
+    text-align: center;
+    position: relative;
+}
+
+header.main-header {
+    background-color: red;
+/*    overflow: hidden;*/
+    position: absolute;
+    z-index: 2;
+    height: 75px;
+    right: 0;
+    left: 0;
+}
+
+.main-navbar {
+    background-color: teal;
+    position: absolute;
+    top: 75px;
+    width: 100%;
+    display: none;
+}
+
+.main-navbar a {
+    background-color: silver;
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    color: white;
+
+}
+
+.main-navbar a:hover, a:focus {
+    background-color: grey;
+}
+
+
+.hero {
+/*    background-image: url("images/festival2-1.jpg");
+    background-size: cover;*/
+    /*height: 750px;*/
+    position: relative;
+    background-color: teal;
+}
+
+.main-content {
+    background-color: green;
+}
+
+.main-content > div {
+    padding: 10px;
+}
+
+
+
+/*********************************************
+    Components
+**********************************************/
+
+
+/*******Header********/
+.logo {
+    background-color: black;
+    height: 60px;
+    width: 250px;
+    position: absolute;
+    left: 15px;
+    top: 7px;
+}
+
+.collapsed-menu {
+    background-color: purple;
+    height: 45px;
+    width: 50px;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+}
+
+.collapsed-menu:hover, .collapsed-menu:focus {
+    background-color: #3e8e41;
+}
+
+/********Hero Content*********/
+.hero-content {
+    color: black;
+    padding: 10px;
+    background-color: yellow;
+}
+
+.hero-content h1 {
+    padding-top: 80px;
+}
+
+.pre-form {
+    background-color: orange;
+    padding: 10px;
+}
+
+.pre-form > div {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.pre-form h3 {
+    padding-top: 10px;
+}
+
+.preform-select {
+    padding-bottom: 15px;
+}
+
+.preform-select select {
+    width: 100%;
+    border: none;
+    height: 45px;
+}
+
+.preform-label {
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+.preform-submit {
+    padding-bottom: 10px;
+}
+
+.preform-submit-button {
+    
+    border-radius: 3px;
+    width: 100%;
+    color: white;
+    background-color: teal;
+    height: 45px;
+    margin-top: 20px;
+    margin-bottom:  20px;
+    text-transform: uppercase;
+}
+
+.cf::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+
+
+/********Main Content**********/
+
+.main-content-headline {
+    background-color: white;
+    padding-bottom: 10px;
+}
+
+.media-object {
+    background-color: red;
+    overflow: hidden;
+    padding: 10px 0px;
+}
+
+.selling-point {
+    text-align: left;
+}
+
+.selling-point-image {
+    float: left;
+    background-color: blue;
+    font-size: 2.5em;
+    padding: 0 10px;
+    margin-top: -2px;
+}
+
+.selling-point-content {
+    margin-left: 45px;
+    background-color: yellow;
+    padding: 0px 10px;
+}
+
+.main-content-learnmore {
+    background-color: grey;
+}
+
+.learnmore-button {
+    
+    border-radius: 3px;
+    width: 200px;
+    color: white;
+    background-color: teal;
+    height: 45px;
+    margin-top: 20px;
+    margin-bottom:  20px;
+    text-transform: uppercase;
+}
+
+/*******Secondary Content********/
+

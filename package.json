@@ -1,0 +1,32 @@
+{
+  "name": "firstchoice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coolhand37/Firstchoice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coolhand37/Firstchoice/issues"
+  },
+  "homepage": "https://github.com/coolhand37/Firstchoice#readme",
+  "dependencies": {
+    "jquery": "^3.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "browserify-shim": "^3.8.12",
+    "gulp": "^3.9.1",
+    "gulp-serve": "^1.4.0",
+    "gulp-util": "^3.0.7",
+    "hbsfy": "^2.7.0",
+    "rimraf": "^2.5.4",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
