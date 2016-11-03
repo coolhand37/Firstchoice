@@ -15,7 +15,7 @@ $(".back-button").click(function() {
 });
 
 $('main').on('click', '.preform-button', function(){
-	location.href = "coolhand37.github.io/Firstchoice/form.html";
+	location.href = "form.html";
 	return false;
 });
 
