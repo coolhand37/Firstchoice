@@ -1,7 +1,5 @@
 var $ = require('jquery');
 
-console.log("hello world")
-
 
 $(".collapsed-menu").click(function(){
     $(".collapsed-navbar").toggle();
@@ -17,7 +15,7 @@ $(".back-button").click(function() {
 });
 
 $('main').on('click', '.preform-button', function(){
-	location.href = "../form.html";
+	location.href = "form.html";
 	return false;
 });
 
