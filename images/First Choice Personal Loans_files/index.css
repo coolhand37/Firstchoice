@@ -163,15 +163,15 @@ header.privacy-header {
 }
 
 .secondary-content {
-    padding: 20px;
+    padding: 10px;
 }
 
 .tertiary-content {
-    background-color: white;
+    background-color: #c9d3cd;
 }
 
 .tertiary-content {
-    padding: 20px;
+    padding: 10px;
 }
 
 footer.main-footer {
@@ -422,15 +422,11 @@ footer.main-footer > div {
     background-color: #f5f5f5;
 }
 
-.application h4 {
-    font-weight: normal;
-}
-
 header.application-header {
 /*    background-color: red;*/
     height: 55px;
     position: relative;
-    box-shadow: 0px 0px 15px -2px #828080;
+    box-shadow: 0px 0px 10px -5px black;
 
 }
 
@@ -446,7 +442,6 @@ header.application-header {
 .application-progressbar {
     padding: 10px;
     font-size: .7em;
-    color: #828080;
     /*padding-top: 80px;*/
 }
 
@@ -457,7 +452,7 @@ header.application-header {
 .application-progressbar .active {
     color: darkgreen;
     font-weight: bold;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 .progressbar-text {
@@ -504,23 +499,12 @@ header.application-header {
     border-width: 1px 0 0 0;
 }
 
-
-/*    .application input, select {
-
-    }*/
-
 .application .input select, input {
     height: 35px;
-    background-color: #f5f5f5;
-    border: 1px solid #e3e3e3;
 }
 
 .three-field-format select {
     width: 32.5%;
-}
-
-.first-step-continue {
-    width: 125px;
 }
 
 .application-second-step, .application-third-step h2 {
@@ -530,7 +514,6 @@ header.application-header {
 .next-steps > div {
     display: inline-block;
     vertical-align: top;
-    padding-top: 20px;
 
 }
 
@@ -538,7 +521,6 @@ header.application-header {
     width: 60%;
     text-align: left;
     font-size: .9em;
-    padding-left: 20px;
 }
 
 .next-steps-back span:hover {
@@ -579,19 +561,11 @@ header.application-header {
 
 @media (min-width: 660px) {
 
-    .logo.showit {
-        display: none;
-    }
-
-    .logo.hideit {
+    .main-header, .application-header .hideit {
         display: block;
     }
 
-    .application-header .hideit {
-        display: block;
-    }
-
-    .application-header .showit {
+    .main-header, .application-header .showit {
         display: none;
     }
 
@@ -714,6 +688,10 @@ header.application-header {
         padding: 20px;
     }
 
+    .application-form h4 {
+        font-weight: normal;
+    }
+
     .application-progressbar {
         width: 250px;
         position: absolute;
@@ -723,7 +701,7 @@ header.application-header {
 
     .application-progressbar > div {
         display: block;
-        padding-bottom: 15px;
+        padding-bottom: 10px;
     }
 
     .application-progressbar > div i {
@@ -750,7 +728,7 @@ header.application-header {
         width: 250px;
         padding: 10px;
         padding-top: 20px;
-        top: 160px;
+        top: 125px;
         right: 0;
         border: 1px solid #e3e3e3;
         border-radius: 10px;
@@ -812,11 +790,16 @@ header.application-header {
 
     .application-first-step .form-submit {
         text-align: right;
-        padding-right: 160px;
+        padding-right: 30px;
     }
 
-    .next-steps {
-    width: 75%;
+    .first-step-continue {
+        width: 125px;
+    }
+
+    .next-steps-continue {
+        padding-right: 20px;
+        width: 225px;
     }
 
     .credit-linkout {
@@ -831,7 +814,6 @@ header.application-header {
     .application .credit-linkout {
         padding-left: 0;
     }
-
 
     .preform-submit {
         display: inline-block;
@@ -860,11 +842,11 @@ header.application-header {
     }
 
     .application-progressbar {
-        right: 100px;
+        right: 130px;
     }
 
     .ssl-info {
-        right: 100px;
+        right: 130px;
     }
 
 }

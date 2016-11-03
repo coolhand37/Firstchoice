@@ -10,137 +10,115 @@
 </head>
 <body>
 
-<div id="main" class="panel">
+<div class="panel">
 	<div>
 		<header class="main-header">
-			<div class="logo">
-				
+			<div>
+				<div class="logo showit">
+					<img src="images/fclogosmall.png">
+				</div>
+				<div class="logo hideit">
+					<img src="images/fclogo.png">
+				</div>
+				<div class="collapsed-menu">
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+				<nav class="collapsed-navbar">
+					<a href="#home">Home</a>
+					<a href="#about-us">About Us</a>
+					<a href="#how-it-works">How it works</a>
+					<a href="#contact-us">Contact Us</a>				
+				</nav>
+				<nav class="main-navbar">
+					<a href="#home">Home</a>
+					<a href="#about-us">About Us</a>
+					<a href="#how-it-works">How it works</a>
+					<a href="#contact-us">Contact Us</a>				
+				</nav>
 			</div>
-			<div class="collapsed-menu">
-				
-			</div>
-			<nav class="main-navbar">
-				<a href="">Home</a>
-				<a href="">How it works</a>
-				<a href="">Contact Us</a>				
-			</nav>
 		</header>
 		<main>
 			<div class="hero">
 				<div class="hero-content">
-					<h1>Personal Loans made simple and fast</h1><br>
-					<h2>Borrow between $100 and $15,000 by tomorrow</h2>
+					<h2 class="hero-headline">
+					Need a personal loan?</br>
+					You've come to the right place.</h2><br>
+					<h3>Qualified borrowers can get loans from $100 to $25,000</h3>
 				</div>
 				<div class="pre-form">
 					<div>
-						<h3>Start our 5 minute application by telling us how much you need</h3>
-						<form action="" class="preform-fields">
-							<div class="preform-label">
-								<label for="amount">Cash Needed</label>
+						<h3>Start our quick and easy application to help get you qualified</h3>
+						<form action="">
+							<div class="field">
+								<div class="label">
+									<label>Cash Needed</label>
+								</div>
+								<div class="input">
+									<select name="amount">
+										<option value="" selected="selected">Please select a loan amount</option>
+										<option value="300">$100-$500</option>
+										<option value="500">$501-$1000</option>
+										<option value="1000">$1001-$2,500</option>
+										<option value="2500">$2,501-$5,000</option>
+										<option value="5000">$5,001-$10,000</option>
+										<option value="10000">$10,001-$15,000</option>
+										<option value="15000">more than $15,001</option>
+									</select>
+								</div>
 							</div>
-							<div class="preform-select">
-								<select name="amount" id="amount">
-									<option value="300">$100-$500</option>
-									<option value="500" selected="selected">$501-$1000</option>
-									<option value="1000">$1001-$2,500</option>
-									<option value="2500">$2,501-$5,000</option>
-									<option value="5000">$5,001-$10,000</option>
-									<option value="10000">$10,001-$15,000</option>
-									<option value="15000">more than $15,001</option>
-								</select>
+							<div class="field">
+								<div class="label credit-label">
+									<div>
+										<label>Credit Type</label>
+									</div>
+									<div>
+										<span class="credit-linkout">Not sure? <a href="">Click Here</a></span>
+									</div>
+								</div>
+								<div class="input">
+									<select name="creditscore">
+										<option value="Excellent">Excellent (720+)</option>
+										<option value="Good">Good (660-720)</option>
+										<option value="Fair" selected="selected">Fair (600-660)</option>
+										<option value="Poor">Poor (< 600)</option>
+									</select>
+								</div>
 							</div>
-							<div class="preform-label">
-								<label for="income">Monthly Income</label>
+							<div class="field">
+								<div class="label">
+									<label>Zip Code</label>
+								</div>
+								<div class="input">
+									<input name="zipcode" type="text" maxlength="5"></input>
+								</div>
 							</div>
-							<div class="preform-select">
-								<select name="income" id="income">
-									<option value="5000">Above $5,000</option>
-									<option value="4500">$4,000-$3,000</option>
-									<option value="3500" selected="selected">$3,000-$4,000</option>
-									<option value="2500">$2,000-$3,000</option>
-									<option value="1500">$1,000-$2,000</option>
-									<option value="1000">Under $1,000</option>
-								</select>
+							<div class="field">
+								<div class="label">
+									<label>Active Military</label>
+								</div>
+								<div class="input">
+									<select name="military">
+										<option value="no" >No</option>
+										<option value="yes" >Yes</option>
+									</select>
+								</div>
 							</div>
-							<div class="preform-label">
-								<label for="creditscore">Credit Type</label>
-							</div>
-							<div class="preform-select">
-								<select name="creditscore" id="creditscore">
-									<option value="Excellent">Excellent (720+)</option>
-									<option value="Good">Good (660-720)</option>
-									<option value="Fair" selected="selected">Fair (600-660)</option>
-									<option value="Poor">Poor (< 600)</option>
-								</select>
-							</div>
-							<div class="preform-label">
-								<label for="state">State</label>
-							</div>
-							<div class="preform-select">
-								<select name="state" id="state">
-									<option value="AL" >Alabama</option>
-									<option value="AK" >Alaska</option>
-									<option value="AZ" >Arizona</option>
-									<option value="AR" >Arkansas</option>
-									<option value="CA" >California</option>
-									<option value="CO" >Colorado</option>
-									<option value="CT" >Connecticut</option>
-									<option value="DE" >Delaware</option>
-									<option value="DC" >District of Columbia</option>
-									<option value="FL" >Florida</option>
-									<option value="GA" >Georgia</option>
-									<option value="HI" >Hawaii</option>
-									<option value="ID" >Idaho</option>
-									<option value="IL" >Illinois</option>
-									<option value="IN" >Indiana</option>
-									<option value="IA" >Iowa</option>
-									<option value="KS" >Kansas</option>
-									<option value="KY" >Kentucky</option>
-									<option value="LA" >Louisiana</option>
-									<option value="ME" >Maine</option>
-									<option value="MD" >Maryland</option>
-									<option value="MA" >Massachusetts</option>
-									<option value="MI" >Michigan</option>
-									<option value="MN" >Minnesota</option>
-									<option value="MS" >Mississippi</option>
-									<option value="MO" >Missouri</option>
-									<option value="MT" >Montana</option>
-									<option value="NE" >Nebraska</option>
-									<option value="NV" >Nevada</option>
-									<option value="NH" >New Hampshire</option>
-									<option value="NJ" >New Jersey</option>
-									<option value="NM" >New Mexico</option>
-									<option value="NC" >North Carolina</option>
-									<option value="ND" >North Dakota</option>
-									<option value="OH" >Ohio</option>
-									<option value="OK" >Oklahoma</option>
-									<option value="OR" >Oregon</option>
-									<option value="PA" >Pennsylvania</option>
-									<option value="RI" >Rhode Island</option>
-									<option value="SC" >South Carolina</option>
-									<option value="SD" >South Dakota</option>
-									<option value="TN" >Tennessee</option>
-									<option value="TX" >Texas</option>
-									<option value="UT" >Utah</option>
-									<option value="VT" >Vermont</option>
-									<option value="VA" >Virginia</option>
-									<option value="WA" >Washington</option>
-									<option value="WV" >West Virginia</option>
-									<option value="WI" >Wisconsin</option>
-									<option value="WY" >Wyoming</option>
-								</select>
-							</div>
-							<div class="preform-submit">
-								<button class="preform-submit-button">Get Cash Now</button>
-							</div>							
+							<div class="form-submit preform-submit">
+								<button class="form-button preform-button">Get Started</button>
+							</div>						
 						</form>
+						<div class="submit-terms">
+							<div>By clicking Get Started, I consent and agree to the <a href="privacy.html">Privacy Policy</a>, <a href="privacy.html">Terms and Conditions</a> and <a href="privacy.html">E-Consent</a>.</div>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="main-content">
 				<div>
 					<div class="main-content-headline">
-						<p><h1>Apply simple, safe, secure and get your money fast! </h1></p>
+						<p><h2>Apply simple, safe, secure and get your money fast! </h2></p>
 					</div>
 					<div class="media-object selling-point">
 						<div class="selling-point-image">
@@ -148,7 +126,7 @@
 						</div>
 						<div class="selling-point-content">
 							<h3>Safe and Secure</h3>
-							Security is our #1 priority. That's why our site is secured with a Web Server Certificate. Transactions on the site are protected with up to 256-bit SSL encryption. We do our best to keep your personal information, personal!
+							Security is our #1 priority. That's why our site is secured with a Web Server Certificate. Transactions on this site are protected with up to 256-bit SSL encryption. We do our best to keep your personal information, personal!
 						</div>					
 					</div>
 					<div class="media-object selling-point">
@@ -169,15 +147,59 @@
 							If you're loan gets approved you can see those funds deposited directly into your bank account in a matter of hours. Deposit times vary across lenders so make sure to verify this once you've been approved.
 						</div>					
 					</div>
+					<div class="media-object selling-point">
+						<div class="selling-point-image">
+							<i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+						</div>
+						<div class="selling-point-content">
+							<h3>Lending Rates and Terms</h3>
+							Remember lendinig rates and terms vary depending on your lender. Always make sure to read any loan offers completely to ensure you understand the obligations of your loan. In some cases lending rates can be very expensive so borrow responsibly.
+						</div>					
+					</div>					
 				</div>
 			</div>
-			<div class="secondary-content">
+			<div id="about-us" class="secondary-content">
 				<div>
-					<h1>What we'll do for you</h1>
-
+					<h2>What we can do for you</h2>
+					<p>
+						When you apply for a personal loan or short-term loan through First Choices Personal Loans you get instant access to hundreds of lenders across the country looking to fund loans just like yours. We work with direct lenders who approve loans for large dollar amounts all the way down to those lending a few hundred bucks. We can also accomodate all credit types and you'll never have to worry about any inquiries affecting your fico score. Even if you've been labeled poor credit or bad credit in the past you may still qualify for a loan product. At the end of the day we just want to make sure you're placed with the proper loan solution.
+					</p>
+					<p>
+						Our loan matching service is always 100% free and we don't work with any lenders that charge upfront for loans. If you are ever asked to pay upfront for a loan walk away. By submitting an application on our site you are never bound to any loan offer until you have accepted the lenders terms and conditions. We do our best to disclose all important concepts to our customers so if you are ever presented with anything that seems questionable please make sure to notify us so we can take the proper steps to correct it. We work hard to ensure our customers are satisfied and want your experience here to be a great one!
+					</p>
+					<p>
+						First Choice Personal loans also takes security and your privacy very seriously. While we do ask for some sensitive information, to allow our lenders to make proper decisions when deciding whether or not to fund a loan, all sensitive information is encrypted and never stored. So once your session is over your sensitive info is erased from our database. 
+					</p>
+				</div>
+			</div>
+			<div id="how-it-works" class="tertiary-content">
+				<div>
+					<h2>How does First Choice Personal Loans work?</h2>
+					<p>
+						When you apply for a loan through First Choice Personal Loans your application has the ability to hit hundreds of lenders all across the country. While we work directly with some lenders we also work with lending networks. These lending networks all contain their own portforlio of direct lenders and lending networks. By doing this we give you the greatest chance of getting approved.
+					</p>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+					</p>
 				</div>
 			</div>
 		</main>
+		<footer class="main-footer">
+				<div>
+					<i class="fa fa-phone" aria-hidden="true"></i>555-555-5555
+				</div>
+				<div>	
+					<i class="fa fa-envelope-o" aria-hidden="true"></i>info@eventsfetch.com	
+				</div>
+				<div>
+					<i class="fa fa-map-marker" aria-hidden="true"></i>5555 E Main St, Chandler, AZ 85286
+				</div>				
+		</footer>
 	</div>
 </div>
 
