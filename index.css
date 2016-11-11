@@ -873,3 +873,11 @@ header.application-header {
 .hidden {
     display: none;
 }
+
+input.error, select.error {
+  border-color: #a94442 !important;
+}
+
+input.success, select.success {
+  border-color: #3c763d !important;
+}

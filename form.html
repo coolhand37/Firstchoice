@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
 	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" href="index.css">
-	
 </head>
 <body>
 
@@ -47,7 +46,7 @@
 					</div>
 					<div class="application-form">
 						<div>	
-							<form action="">
+							<form action="" id="main-form">
 								<div class="application-first-step">
 									<h3>Please complete the form below to begin your loan process</h3>
 									<div class="ssl-info showit">
@@ -65,7 +64,7 @@
 											<label>Loan Amount</label>
 										</div>
 										<div class="input">
-											<select name="loan_amount_requested">
+											<select name="loan_amount_requested" required>
 												<option value="300">$100-$500</option>
 												<option value="500">$501-$1000</option>
 												<option value="1000">$1001-$2,500</option>
@@ -86,7 +85,7 @@
 											</div>
 										</div>
 										<div class="input">
-											<select name="creditscore">
+											<select name="creditscore" required>
 												<option value="Excellent">Excellent (720+)</option>
 												<option value="Good">Good (660-720)</option>
 												<option value="Fair" selected="selected">Fair (600-660)</option>
@@ -99,7 +98,7 @@
 											<label>First Name</label>
 										</div>
 										<div class="input">
-											<input name="first_name" type="text"></input>
+											<input name="first_name" type="text" required></input>
 										</div>
 									</div>
 									<div class="field">						
@@ -107,7 +106,7 @@
 											<label>Last Name</label>
 										</div>
 										<div class="input">
-											<input name="last_name" type="text"></input>
+											<input name="last_name" type="text" required></input>
 										</div>
 									</div>
 									<div class="field">						
@@ -115,7 +114,7 @@
 											<label>Street Address</label>
 										</div>
 										<div class="input">
-											<input name="home_address_1" type="text"></input>
+											<input name="home_address_1" type="text" required></input>
 										</div>
 									</div>
 									<div class="field">						
@@ -131,7 +130,7 @@
 											<label>Zip Code</label>
 										</div>
 										<div class="input">
-											<input name="zipcode" type="text" maxlength="5"></input>
+											<input name="zipcode" type="text" maxlength="5" required></input>
 										</div>
 									</div>
 									<div class="field">
@@ -139,7 +138,7 @@
 											<label>Rent or Own</label>
 										</div>
 										<div class="input">
-											<select name="home_type">
+											<select name="home_type" required>
 												<option value selected="selected" >Select an option</option>
 												<option value="R" >Rent</option>
 												<option value="O" >Own</option>
@@ -151,7 +150,7 @@
 											<label>Email</label>
 										</div>
 										<div class="input">
-											<input name="email" type="text" maxlength="64"></input>
+											<input name="email" type="text" maxlength="64" required></input>
 										</div>
 									</div>
 									<div class="field">
@@ -159,7 +158,7 @@
 											<label>Primary Phone</label>
 										</div>
 										<div class="input">
-											<input name="phone_home" type="text" maxlength="16"></input>
+											<input name="phone_home" type="text" maxlength="16" required></input>
 										</div>
 									</div>
 									<div class="field">
@@ -167,7 +166,7 @@
 											<label>Best time to call</label>
 										</div>
 										<div class="input">
-											<select name="best_contact_time">
+											<select name="best_contact_time" required>
 												<option value selected="selected" >Select a time to call</option>
 												<option value="M" >Morning</option>
 												<option value="A" >Afternoon</option>
@@ -186,7 +185,7 @@
 											<label>Type of income</label>
 										</div>
 										<div class="input">
-											<select name="income_source">
+											<select name="income_source" required>
 												<option value="" selected="selected">Select an income source</option>
 												<option value="FT">Full Time</option>
 												<option value="PT">Part Time</option>
@@ -200,7 +199,7 @@
 											<label>Monthly income</label>
 										</div>
 										<div class="input">
-											<select name="monthly_income">
+											<select name="monthly_income" required>
 												<option value="" selected="selected">Select a monthly income</option>
 												<option value="1000">$751 - $1000</option>
 												<option value="1250">$1001 - $1250</option>
@@ -228,7 +227,7 @@
 											<label>Employer</label>
 										</div>
 										<div class="input">
-											<input name="employer_name" type="text" maxlength="30"></input>
+											<input name="employer_name" type="text" maxlength="30" required></input>
 										</div>
 									</div>
 									<div class="field">
@@ -236,7 +235,7 @@
 											<label>Employer Phone</label>
 										</div>
 										<div class="input">
-											<input name="phone_work" type="text" maxlength="16"></input>
+											<input name="phone_work" type="text" maxlength="16" required></input>
 										</div>
 									</div>
 									<div class="field">						
@@ -244,7 +243,7 @@
 											<label>Employer's Address</label>
 										</div>
 										<div class="input">
-											<input name="employer_address_1" type="text"></input>
+											<input name="employer_address_1" type="text" required></input>
 										</div>
 									</div>
 									<div class="field">						
@@ -260,7 +259,7 @@
 											<label>Zip Code</label>
 										</div>
 										<div class="input">
-											<input name="employer_zipcode" type="text" maxlength="5"></input>
+											<input name="employer_zipcode" type="text" maxlength="5" required></input>
 										</div>
 									</div>
 									<div class="field">
@@ -268,7 +267,7 @@
 											<label>Pay Frequency</label>
 										</div>
 										<div class="input">
-											<select name="pay_frequency">
+											<select name="pay_frequency" required>
 												<option value="" selected="selected">Select pay frequency</option>
 												<option value="W">Weekly</option>
 												<option value="B">Bi Weekly</option>
@@ -283,7 +282,7 @@
 										</div>
 										<div class="input">
 											<div class="three-field-format">
-												<select name="pay_date_next_month">
+												<select name="pay_date_next_month" required>
 													<option value="0">Month</option>
 													<option value="1">January</option>
 													<option value="2">February</option>
@@ -298,7 +297,7 @@
 													<option value="11">November</option>
 													<option value="12">December</option>
 												</select>
-												<select name="pay_date_next_day">
+												<select name="pay_date_next_day" required>
 													<option value="0">Day</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
@@ -332,7 +331,7 @@
 													<option value="30">30</option>
 													<option value="31">31</option>
 												</select>
-												<select class="paydate_next_year">
+												<select class="paydate_next_year" required>
 													<option value="0">Year</option>
 													<option value="2016">2016</option>
 													<option value="2017">2017</option>
@@ -356,7 +355,7 @@
 											<label>Account type</label>
 										</div>
 										<div class="input">
-											<select name="bank_account_type">
+											<select name="bank_account_type" required>
 												<option value="" selected="selected">Select an account type</option>
 												<option value="C">Checking</option>
 												<option value="S">Savings</option>
@@ -368,7 +367,7 @@
 											<label>Direct Deposit</label>
 										</div>
 										<div class="input">
-											<select name="direct_deposit">
+											<select name="direct_deposit" required>
 												<option value="" selected="selected">Select an answer</option>
 												<option value="Y">Yes</option>
 												<option value="N">No</option>
@@ -380,7 +379,7 @@
 											<label>ABA/Routing number</label>
 										</div>
 										<div class="input">
-											<input name="bank_aba" type="text" maxlength="9"></input>
+											<input name="bank_aba" type="text" maxlength="9" required></input>
 										</div>
 									</div>
 									<div class="field">
@@ -388,7 +387,7 @@
 											<label>Account number</label>
 										</div>
 										<div class="input">
-											<input name="bank_account" type="text" maxlength="32"></input>
+											<input name="bank_account" type="text" maxlength="32" required></input>
 										</div>
 									</div>
 									<h2>Security Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
@@ -398,7 +397,7 @@
 											<label>Social Security Number</label>
 										</div>
 										<div class="input">
-											<input name="ssn" type="text" maxlength="11"></input>
+											<input name="ssn" type="text" maxlength="11" required></input>
 										</div>
 									</div>
 									<div class="field">
@@ -406,7 +405,7 @@
 											<label>Driver's License Number</label>
 										</div>
 										<div class="input">
-											<input name="state_id_number" type="text" maxlength="15"></input>
+											<input name="state_id_number" type="text" maxlength="15" required></input>
 										</div>
 									</div>
 									<div class="field">
@@ -414,7 +413,7 @@
 											<label>Driver's License State</label>
 										</div>
 										<div class="input">
-											<select name="state_id_issue_state">
+											<select name="state_id_issue_state" required>
 												<option value="" selected="selected">Select a state</option>
 												<option value="AL">Alabama</option>
 												<option value="AK">Alaska</option>
@@ -476,7 +475,7 @@
 										</div>
 										<div class="input">
 											<div class="three-field-format">
-												<select name="dob_month">
+												<select name="dob_month" required>
 													<option value="0">Month</option>
 													<option value="1">January</option>
 													<option value="2">February</option>
@@ -491,7 +490,7 @@
 													<option value="11">November</option>
 													<option value="12">December</option>
 												</select>
-												<select name="dob_day">
+												<select name="dob_day" required>
 													<option value="0">Day</option>
 													<option value="1">1</option>
 													<option value="2">2</option>
@@ -525,7 +524,7 @@
 													<option value="30">30</option>
 													<option value="31">31</option>
 												</select>
-												<select class="dob_year">
+												<select class="dob_year" required>
 													<option value="0">Year</option>
 													<option value="2016">2016</option>
 													<option value="2015">2015</option>
@@ -660,6 +659,8 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="build/bundle.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="form.js"></script>
 </body>
 </html>
