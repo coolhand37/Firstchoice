@@ -683,6 +683,10 @@ header.application-header {
         display: inline-block;
         vertical-align: top;
     }
+
+    .collapsed-navbar {
+        display: none !important;
+    }
   
 
 }
