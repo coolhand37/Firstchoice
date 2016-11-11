@@ -11,14 +11,6 @@ $(function () {
       error.appendTo(element.parents(".field"));
     }
   });
-  
-  $(".collapsed-menu").click(function(){
-    $(".collapsed-navbar").toggle();
-  });
-
-  $(".collapsed-navbar").click(function(){
-    $(".collapsed-navbar").toggle();
-  });
 
   $(".back-button").click(function() {
     window.history.back()
@@ -31,6 +23,7 @@ $(function () {
 
   $('main').on('click', '.first-step-continue', function() {
     if (form.valid()) {
+      $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.application-first-step').toggle();
       $('.application-second-step').toggle();
       $('.bar-personal-info').toggleClass('active');
@@ -48,6 +41,7 @@ $(function () {
 
   $('main').on('click', '.second-step-continue', function() {
     if (form.valid()) {
+      $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.application-second-step').toggle();
       $('.application-third-step').toggle();
       $('.bar-employment-info').toggleClass('active');
