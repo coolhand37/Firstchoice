@@ -10077,6 +10077,14 @@ return jQuery;
 },{}],2:[function(require,module,exports){
 var $ = require('jquery');
 
+$(document).click(function (event) {
+  var clickover = $(event.target);
+  var parent    = clickover.parent();
+  var opened = $(".collapsed-navbar").css("display") == "block";
+  if (opened && !(clickover.hasClass("collapsed-menu") || parent.hasClass("collapsed-menu"))) {
+    $(".collapsed-navbar").toggle();
+  }
+});
 
 $(".collapsed-menu").click(function(){
     $(".collapsed-navbar").toggle();
