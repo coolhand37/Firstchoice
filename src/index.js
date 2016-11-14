@@ -2,12 +2,12 @@ var $ = require('jquery');
 
 
 $(".collapsed-menu").click(function(){
-    $(".collapsed-navbar").toggle();
+    $(".collapsed-navbar").slideToggle();
 });
 
 
 $(".collapsed-navbar").click(function(){
-    $(".collapsed-navbar").toggle();
+    $(".collapsed-navbar").slideToggle();
 });
 
 $(".back-button").click(function() {
