@@ -102,7 +102,7 @@ header.privacy-header {
 }
 
 .collapsed-navbar a:hover, a:focus {
-    color: #015b25;
+    background-color: #015b25;
 }
 
 .main-navbar {
@@ -251,9 +251,9 @@ footer.main-footer {
     padding: 15px;
 }
 
-
-.collapsed-menu:hover, .collapsed-menu:focus {
-    background-color: #3e8e41;
+.collapsed-menu:hover {
+    cursor: pointer;
+    background-color: #015b25;
 }
 
 .back-button {
