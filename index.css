@@ -312,10 +312,10 @@ footer.main-footer {
     padding-bottom: 15px;
 }
 
-.input select, input {
+.input select, .input input {
     width: 100%;
     border: none;
-    height: 45px;
+    height: 35px;
     color: black;
 }
 
@@ -701,6 +701,55 @@ header.application-header {
 }*/
 
 
+/***********************************************
+                Credit Offer
+************************************************/
+
+
+.thanks {
+    background-color: blue;
+}
+
+.thanks h1 {
+    margin-top: 10px;
+}
+
+.credit-content {
+    background-color: red;
+}
+
+.credit-content > div {
+    background-color: yellow;
+    margin: auto;
+    width: 300px;
+}
+
+.credit-form-header {
+    background-color: black;
+}
+
+.credit-form-header > div {
+    background-color: green;
+    width: 300px;
+    margin: auto;
+}
+
+.credit-form {
+    background-color: orange;
+    height: 350px;
+}
+
+.credit-form > div {
+    background-color: grey;
+    height: 300px;
+}
+
+.credit-form form {
+    background-color: red;
+    width: 300px;
+    height: 350px;
+    margin: auto;
+}
 
 /***********************************************
                 Media Points
