@@ -67,7 +67,20 @@ $(function () {
       email: { required: true, email: true },
       phone_home: { required: true, phone: true },
       phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
-      ssn: { required: true, ssn: true }
+      ssn: { required: true, ssn: true },
+      bank_aba: {
+        required: true,
+        remote: {
+          url: "https://offerannex.herokuapp.com/helpers/validate/bankaba",
+          type: "GET",
+          dataType: "jsonp",
+          data: {
+            aba: function () {
+              return $("input[name='bank_aba']").val();
+            }
+          }
+        }
+      }
     }
   });
 
