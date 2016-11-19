@@ -19,7 +19,7 @@ $(function () {
           }
           else if (results != undefined && results.status == "error") {
             if (options.error) {
-              options.error(JSON.stringify(results.error));
+              options.error(JSON.stringify(results.error), results.submit);
             }
           }
           else {
@@ -40,12 +40,26 @@ $(function () {
     return $(yr).val() + "-" + $(mo).val() + "-" + $(dy).val();
   };
 
+  jQuery.validator.addMethod("phone", function (value, element) {
+    return this.optional(element) || /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(value);
+  }, "Valid format: 800-555-1212");
+
+  jQuery.validator.addMethod("ssn", function (value, element) {
+    return this.optional(element) || /^[0-9]{3}-[0-9]{2}-[0-9]{4}$/.test(value);
+  }, "Valid format: 111-22-3333");
+
   var form = $("#main-form");
   form.validate({
     errorClass: "error",
     validClass: "success",
     errorPlacement: function (error, element) {
       error.appendTo(element.parents(".field"));
+    },
+    rules: {
+      email: { required: true, email: true },
+      phone_home: { required: true, phone: true },
+      phone_work: { required: true, phone: true },
+      ssn: { required: true, ssn: true }
     }
   });
 
@@ -154,7 +168,23 @@ $(function () {
         dataType: "jsonp",
         crossDomain: true,
         success: function (result) {
-          console.log(result);
+          if (result.hasOwnProperty("url")) {
+            checkResponse(result.url, {
+              success: function (submit) {
+                console.log(submit.redirect);
+                window.location.href = submit.redirect;
+              },
+              error: function (error, submit) {
+                console.error(error);
+                if (submit && submit.hasOwnProperty("redirect")) {
+                  window.location.href = submit.redirect;
+                }
+              }
+            })
+          }
+          else {
+            alert("Something went wrong while processing your application. Please try resubmitting.");
+          }
         },
         error: function (e) {
           console.error(e);
