@@ -10092,7 +10092,10 @@ $(".back-button").click(function() {
 });
 
 $('main').on('click', '.preform-button', function(){
-	location.href = "form.html";
+	var amount = $("select[name='amount']").val();
+	var credit = $("select[name='creditscore']").val();
+	var zipcode = $("input[name='zipcode']").val();
+	location.href = "form.html?amount="+amount+"&credit="+credit+"&zipcode="+zipcode;
 	return false;
 });
 
