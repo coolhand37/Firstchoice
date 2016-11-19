@@ -312,10 +312,10 @@ footer.main-footer {
     padding-bottom: 15px;
 }
 
-.input select, input {
+.input select, .input input {
     width: 100%;
     border: none;
-    height: 45px;
+    height: 35px;
     color: black;
 }
 
