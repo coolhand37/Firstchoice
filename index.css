@@ -1073,31 +1073,16 @@ input.success, select.success {
   border-color: #3c763d !important;
 }
 
-#progressbar {
-  margin-bottom: 30px;
+.progress-circle {
+  position: relative;
 }
 
-#progress {
-  background: #A1C969; /*-- Color of the bar --*/
-  height: 15px;
-  width: 100%;
-  max-width: 100%;
-  float: left;
-  -webkit-animation: progress 2s 1 forwards;
-  -moz-animation: progress 2s 1 forwards;
-  -ms-animation: progress 2s 1 forwards;
-  animation: progress 2s 1 forwards;
-}
-
-#pbaranim {
-  height: 15px;
-  width: 100%;
-  overflow: hidden;
-  background: url('images/7uo1osj.gif') repeat-x;
-  -moz-opacity: 0.25;
-  -khtml-opacity: 0.25;
-  opacity: 0.25;
-  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=25);
-  filter: alpha(opacity=25);
+.progress-circle strong {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 10px;
+  right: 0;
+  top: 63px;
+  font-size: 24px;
 }

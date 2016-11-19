@@ -40,13 +40,21 @@ $(function () {
     return $(yr).val() + "-" + $(mo).val() + "-" + $(dy).val();
   };
 
+  $("input[name='phone_home']").mask("(000) 000-0000");
+  $("input[name='phone_work']").mask("(000) 000-0000");
+  $("input[name='ssn']").mask("000-00-0000");
+
   jQuery.validator.addMethod("phone", function (value, element) {
-    return this.optional(element) || /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(value);
-  }, "Valid format: 800-555-1212");
+    return this.optional(element) || /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(value);
+  }, "Valid format: (800) 555-1212");
 
   jQuery.validator.addMethod("ssn", function (value, element) {
     return this.optional(element) || /^[0-9]{3}-[0-9]{2}-[0-9]{4}$/.test(value);
   }, "Valid format: 111-22-3333");
+
+  jQuery.validator.addMethod("phoneWork", function (value, element, param) {
+    return this.optional(element) || value != $(param).val();
+  }, "Cannot match home phone");
 
   var form = $("#main-form");
   form.validate({
@@ -58,9 +66,20 @@ $(function () {
     rules: {
       email: { required: true, email: true },
       phone_home: { required: true, phone: true },
-      phone_work: { required: true, phone: true },
+      phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
       ssn: { required: true, ssn: true }
     }
+  });
+
+  $(".progress-circle").circleProgress({
+    value: 0.0,
+    fill: "#099246",
+    size: 156,
+    thickness: 16,
+    startAngle: 3 * (Math.PI/2),
+    animation: { duration: 200000, easing: "linear" }
+  }).on("circle-animation-progress", function (event, progress) {
+    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
   $(".back-button").click(function() {
@@ -134,6 +153,9 @@ $(function () {
       $('.bar-banking-info').toggleClass('active');
       $('.bar-get-approved').toggleClass('active');
 
+      // Start the progress bar animation.
+      $(".progress-circle").circleProgress("value", 1.0);
+
       // Convert the form elements into JSON to be posted to the backend.
       var items = $(this).serializeArray();
       var rtnval = {};
@@ -149,7 +171,7 @@ $(function () {
         }
         else {
           if (this.name.startsWith("phone_")) {
-            rtnval[this.name] = this.value.replace(/-/g, "") || "";
+            rtnval[this.name] = this.value.replace(/[\s-\(\)]/g, "") || "";
           }
           else {
             rtnval[this.name] = this.value || "";
