@@ -1,6 +1,3 @@
-/**
- * This file will hold all of our "custom" scripts for the form.
- */
 $(function () {
 
   var checkResponse = function (url, options) {
