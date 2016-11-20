@@ -1,35 +1,47 @@
 'use strict';
 
 var gulp = require('gulp');
-var gutil = require('gulp-util');
-var source = require('vinyl-source-stream');
-var browserify = require('browserify');
 var rimraf = require('rimraf');
 var serve = require('gulp-serve');
+var uglify = require("gulp-uglify");
+var minifyCss = require("gulp-minify-css");
+var usemin = require("gulp-usemin");
+var rev = require("gulp-rev");
+var foreach = require("gulp-foreach");
 
 
 /****************************************
   JS
 *****************************************/
 
-var bundler = browserify({
-  entries: ['./src/index.js'],
-  debug: true
+gulp.task("clean", function (cb) {
+  return rimraf("build", cb);
 });
 
-bundler.on('log', gutil.log); // output build logs to terminal
-
-gulp.task('clean', function (cb) {
-  rimraf('build', cb);
+gulp.task("images", function (cb) {
+  return gulp.src("./src/images/*.*")
+             .pipe(foreach(function (stream, file) {
+               return stream.pipe(gulp.dest("./build/images"));
+             }));
 });
 
-gulp.task('build', ['clean'], function () {
-  return bundler.bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest('build'));
-});
+gulp.task("fonts", function () {
+  return gulp.src("./bower_components/font-awesome/fonts/*.*")
+             .pipe(foreach(function (stream, file) {
+               return stream.pipe(gulp.dest("./build/fonts"));
+             }));
+})
 
+gulp.task("build", ["images", "fonts"], function () {
+  return gulp.src("./src/*.html")
+             .pipe(foreach(function (stream, file) {
+               return stream.pipe(usemin({
+                 css: [minifyCss(), rev()],
+                 js: [uglify(), rev()]
+               }))
+               .pipe(gulp.dest("./build"));
+             }));
+});
 
 /****************************************
   Servers (Web and API)
@@ -43,8 +55,13 @@ gulp.task('build', ['clean'], function () {
 // });
 
 gulp.task('serve', serve({
-  root: ['.'],
+  root: ['./src'],
   port: process.env.PORT || 9000
+}));
+
+gulp.task("serve-build", serve({
+  root: ["./build"],
+  port: process.env.PORT || 8000
 }));
 
 /****************************************
