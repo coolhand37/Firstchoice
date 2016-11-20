@@ -8,6 +8,7 @@ var minifyCss = require("gulp-minify-css");
 var usemin = require("gulp-usemin");
 var rev = require("gulp-rev");
 var foreach = require("gulp-foreach");
+var s3 = require("gulp-s3-deploy");
 
 
 /****************************************
@@ -42,6 +43,16 @@ gulp.task("build", ["images", "fonts"], function () {
                .pipe(gulp.dest("./build"));
              }));
 });
+
+gulp.task("deploy", function () {
+  return gulp.src("./build/**")
+             .pipe(s3({
+               "key": process.env.AWS_ACCESS_KEY_ID || "none",
+               "secret": process.env.AWS_SECRET_ACCESS_KEY || "none",
+               "bucket": "fcpersonalloans.com",
+               "region": "us-east-1"
+             }));
+})
 
 /****************************************
   Servers (Web and API)
