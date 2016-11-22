@@ -159,22 +159,31 @@ $(function () {
   });
 
   // Initialize the form by getting the transaction token from the server.
-  var cid = $("#id_cid").val();
-  $.ajax({
-    url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
-    jsonp: "callback",
-    dataType: "jsonp",
-    data: {
-      "affiliate_id": $("#id_id").val()
-    },
-    success: function (result) {
-      if (result && result.status == "success") {
-        $("#id_client_ip").val(result.ip);
-        $("#id_user_agent").val(result.user_agent);
-        $("#id_tid").val(result.tid);
+  var token = getParameterByName("r");
+  var affid = getParameterByName("affid");
+  $("#id_id").val(affid);
+
+  if (token == undefined || token == "") {
+    var cid = $("#id_cid").val();
+    $.ajax({
+      url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
+      jsonp: "callback",
+      dataType: "jsonp",
+      data: {
+        "affiliate_id": $("#id_id").val()
+      },
+      success: function (result) {
+        if (result && result.status == "success") {
+          $("#id_client_ip").val(result.ip);
+          $("#id_user_agent").val(result.user_agent);
+          $("#id_tid").val(result.tid);
+        }
       }
-    }
-  });
+    });
+  }
+  else {
+    $("#id_tid").val(token);
+  }
 
   $("#main-form").submit(function (event) {
     if (form.valid()) {

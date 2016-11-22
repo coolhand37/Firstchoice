@@ -66,7 +66,7 @@ gulp.task("deploy", function () {
 // });
 
 gulp.task('serve', serve({
-  root: ['./src'],
+  root: ['.'],
   port: process.env.PORT || 9000
 }));
 
