@@ -1,0 +1,112 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <!-- build:css /css/processing.css -->
+    <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!-- endbuild -->
+    <style type="text/css">
+      html, body { height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div class="panel application-page">
+      <div>
+        <main>
+          <div class="application">
+            <div>
+              <div class="application-progressbar">
+                <div class="bar-personal-info">
+                  <i class="fa fa-phone" aria-hidden="true"></i>
+                  <div class="progressbar-text">Personal Info</div>
+                </div>
+                <div class="bar-employment-info"> 
+                  <i class="fa fa-envelope-o" aria-hidden="true"></i><div class="progressbar-text">Employment Info</div>  
+                </div>
+                <div class="bar-banking-info">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i><div class="progressbar-text">Banking Info</div>
+                </div>
+                <div class="bar-get-approved active">
+                  <i class="fa fa-thumbs-up" aria-hidden="true"></i><div class="progressbar-text">Get Approved</div>
+                </div>
+              </div>
+              <div class="ssl-info hideit">
+                <div>
+                  <h4>Rest assured you're information will be kept safe. This site utilizes 256-bit SSL encryption.</h4>
+                </div>
+                <div class="siteseal">
+                  <img src="//www.fcpersonalloans.com/images/ssl.130.png">
+                </div>
+              </div>
+              <div class="application-form">
+                <div>
+                  <form>
+                    <div class="application-processing-step">
+                      <div>
+                        <h1>Your application is processing...</h1>
+                        <h2>We're working hard to match your application with a cash lender.</h2>
+                        <div class="progress-timer">
+                          <div class="progress-circle"><strong></strong></div>
+                        </div>
+                        <div class="time-notification-box">
+                          <h2>This process may take up to 5 minutes.</h2>
+                          Please do not click the back button during this time
+                        </div>
+                        <h4>You will be redirected shortly to a loan agreement page</h4>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div> 
+    </div>
+    <!-- build:js /js/processing.min.js -->
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-circle-progress/dist/circle-progress.min.js"></script>
+    <!-- endbuild -->
+    <script type="text/javascript" src="{% static "scripts/plugins/leadtraction.js" %}"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".progress-circle").circleProgress({
+          value: 1.0,
+          fill: "#099246",
+          size: 156,
+          thickness: 16,
+          startAngle: 3 * (Math.PI/2),
+          animation: { duration: 200000, easing: "linear" }
+        }).on("circle-animation-progress", function (event, progress) {
+          $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
+        });
+
+        setTimeout(function () {
+          checkResponse("{{ url }}", {
+            success: function (results) {
+              if (results.hasOwnProperty("redirect") && results.redirect != undefined) {
+                window.location = results.redirect;
+                return;
+              }
+              $("#processing").hide();
+              $("#results .panel-body").html(results.raw_response);
+              $("#results").show();
+            },
+            error: function (error) {
+              if (results.hasOwnProperty("redirect") && results.redirect != undefined) {
+                window.location = results.redirect;
+                return;
+              }
+              $("#processing").hide();
+              $("#results .panel-body").html(error);
+              $("#results").show();
+            }
+          });
+        }, 1000);
+      })
+    </script>
+  </body>
+</html>
