@@ -26,8 +26,8 @@ $(function () {
   $("input[name='home_zipcode']").val(getParameterByName("zipcode"));
 
   jQuery.validator.addMethod("phone", function (value, element) {
-    return this.optional(element) || /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(value);
-  }, "Valid format: (800) 555-1212");
+    return this.optional(element) || /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(value);
+  }, "Valid format: 800-555-1212");
 
   jQuery.validator.addMethod("ssn", function (value, element) {
     return this.optional(element) || /^[0-9]{3}-[0-9]{2}-[0-9]{4}$/.test(value);
@@ -35,7 +35,7 @@ $(function () {
 
   jQuery.validator.addMethod("phoneWork", function (value, element, param) {
     return this.optional(element) || value != $(param).val();
-  }, "Cannot match home phone");
+  }, "Matches home phone");
 
   var form = $("#main-form");
   form.validate({
@@ -62,6 +62,41 @@ $(function () {
           }
         }
       }
+    },
+    messages: {
+      loan_amount_requested: "Required",
+      credit: "Required",
+      first_name: "Required",
+      last_name: "Required",
+      home_address_1: "Required",
+      home_zipcode: "Required",
+      home_type: "Required",
+      email: {
+        required: "Required",
+        email: "Invalid format"
+      },
+      phone_home: "Required",
+      best_contact_time: "Required",
+      income_source: "Required",
+      monthly_income: "Required",
+      employer: "Required",
+      phone_work: "Required",
+      employer_address_1: "Required",
+      employer_zipcode: "Required",
+      pay_frequency: "Required",
+      pay_date_next_year: "Required",
+      pay_date_next_month: "Required",
+      pay_date_next_day: "Required",
+      bank_account_type: "Required",
+      direct_deposit: "Required",
+      bank_aba: "Required",
+      bank_account: "Required",
+      ssn: "Required",
+      state_id_number: "Required",
+      state_id_issue_state: "Required",
+      dob_year: "Required",
+      dob_month: "Required",
+      dob_day: "Required"
     }
   });
 

@@ -72,7 +72,7 @@ $(function () {
 
   jQuery.validator.addMethod("phoneWork", function (value, element, param) {
     return this.optional(element) || value != $(param).val();
-  }, "Cannot match home phone");
+  }, "Matches home phone");
 
   var form = $("#main-form");
   form.validate({
@@ -99,6 +99,41 @@ $(function () {
           }
         }
       }
+    },
+    messages: {
+      loan_amount_requested: "Required",
+      credit: "Required",
+      first_name: "Required",
+      last_name: "Required",
+      home_address_1: "Required",
+      home_zipcode: "Required",
+      home_type: "Required",
+      email: {
+        required: "Required",
+        email: "Invalid format"
+      },
+      phone_home: "Required",
+      best_contact_time: "Required",
+      income_source: "Required",
+      monthly_income: "Required",
+      employer: "Required",
+      phone_work: "Required",
+      employer_address_1: "Required",
+      employer_zipcode: "Required",
+      pay_frequency: "Required",
+      pay_date_next_year: "Required",
+      pay_date_next_month: "Required",
+      pay_date_next_day: "Required",
+      bank_account_type: "Required",
+      direct_deposit: "Required",
+      bank_aba: "Required",
+      bank_account: "Required",
+      ssn: "Required",
+      state_id_number: "Required",
+      state_id_issue_state: "Required",
+      dob_year: "Required",
+      dob_month: "Required",
+      dob_day: "Required"
     }
   });
 
@@ -111,15 +146,6 @@ $(function () {
     animation: { duration: 200000, easing: "linear" }
   }).on("circle-animation-progress", function (event, progress) {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
-  });
-
-  $(".back-button").click(function() {
-    window.history.back()
-  });
-
-  $('main').on('click', '.preform-button', function() {
-    location.href = "form.html";
-    return false;
   });
 
   $('main').on('click', '.first-step-continue', function() {
