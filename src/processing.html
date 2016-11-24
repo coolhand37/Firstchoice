@@ -88,21 +88,27 @@
           checkResponse("{{ url }}", {
             success: function (results) {
               if (results.hasOwnProperty("redirect") && results.redirect != undefined) {
-                window.location = results.redirect;
+                try {
+                  window.parent.postMessage({ type: "redirect", redirect: results.redirect }, "{{ domain }}");
+                }
+                catch (err) {
+                  window.location = results.redirect;
+                }
                 return;
               }
-              $("#processing").hide();
-              $("#results .panel-body").html(results.raw_response);
-              $("#results").show();
+              $(".application-processing-step").html(results.raw_response);
             },
             error: function (error) {
-              if (results.hasOwnProperty("redirect") && results.redirect != undefined) {
-                window.location = results.redirect;
+              if (error.hasOwnProperty("redirect") && error.redirect != undefined) {
+                try {
+                  window.parent.postMessage({ type: "redirect", redirect: error.redirect }, "{{ domain }}");
+                }
+                catch (err) {
+                  window.location = error.redirect;
+                }
                 return;
               }
-              $("#processing").hide();
-              $("#results .panel-body").html(error);
-              $("#results").show();
+              $(".application-processing-step").html(error);
             }
           });
         }, 1000);
