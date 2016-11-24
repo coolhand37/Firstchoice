@@ -66,14 +66,19 @@
                   {% endif %}
 									<div class="field">
 										<div class="label">
-											{{ form.loan_amount_less.label_tag }}
+											{{ form.loan_amount_requested.label_tag }}
 										</div>
 										<div class="input">
-											{{ form.loan_amount_less }}
+											<select name="loan_amount_requested" required>
+												<option value="300">$100-$500</option>
+												<option value="500">$501-$1000</option>
+												<option value="1000">$1001-$2,500</option>
+												<option value="2500">$2,501-$5,000</option>
+												<option value="5000">$5,001-$10,000</option>
+												<option value="10000">$10,001-$15,000</option>
+												<option value="15000">more than $15,001</option>
+											</select>
 										</div>
-										{% if form.loan_amount_less.errors %}
-                    <label for="id_loan_amount_less" class="error">{{ form.loan_amount_less.errors }}</label>
-                    {% endif %}
 									</div>
 									<div class="field">
 										<div class="label credit-label">
