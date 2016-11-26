@@ -329,6 +329,12 @@ footer.main-footer {
     text-transform: uppercase;
 }
 
+.form-button:disabled {
+    background-color: #7DD4A4;
+    pointer-events: none !important;
+    cursor: not-allowed;
+}
+
 .submit-terms {
     font-size: .8em;
     padding-bottom: 20px;

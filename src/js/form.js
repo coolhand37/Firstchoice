@@ -74,6 +74,19 @@ $(function () {
     return this.optional(element) || value != $(param).val();
   }, "Matches home phone");
 
+  // Disable the submit button if the consent box is not checked.
+  $(".consent").change(function () {
+    var submit_btn = $("button.form-button.third-step-continue");
+    if (this.checked) {
+      console.log($(submit_btn).prop("disabled"));
+      $(submit_btn).prop("disabled", false);
+    }
+    else {
+      console.log($(submit_btn).prop("disabled"));
+      $(submit_btn).prop("disabled", true);
+    }
+  });
+
   var form = $("#main-form");
   form.validate({
     errorClass: "error",
@@ -117,7 +130,10 @@ $(function () {
       income_source: "Required",
       monthly_income: "Required",
       employer: "Required",
-      phone_work: "Required",
+      phone_work: {
+        required: "Required",
+        phoneWork: "Cannot match home phone"
+      },
       employer_address_1: "Required",
       employer_zipcode: "Required",
       pay_frequency: "Required",
