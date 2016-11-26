@@ -21,7 +21,6 @@ html {
 	Defaults
 **********************************************/
 body {
-    /*background-color: #4f4e4e;*/
     font-size: 13px;
     margin: 0px;
 }
@@ -64,9 +63,6 @@ i {
 /*********************************************
     Layout
 **********************************************/
-.panel {
-    /*background-color: blue;*/
-}
 
 .panel > div {
     text-align: center;
@@ -85,7 +81,6 @@ header.privacy-header {
 }
 
 .collapsed-navbar {
-    /*background-color: teal;*/
     position: absolute;
     top: 55px;
     width: 100%;
@@ -101,12 +96,11 @@ header.privacy-header {
 
 }
 
-.collapsed-navbar a:hover, a:focus {
+.collapsed-navbar a:hover {
     background-color: #015b25;
 }
 
 .main-navbar {
-    /*background-color: white;*/
     display: none;
     position: absolute;
     top: 45px;
@@ -115,7 +109,6 @@ header.privacy-header {
 }
 
 .main-navbar a {
-    /*background-color: white;*/
     color:  #099246;
     display: inline;
     font-size: .9em;
@@ -124,18 +117,17 @@ header.privacy-header {
 
 }
 
-.main-navbar a:hover, a:focus {
+.main-navbar a:hover {
     color: #015b25;
 }
 
 
 .hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/images/loneman.png");
+    background-image: url("images/herobcgsmall.jpg");
     background-size: cover;
     background-position: center;
     position: relative;
     color: white;
-    /*background-color: teal;*/
 }
 
 .application {
@@ -146,10 +138,6 @@ header.privacy-header {
 .privacy-policy {
     text-align: left;
     padding: 100px 20px 20px 20px;
-}
-
-.main-content {
-    /*background-color: green;*/
 }
 
 .main-content > div {
@@ -173,8 +161,6 @@ header.privacy-header {
 }
 
 footer.main-footer {
-    /*background-image: url("images/tweed.png");*/
-    background-color: #099246;
     color: white;
 }
 
@@ -187,7 +173,6 @@ footer.main-footer {
 /*******Header********/
 .main-header > div {
     width: 100%;
-    /*background-color: blue;*/
     margin: auto;
     position: absolute;
     z-index: 2;
@@ -197,9 +182,6 @@ footer.main-footer {
 }
 
 .logo {
-    /*background-color: white;*/
- /*   height: 60px;
-    width: 250px;*/
     position: absolute;
     left: 15px;
     top: 7px;
@@ -213,15 +195,6 @@ footer.main-footer {
 .hideit {
     display: none; 
 }
-
-/*.terms {
-    background-color: black;
-    height: 60px;
-    width: 250px;    
-    position: absolute;
-    right: 15px;
-    top: 7px;
-}*/
 
 .collapsed-menu {
     background-color: #099246;
@@ -271,9 +244,7 @@ footer.main-footer {
 
 /********Hero Content*********/
 .hero-content {
-    /*color: white;*/
     padding: 10px;
-    /*background-color: yellow;*/
 }
 
 .hero-headline {
@@ -290,7 +261,6 @@ footer.main-footer {
     padding-right: 10px;
     padding-top: 0px;
     padding-bottom: 40px;
-    /*color: white;*/
 }
 
 .pre-form > div {
@@ -298,7 +268,7 @@ footer.main-footer {
     border-radius: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    background-color: rgba(0,0,0,0.5);
+    background-image: url("images/darkbcg.png");
 }
 
 .pre-form h3 {
@@ -344,11 +314,7 @@ footer.main-footer {
     font-weight: bold;
 }
 
-.form-submit {
-    padding-bottom: 40px;
-}
-
-.preform-submit {
+.form-submit.preform-submit {
     padding-bottom: 10px;
 }
 
@@ -379,12 +345,10 @@ footer.main-footer {
 /********Main Content**********/
 
 .main-content-headline {
-    /*background-color: white;*/
     padding-bottom: 10px;
 }
 
 .media-object {
-    /*background-color: red;*/
     overflow: hidden;
     padding: 10px 0px;
 }
@@ -395,7 +359,6 @@ footer.main-footer {
 
 .selling-point-image {
     float: left;
-    /*background-color: blue;*/
     font-size: 2.6em;
     padding: 0 5px;
     margin-top: -2px;
@@ -404,7 +367,6 @@ footer.main-footer {
 
 .selling-point-content {
     margin-left: 35px;
-    /*background-color: yellow;*/
     padding: 0px 5px;
 }
 
@@ -441,6 +403,8 @@ footer.main-footer {
 
 .footer-contact-info {
     text-align: center;
+    color: #099246;
+    font-weight: 500;
 }
 
 
@@ -462,7 +426,6 @@ footer.main-footer {
 }
 
 header.application-header {
-/*    background-color: red;*/
     height: 55px;
     position: relative;
     box-shadow: 0px 0px 15px -2px #828080;
@@ -470,7 +433,6 @@ header.application-header {
 }
 
 .logo-application {
-    /*background-color: white;*/
     position: absolute;
     top: 50%;
     left: 50%;
@@ -482,7 +444,6 @@ header.application-header {
     padding: 10px;
     font-size: .7em;
     color: #828080;
-    /*padding-top: 80px;*/
 }
 
 .application-progressbar > div {
@@ -557,6 +518,14 @@ header.application-header {
     padding-top: 20px;
 }
 
+.form-submit {
+    padding-bottom: 40px;
+}
+
+.form-submit.next-steps {
+    padding-bottom: 20px;
+}
+
 .next-steps > div {
     display: inline-block;
     vertical-align: top;
@@ -589,6 +558,20 @@ header.application-header {
 .form-button:hover {
     cursor: pointer;
 
+}
+
+.consent-checkbox {
+    padding: 10px;
+    text-align: left;
+}
+
+.consent {
+    height: initial;
+    margin-right: 10px;
+}
+
+.consent-message {
+    padding-bottom: 20px;
 }
 
 .application-processing-step {
@@ -637,10 +620,6 @@ header.application-header {
     font-size: 1.1em;
 }
 
-/*.pl-denial h1 {
-    font-size: 1.6em;
-}*/
-
 .pl-denial i {
     color: #d64d4d;
 }
@@ -670,7 +649,6 @@ header.application-header {
 
 .chance-approval > button:hover {
     cursor: pointer;
-/*    font-weight: bold;*/
 }
 
 .high-chance h2 {
@@ -692,64 +670,102 @@ header.application-header {
 }
 
 
-/*.high-chance > div:hover h2 {
-    color: #05602d;
-}
-
-.low-chance >div:hover h2 {
-    color: #b50101;
-}*/
-
-
 /***********************************************
                 Credit Offer
 ************************************************/
 
-
-.thanks {
-    background-color: blue;
-}
-
-.thanks h1 {
-    margin-top: 10px;
-}
-
-.credit-content {
-    background-color: red;
+.credit-thanks h1 {
+    margin-top: 30px;
+    color: black;
 }
 
 .credit-content > div {
-    background-color: yellow;
     margin: auto;
-    width: 300px;
+    padding: 15px 20px;
 }
 
 .credit-form-header {
-    background-color: black;
+    padding: 0 20px;
+    text-transform: capitalize;
+    line-height: 2.8em;
 }
 
 .credit-form-header > div {
-    background-color: green;
-    width: 300px;
+    background-color: #ffffff;
     margin: auto;
+    padding: 20px;
+    border: 1px #efefef solid;
+    color: #0052a2;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    box-shadow: -3px -3px 16px 0px rgba(94,84,94,.7);
+
+}
+
+.credit-form-header span {
+    border-bottom: 5px #ef7e15 solid;
+}
+
+.credit-form-header i {
+    font-weight: normal;
 }
 
 .credit-form {
-    background-color: orange;
-    height: 350px;
+    height: 715px;
 }
 
 .credit-form > div {
-    background-color: grey;
-    height: 300px;
+    height: 620px;
+    padding: 0 20px;
+    background-image: url("images/creditbcg.jpg");
+    background-size: cover;
 }
 
-.credit-form form {
-    background-color: red;
-    width: 300px;
-    height: 350px;
-    margin: auto;
+.credit-form .media-object {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: 1px #e3e3e3 solid;
+    background: #f1f1f1;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    box-shadow: 3px 6px 16px 0px rgba(94,84,94,1);
 }
+
+.credit-form-fields {
+    padding: 20px;
+    padding-top: 0;
+}
+
+.credit-form-fields .input {
+    padding-bottom: 10px;
+}
+
+.credit-form-fields .input input, select {
+    border: 1px #D9D9D9 solid;
+}
+
+.graphbar {
+    background-color: #F1F1F1;
+    padding: 10px;
+    margin: auto;
+    border-right: 1px #efefef solid;
+}
+
+.credit-footer {
+    padding: 20px;
+}
+
+.credit-form-button {
+    padding-bottom: 20px;
+}
+
+.credit-form-button .form-button {
+    background-color: #ef7e15;
+    border-radius: 20px;
+    width: 300px;
+    font-size: 1.4em;
+}
+
 
 /***********************************************
                 Media Points
@@ -810,7 +826,8 @@ header.application-header {
     }
 
     .hero {
-        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(/images/loneman.png);
+        background-image: url("images/herobcg.jpg");
+        background-position: top;
     }
 
     .hero > div, .main-content > div, .secondary-content > div, .tertiary-content > div, .privacy-policy > div {
@@ -854,10 +871,6 @@ header.application-header {
 
     .pre-form {
         padding-bottom: 40px;
-    }
-
-    .pre-form > div {
-        background-color: rgba(0,0,0,0.3);
     }
 
     .pre-form h3 {
@@ -909,11 +922,64 @@ header.application-header {
     .good-news {
     font-size: 1.9em;
     }
+
+    .credit-content > div {
+        font-size: 1.2em;
+    }
+
+    .graphbar .hideit {
+        display: initial;
+    }
+
+    .graphbar .showit {
+        display: none;
+    }
+
+    .graphbar {
+        float: left;
+        margin-left: 20px;
+        margin-top: 60px;
+    }
+
+    .credit-form-fields {
+        padding-top: 20px;
+        margin-left: 200px;
+        text-align: left;
+    }
+
+    .credit-form-fields .field {
+        width: 45%;
+    }
+
+    .credit-form {
+    height: 383px;
+    }
+
+    .credit-form > div {
+        height: 300px;
+    }
+
+    .credit-footer {
+        font-size: 1.2em;
+    }
+
+    .credit-footer .hideit {
+        display: initial;
+    }
+
+    .credit-footer .showit {
+        display: none;
+    }
+}
+
+@media (min-width: 770px) {
+    .application-header.credit-header > div, .credit-thanks, .credit-content, .credit-form-header > div, .credit-form .media-object, .credit-footer {
+        width: 720px;
+        margin: auto;
+    }
 }
 
 @media (min-width: 930px) {
-
-
 
     .main-header > div {
         height: 75px;
@@ -1011,7 +1077,6 @@ header.application-header {
         width: 97%;
         margin: 0;
         text-align: left;
-        /*background-color: green;*/
     }
 
     .application .label {
@@ -1019,8 +1084,6 @@ header.application-header {
         width: 20%;
         vertical-align: middle;
         text-align: right;
-        /*background-color: yellow;*/
-
     }
 
     .application .input {
@@ -1028,7 +1091,6 @@ header.application-header {
         display: inline-block;
         padding-left: 10px;
         padding-right: 30px;
-        /*background-color: red;*/
     }
 
     .application .label label {
@@ -1041,7 +1103,7 @@ header.application-header {
     }
 
     .next-steps {
-    width: 75%;
+        width: 75%;
     }
 
     .credit-linkout {
@@ -1085,6 +1147,10 @@ header.application-header {
 
     .application-processing-step h4 {
         font-size: 1.2em;
+    }
+
+    .consent-checkbox {
+        padding-left: 20px;
     }
 
 }
