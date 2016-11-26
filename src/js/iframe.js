@@ -26,8 +26,8 @@ $(function () {
   $("input[name='home_zipcode']").val(getParameterByName("zipcode"));
 
   jQuery.validator.addMethod("phone", function (value, element) {
-    return this.optional(element) || /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(value);
-  }, "Valid format: 800-555-1212");
+    return this.optional(element) || /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(value);
+  }, "Valid format: (800) 555-1212");
 
   jQuery.validator.addMethod("ssn", function (value, element) {
     return this.optional(element) || /^[0-9]{3}-[0-9]{2}-[0-9]{4}$/.test(value);
