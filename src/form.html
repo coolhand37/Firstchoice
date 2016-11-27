@@ -50,8 +50,10 @@
 							<h4>Rest assured you're information will be kept safe. This site utilizes 256-bit SSL encryption.</h4>
 						</div>
 						<div class="siteseal">
-							<script async type="text/javascript"
-												    src="https://seal.godaddy.com/getSeal?sealID=xpXWdBGOKo1kn5XLwsoZk0DC1hAlbEoE4SjjDTFmmyXfP82cHaxaOaYcwtmg"></script>
+							<span id="siteseal">
+							  <script async type="text/javascript"
+								  				    src="https://seal.godaddy.com/getSeal?sealID=xpXWdBGOKo1kn5XLwsoZk0DC1hAlbEoE4SjjDTFmmyXfP82cHaxaOaYcwtmg"></script>
+							</span>
 						</div>
 					</div>
 					<div class="application-form">
@@ -697,7 +699,8 @@
 								<input type="hidden" id="id_user_agent" name="user_agent" value="" />
 								<input type="hidden" id="id_tid" name="tid" value="" />
 								<input type="hidden" id="id_id" name="id" value="" />
-								<input type="hidden" name="military" value="N" />
+								<input type="hidden" id="id_military" name="military" value="N" />
+								<input type="hidden" id="id_pay_date_second_next" name="pay_date_second_next" />
 								<input type="hidden" name="tier" value="1" />
 							</form>
 						</div>
@@ -727,6 +730,7 @@
 <script type="text/javascript" src="../bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../bower_components/jquery-circle-progress/dist/circle-progress.min.js"></script>
 <script type="text/javascript" src="../bower_components/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../bower_components/momentjs/min/moment.min.js"></script>
 <script type="text/javascript" src="js/form.js"></script>
 <!-- endbuild -->
 </body>

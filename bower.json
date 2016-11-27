@@ -20,6 +20,7 @@
     "jquery": "2.2.4",
     "jquery-validation": "1.15.0",
     "jquery-circle-progress": "1.2.0",
-    "jQuery-Mask-Plugin": "1.14.0"
+    "jQuery-Mask-Plugin": "1.14.0",
+    "momentjs": "2.17.0"
   }
 }

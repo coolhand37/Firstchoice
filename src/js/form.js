@@ -9,7 +9,6 @@ $(function () {
         jsonp: "callback",
         success: function (results) {
           if (results != undefined && results.status == "success") {
-            console.log(results);
             if (options.success) {
               options.success(results.submit);
             }
@@ -78,17 +77,15 @@ $(function () {
   $(".consent").change(function () {
     var submit_btn = $("button.form-button.third-step-continue");
     if (this.checked) {
-      console.log($(submit_btn).prop("disabled"));
       $(submit_btn).prop("disabled", false);
     }
     else {
-      console.log($(submit_btn).prop("disabled"));
       $(submit_btn).prop("disabled", true);
     }
   });
 
   var form = $("#main-form");
-  form.validate({
+  var validator = form.validate({
     errorClass: "error",
     validClass: "success",
     errorPlacement: function (error, element) {
@@ -164,6 +161,7 @@ $(function () {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
+  // Move to the second screen.
   $('main').on('click', '.first-step-continue', function() {
     if (form.valid()) {
       $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -175,6 +173,7 @@ $(function () {
     return false;
   });
 
+  // Move back to the first screen.
   $('main').on('click', '.employment-back', function() {
     $('.application-second-step').toggle();
     $('.application-first-step').toggle();
@@ -182,8 +181,44 @@ $(function () {
     $('.bar-employment-info').toggleClass('active');
   });
 
+  // Move to the third screen.
   $('main').on('click', '.second-step-continue', function() {
     if (form.valid()) {
+      //
+      // Before showing the second screen, calculate the second pay date.
+      //
+      var paydate = moment(createDate("pay_date_next"));
+      var freq    = $("select[name='pay_frequency']").val();
+      var nextpay = paydate;
+
+      // Make sure the paydate is in the future.
+      if (paydate.isBefore()) {
+        validator.showErrors({ "pay_date_next_year": "Invalid pay date" });
+        return false;
+      }
+
+      if (freq == "W") {
+        nextpay = paydate.add(1, "w");
+      }
+      else if (freq == "B") {
+        nextpay = paydate.add(2, "w");
+      }
+      else if (freq == "M") {
+        nextpay = paydate.add(1, "M");
+      }
+      else {
+        nextpay = paydate.add(15, "d");
+      }
+
+      // Now make sure the date doesn't fall on a weekend.
+      if (nextpay.isoWeekday() == 6) {
+        nextpay = nextpay.subtract(1, "d");
+      }
+      else if (nextpay.isoWeekday() == 7) {
+        nextpay = nextpay.add(1, "d");
+      }
+
+      $("input[name='pay_date_second_next']").val(nextpay.format("YYYY-MM-DD"));
       $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.application-second-step').toggle();
       $('.application-third-step').toggle();
@@ -193,6 +228,7 @@ $(function () {
     return false;
   });
 
+  // Move back to the second screen.
   $('main').on('click', '.banking-back', function() {
     $('.application-third-step').toggle();
     $('.application-second-step').toggle();
@@ -275,11 +311,9 @@ $(function () {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
-                console.log(submit.redirect);
                 window.location.href = submit.redirect;
               },
               error: function (error, submit) {
-                console.error(error);
                 if (submit && submit.hasOwnProperty("redirect")) {
                   window.location.href = submit.redirect;
                 }
