@@ -572,6 +572,7 @@ header.application-header {
 
 .consent-message {
     padding-bottom: 20px;
+    text-align: left;
 }
 
 .application-processing-step {
