@@ -1,5 +1,14 @@
 $(function () {
 
+  window.addEventListener("beforeunload", function (e) {
+    if ($(".bar-get-approved").hasClass("active")) {
+      var msg = "Refreshing will cancel your application, are you sure?";
+      e.returnValue = msg;
+      return msg;
+    }
+    e.preventDefault();
+  });
+
   var checkResponse = function (url, options) {
     if (url != undefined && url != "") {
       $.ajax({
@@ -239,6 +248,7 @@ $(function () {
   // Initialize the form by getting the transaction token from the server.
   var token = getParameterByName("r");
   var affid = getParameterByName("affid");
+  var subid = getParameterByName("subid");
   $("#id_id").val(affid);
 
   if (token == undefined || token == "") {
@@ -248,7 +258,8 @@ $(function () {
       jsonp: "callback",
       dataType: "jsonp",
       data: {
-        "affiliate_id": $("#id_id").val()
+        "affid": affid,
+        "subid": subid
       },
       success: function (result) {
         if (result && result.status == "success") {
