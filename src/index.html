@@ -4,9 +4,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<title>First Choice Personal Loans</title>
-	<link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
-	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
-	<link rel="stylesheet" href="index.css">
+	<!-- build:css /css/site.css -->
+	<link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
+	<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="css/index.css">
+	<!-- endbuild -->
 	
 </head>
 <body>
@@ -80,10 +82,10 @@
 								</div>
 								<div class="input">
 									<select name="creditscore">
-										<option value="Excellent">Excellent (720+)</option>
-										<option value="Good">Good (660-720)</option>
-										<option value="Fair" selected="selected">Fair (600-660)</option>
-										<option value="Poor">Poor (< 600)</option>
+										<option value="720">Excellent (720+)</option>
+										<option value="660">Good (660-720)</option>
+										<option value="600" selected="selected">Fair (600-660)</option>
+										<option value="0">Poor (&lt; 600)</option>
 									</select>
 								</div>
 							</div>
@@ -218,6 +220,9 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="build/bundle.js"></script>
+<!-- build:js /js/site.js -->
+<script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<!-- endbuild -->
 </body>
 </html>

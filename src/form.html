@@ -4,9 +4,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<title>First Choice Personal Loans</title>
-	<link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
-	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
-	<link rel="stylesheet" href="index.css">
+	<!-- build:css /css/site.css -->
+	<link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
+	<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="css/index.css">
+	<!-- endbuild -->
 </head>
 <body>
 
@@ -54,7 +56,8 @@
 										</div>
 										<div class="siteseal">
 											<span id="siteseal">
-												<script async="" type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=xpXWdBGOKo1kn5XLwsoZk0DC1hAlbEoE4SjjDTFmmyXfP82cHaxaOaYcwtmg"></script>
+												<script async type="text/javascript"
+												        src="https://seal.godaddy.com/getSeal?sealID=xpXWdBGOKo1kn5XLwsoZk0DC1hAlbEoE4SjjDTFmmyXfP82cHaxaOaYcwtmg"></script>
 											</span>
 										</div>
 									</div>
@@ -631,15 +634,18 @@
 											</div>
 										</div>
 									</div>
-									<div class="consent-checkbox">
-										<input class="consent" type="checkbox" name="consent" checked="checked">I aggree to the <a href="privacy.html">Privacy Policy</a> and <a href="econsent.html">E-consent</a>
-									</div>						
+									<div class="field">
+										<div class="label">&nbsp;</div>
+										<div style="width: 60%; display: inline-block; padding-left: 10px;">
+										  <input class="consent" type="checkbox" name="consent" checked="checked" required>I aggree to the <a href="privacy.html">Privacy Policy</a> and <a href="econsent.html">E-consent</a>
+										</div>
+									</div>
 									<div class="form-submit next-steps">
 										<div class="next-steps-back">
 											<span class="banking-back">&lt; Back to employment information</span>
 										</div>
 										<div class="next-steps-continue">
-											<button class="form-button third-step-continue">Submitt</button>
+											<button type="submit" class="form-button third-step-continue">Submit</button>
 										</div>								
 									</div>
 									<hr>
@@ -677,12 +683,13 @@
 										</button>
 									</div>	
 								</div>
-								<input type="hidden" id="id_cid" name="cid" value="11" />
+								<input type="hidden" id="id_cid" name="cid" value="17" />
 								<input type="hidden" id="id_client_ip" name="client_ip" value="" />
 								<input type="hidden" id="id_user_agent" name="user_agent" value="" />
 								<input type="hidden" id="id_tid" name="tid" value="" />
 								<input type="hidden" id="id_id" name="id" value="" />
-								<input type="hidden" name="military" value="N" />
+								<input type="hidden" id="id_military" name="military" value="N" />
+								<input type="hidden" id="id_pay_date_second_next" name="pay_date_second_next" />
 								<input type="hidden" name="tier" value="1" />
 							</form>
 						</div>
@@ -707,10 +714,13 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
-<script type="text/javascript" src="bower_components/jquery-circle-progress/dist/circle-progress.min.js"></script>
-<script type="text/javascript" src="bower_components/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
-<script type="text/javascript" src="form.js"></script>
+<!-- build:js /js/form.min.js -->
+<script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../bower_components/jquery-circle-progress/dist/circle-progress.min.js"></script>
+<script type="text/javascript" src="../bower_components/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../bower_components/momentjs/min/moment.min.js"></script>
+<script type="text/javascript" src="js/form.js"></script>
+<!-- endbuild -->
 </body>
 </html>

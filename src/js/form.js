@@ -1,7 +1,13 @@
-/**
- * This file will hold all of our "custom" scripts for the form.
- */
 $(function () {
+
+  window.addEventListener("beforeunload", function (e) {
+    if ($(".bar-get-approved").hasClass("active")) {
+      var msg = "Refreshing will cancel your application, are you sure?";
+      e.returnValue = msg;
+      return msg;
+    }
+    e.preventDefault();
+  });
 
   var checkResponse = function (url, options) {
     if (url != undefined && url != "") {
@@ -12,7 +18,6 @@ $(function () {
         jsonp: "callback",
         success: function (results) {
           if (results != undefined && results.status == "success") {
-            console.log(results);
             if (options.success) {
               options.success(results.submit);
             }
@@ -40,9 +45,30 @@ $(function () {
     return $(yr).val() + "-" + $(mo).val() + "-" + $(dy).val();
   };
 
+  var getParameterByName = function (name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  };
+
   $("input[name='phone_home']").mask("(000) 000-0000");
   $("input[name='phone_work']").mask("(000) 000-0000");
   $("input[name='ssn']").mask("000-00-0000");
+
+  var tmp_amount = getParameterByName("amount");
+  if (tmp_amount == "") {
+    tmp_amount = "300";
+  }
+
+  var tmp_credit = getParameterByName("credit");
+  if (tmp_credit == "") {
+    tmp_credit = "0";
+  }
+
+  $("select[name='loan_amount_requested']").val(tmp_amount);
+  $("select[name='credit']").val(tmp_credit);
+  $("input[name='home_zipcode']").val(getParameterByName("zipcode"));
 
   jQuery.validator.addMethod("phone", function (value, element) {
     return this.optional(element) || /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(value);
@@ -54,10 +80,21 @@ $(function () {
 
   jQuery.validator.addMethod("phoneWork", function (value, element, param) {
     return this.optional(element) || value != $(param).val();
-  }, "Cannot match home phone");
+  }, "Matches home phone");
+
+  // Disable the submit button if the consent box is not checked.
+  $(".consent").change(function () {
+    var submit_btn = $("button.form-button.third-step-continue");
+    if (this.checked) {
+      $(submit_btn).prop("disabled", false);
+    }
+    else {
+      $(submit_btn).prop("disabled", true);
+    }
+  });
 
   var form = $("#main-form");
-  form.validate({
+  var validator = form.validate({
     errorClass: "error",
     validClass: "success",
     errorPlacement: function (error, element) {
@@ -67,7 +104,58 @@ $(function () {
       email: { required: true, email: true },
       phone_home: { required: true, phone: true },
       phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
-      ssn: { required: true, ssn: true }
+      ssn: { required: true, ssn: true },
+      bank_aba: {
+        required: true,
+        remote: {
+          url: "https://offerannex.herokuapp.com/helpers/validate/bankaba",
+          type: "GET",
+          dataType: "jsonp",
+          data: {
+            aba: function () {
+              return $("input[name='bank_aba']").val();
+            }
+          }
+        }
+      }
+    },
+    messages: {
+      loan_amount_requested: "Required",
+      credit: "Required",
+      first_name: "Required",
+      last_name: "Required",
+      home_address_1: "Required",
+      home_zipcode: "Required",
+      home_type: "Required",
+      email: {
+        required: "Required",
+        email: "Invalid format"
+      },
+      phone_home: "Required",
+      best_contact_time: "Required",
+      income_source: "Required",
+      monthly_income: "Required",
+      employer: "Required",
+      phone_work: {
+        required: "Required",
+        phoneWork: "Cannot match home phone"
+      },
+      employer_address_1: "Required",
+      employer_zipcode: "Required",
+      pay_frequency: "Required",
+      pay_date_next_year: "Required",
+      pay_date_next_month: "Required",
+      pay_date_next_day: "Required",
+      bank_account_type: "Required",
+      direct_deposit: "Required",
+      bank_aba: "Required",
+      bank_account: "Required",
+      ssn: "Required",
+      state_id_number: "Required",
+      state_id_issue_state: "Required",
+      dob_year: "Required",
+      dob_month: "Required",
+      dob_day: "Required"
     }
   });
 
@@ -82,15 +170,7 @@ $(function () {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
-  $(".back-button").click(function() {
-    window.history.back()
-  });
-
-  $('main').on('click', '.preform-button', function() {
-    location.href = "form.html";
-    return false;
-  });
-
+  // Move to the second screen.
   $('main').on('click', '.first-step-continue', function() {
     if (form.valid()) {
       $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -102,6 +182,7 @@ $(function () {
     return false;
   });
 
+  // Move back to the first screen.
   $('main').on('click', '.employment-back', function() {
     $('.application-second-step').toggle();
     $('.application-first-step').toggle();
@@ -109,8 +190,44 @@ $(function () {
     $('.bar-employment-info').toggleClass('active');
   });
 
+  // Move to the third screen.
   $('main').on('click', '.second-step-continue', function() {
     if (form.valid()) {
+      //
+      // Before showing the second screen, calculate the second pay date.
+      //
+      var paydate = moment(createDate("pay_date_next"));
+      var freq    = $("select[name='pay_frequency']").val();
+      var nextpay = paydate;
+
+      // Make sure the paydate is in the future.
+      if (paydate.isBefore()) {
+        validator.showErrors({ "pay_date_next_year": "Invalid pay date" });
+        return false;
+      }
+
+      if (freq == "W") {
+        nextpay = paydate.add(1, "w");
+      }
+      else if (freq == "B") {
+        nextpay = paydate.add(2, "w");
+      }
+      else if (freq == "M") {
+        nextpay = paydate.add(1, "M");
+      }
+      else {
+        nextpay = paydate.add(15, "d");
+      }
+
+      // Now make sure the date doesn't fall on a weekend.
+      if (nextpay.isoWeekday() == 6) {
+        nextpay = nextpay.subtract(1, "d");
+      }
+      else if (nextpay.isoWeekday() == 7) {
+        nextpay = nextpay.add(1, "d");
+      }
+
+      $("input[name='pay_date_second_next']").val(nextpay.format("YYYY-MM-DD"));
       $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.application-second-step').toggle();
       $('.application-third-step').toggle();
@@ -120,6 +237,7 @@ $(function () {
     return false;
   });
 
+  // Move back to the second screen.
   $('main').on('click', '.banking-back', function() {
     $('.application-third-step').toggle();
     $('.application-second-step').toggle();
@@ -128,22 +246,33 @@ $(function () {
   });
 
   // Initialize the form by getting the transaction token from the server.
-  var cid = $("#id_cid").val();
-  $.ajax({
-    url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
-    jsonp: "callback",
-    dataType: "jsonp",
-    data: {
-      "affiliate_id": $("#id_id").val()
-    },
-    success: function (result) {
-      if (result && result.status == "success") {
-        $("#id_client_ip").val(result.ip);
-        $("#id_user_agent").val(result.user_agent);
-        $("#id_tid").val(result.tid);
+  var token = getParameterByName("r");
+  var affid = getParameterByName("affid");
+  var subid = getParameterByName("subid");
+  $("#id_id").val(affid);
+
+  if (token == undefined || token == "") {
+    var cid = $("#id_cid").val();
+    $.ajax({
+      url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
+      jsonp: "callback",
+      dataType: "jsonp",
+      data: {
+        "affid": affid,
+        "subid": subid
+      },
+      success: function (result) {
+        if (result && result.status == "success") {
+          $("#id_client_ip").val(result.ip);
+          $("#id_user_agent").val(result.user_agent);
+          $("#id_tid").val(result.tid);
+        }
       }
-    }
-  });
+    });
+  }
+  else {
+    $("#id_tid").val(token);
+  }
 
   $("#main-form").submit(function (event) {
     if (form.valid()) {
@@ -193,11 +322,9 @@ $(function () {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
-                console.log(submit.redirect);
                 window.location.href = submit.redirect;
               },
               error: function (error, submit) {
-                console.error(error);
                 if (submit && submit.hasOwnProperty("redirect")) {
                   window.location.href = submit.redirect;
                 }

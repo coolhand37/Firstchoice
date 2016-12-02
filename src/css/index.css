@@ -123,7 +123,7 @@ header.privacy-header {
 
 
 .hero {
-    background-image: url("images/herobcgsmall.jpg");
+    background-image: url("../images/herobcgsmall.jpg");
     background-size: cover;
     background-position: center;
     position: relative;
@@ -268,7 +268,7 @@ footer.main-footer {
     border-radius: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    background-image: url("images/darkbcg.png");
+    background-image: url("../images/darkbcg.png");
 }
 
 .pre-form h3 {
@@ -327,6 +327,12 @@ footer.main-footer {
     height: 45px;
     margin-top: 20px;
     text-transform: uppercase;
+}
+
+.form-button:disabled {
+    background-color: #7DD4A4;
+    pointer-events: none !important;
+    cursor: not-allowed;
 }
 
 .submit-terms {
@@ -718,7 +724,7 @@ header.application-header {
 .credit-form > div {
     height: 620px;
     padding: 0 20px;
-    background-image: url("images/creditbcg.jpg");
+    background-image: url("../images/creditbcg.jpg");
     background-size: cover;
 }
 
@@ -827,7 +833,7 @@ header.application-header {
     }
 
     .hero {
-        background-image: url("images/herobcg.jpg");
+        background-image: url("../images/herobcg.jpg");
         background-position: top;
     }
 
@@ -1182,11 +1188,11 @@ header.application-header {
 }
 
 input.error, select.error {
-  border-color: #a94442 !important;
+  border: 1px solid #a94442 !important;
 }
 
 input.success, select.success {
-  border-color: #3c763d !important;
+  border: 1px solid #3c763d !important;
 }
 
 .progress-circle {
@@ -1202,4 +1208,83 @@ input.success, select.success {
   right: 0;
   top: 63px;
   font-size: 24px;
+}
+
+.alert.errors {
+  text-align: left;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
+}
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
+}
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
 }
