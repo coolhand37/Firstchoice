@@ -592,7 +592,7 @@ header.application-header {
 
 .progress-timer {
     font-size: 8em;
-    padding: 20px;
+    padding: 40px;
 }
 
 .time-notification-box {
@@ -899,6 +899,10 @@ header.application-header {
         vertical-align: top;
         font-size: 1.2em;
     }
+
+    .collapsed-navbar {
+        display: none !important;
+    }
   
     .secondary-content p, .tertiary-content p {
         font-size: 1.2em;
@@ -1175,4 +1179,27 @@ header.application-header {
 
 .hidden {
     display: none;
+}
+
+input.error, select.error {
+  border-color: #a94442 !important;
+}
+
+input.success, select.success {
+  border-color: #3c763d !important;
+}
+
+.progress-circle {
+  position: relative;
+  height: 156px;
+}
+
+.progress-circle strong {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 10px;
+  right: 0;
+  top: 63px;
+  font-size: 24px;
 }
