@@ -1,13 +1,15 @@
 $(function () {
 
-  window.addEventListener("beforeunload", function (e) {
+  var unloadHandler = function (e) {
     if ($(".bar-get-approved").hasClass("active")) {
       var msg = "Refreshing will cancel your application, are you sure?";
       e.returnValue = msg;
       return msg;
     }
     e.preventDefault();
-  });
+  }
+
+  window.addEventListener("beforeunload", unloadHandler);
 
   var checkResponse = function (url, options) {
     if (url != undefined && url != "") {
@@ -322,9 +324,11 @@ $(function () {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
+                window.removeEventListener("beforeunload", unloadHandler);
                 window.location.href = submit.redirect;
               },
               error: function (error, submit) {
+                window.removeEventListener("beforeunload", unloadHandler);
                 if (submit && submit.hasOwnProperty("redirect")) {
                   window.location.href = submit.redirect;
                 }
