@@ -278,14 +278,25 @@ $(function () {
 
   $("#main-form").submit(function (event) {
     if (form.valid()) {
+      var submitBtn = $(document.activeElement).attr("id");
       $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.application-third-step').toggle();
-      $('.application-processing-step').toggle();
       $('.bar-banking-info').toggleClass('active');
       $('.bar-get-approved').toggleClass('active');
 
+      if (submitBtn == "main-submit") {
+        $('.application-third-step').toggle();
+        $('.application-processing-step').toggle();
+      }
+      else {
+        $('.pl-denial').toggle();
+        $('.application-processing-step').toggle();
+      }
+
       // Start the progress bar animation.
       $(".progress-circle").circleProgress("value", 1.0);
+
+      // We need to figure out which tier to run this lead against.
+      var tier = 2;
 
       // Convert the form elements into JSON to be posted to the backend.
       var items = $(this).serializeArray();
@@ -293,6 +304,12 @@ $(function () {
       $.each(items, function () {
         if (this.name.startsWith("dob_") || this.name.startsWith("pay_date_next_")) {
           return;
+        }
+        if ((submitBtn == "main-submit" && this.name == "loan_amount_requested" && this.value < 1000) || submitBtn == "tier1-submit") {
+          tier = 1;
+        }
+        else if (submitBtn == "tier0-submit" && this.name == "loan_amount_requested") {
+          tier = 0;
         }
         if (rtnval[this.name] !== undefined) {
           if (!rtnval[this.name].push) {
@@ -310,6 +327,13 @@ $(function () {
         }
       });
 
+      // Now adjust the loan amount to be requested if we are resubmitting a
+      // declined lead.
+      if (submitBtn == "tier1-submit" || submitBtn == "tier0-submit") {
+        rtnval["loan_amount_requested"] = 800;
+      }
+      rtnval["tier"] = tier;
+
       // Now build up the dob and pay_date_next fields.
       rtnval.dob = createDate("dob");
       rtnval.pay_date_next = createDate("pay_date_next");
@@ -324,8 +348,24 @@ $(function () {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
-                window.removeEventListener("beforeunload", unloadHandler);
-                window.location.href = submit.redirect;
+                if (tier == 2 && submit.status == "D") {
+                  //
+                  // The user requested more than $1k and was declined. Before serving
+                  // them the decline link, we'll offer them the chance to go for a
+                  // lower loan amount.
+                  //
+                  $("html, body").animate({ scrollTop: 0 }, "slow");
+                  $('.application-processing-step').toggle();
+                  $('.pl-denial').toggle();
+                }
+                else {
+                  //
+                  // The user requested less than $1k or was accepted, so we'll serve
+                  // them the decline link that was provided.
+                  //
+                  window.removeEventListener("beforeunload", unloadHandler);
+                  window.location.href = submit.redirect;
+                }
               },
               error: function (error, submit) {
                 window.removeEventListener("beforeunload", unloadHandler);
