@@ -16,7 +16,7 @@ $(function () {
   $("input[name='zipcode']").val(getParameterByName("zipcode"));
 
   $("#submit").click(function (event) {
-    var url = "http://bhmtracker.com/click.track?CID=326342&AFID=366675&SID=";
+    var url = "http://bhmtracker.com/click.track?CID=326342&AFID=366675&SID=cleanup";
     url += "&firstname=" + encodeURIComponent($("input[name='first_name']").val());
     url += "&lastname=" + encodeURIComponent($("input[name='last_name']").val());
     url += "&address=" + encodeURIComponent($("input[name='address']").val());
