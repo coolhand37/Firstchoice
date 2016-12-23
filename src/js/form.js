@@ -342,7 +342,7 @@ $(function () {
         url: "https://offerannex.herokuapp.com/worker/campaign/submit",
         data: rtnval,
         type: "POST",
-        dataType: "jsonp",
+        dataType: "json",
         crossDomain: true,
         success: function (result) {
           if (result.hasOwnProperty("url")) {
