@@ -348,7 +348,7 @@ $(function () {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
-                if (tier == 2 && submit.status == "D") {
+                if (tier == 2 && submit.status != "A") {
                   //
                   // The user requested more than $1k and was declined. Before serving
                   // them the decline link, we'll offer them the chance to go for a
@@ -381,6 +381,7 @@ $(function () {
         },
         error: function (e) {
           console.error(e);
+          window.location.href = "/creditscore.html";
         }
       });
     }
