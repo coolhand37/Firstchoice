@@ -276,9 +276,17 @@ $(function () {
     $("#id_tid").val(token);
   }
 
+  $("#tier1-submit").click(function () {
+    $("#id_main_submit").val("tier1-submit");
+  });
+
+  $("#tier0-submit").click(function () {
+    $("#id_main_submit").val("tier0-submit");
+  });
+
   $("#main-form").submit(function (event) {
     if (form.valid()) {
-      var submitBtn = $(document.activeElement).attr("id");
+      var submitBtn = $("#id_main_submit").val();
       $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.bar-banking-info').toggleClass('active');
       $('.bar-get-approved').toggleClass('active');
@@ -286,6 +294,7 @@ $(function () {
       if (submitBtn == "main-submit") {
         $('.application-third-step').toggle();
         $('.application-processing-step').toggle();
+        $("#id_main_submit").val("0");
       }
       else {
         $('.pl-denial').toggle();
@@ -294,6 +303,7 @@ $(function () {
 
       // Start the progress bar animation.
       $(".progress-circle").circleProgress("value", 1.0);
+      $(".progress-circle").circleProgress("startAngle", 3 * (Math.PI/2));
 
       // We need to figure out which tier to run this lead against.
       var tier = 2;
