@@ -389,8 +389,9 @@ $(function () {
             alert("Something went wrong while processing your application. Please try resubmitting.");
           }
         },
-        error: function (e) {
-          console.error(e);
+        error: function (jqxhr, status, thrown) {
+          window.removeEventListener("beforeunload", unloadHandler);
+          console.error(status);
           window.location.href = "/creditscore.html";
         }
       });
