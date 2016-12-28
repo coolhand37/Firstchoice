@@ -9,6 +9,15 @@ $(function () {
     e.preventDefault();
   }
 
+  var randomDate = function () {
+    var today  = new Date();
+    var start  = new Date(2010, 0, 1);
+    var end    = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+    var random = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    var rtnval = moment(random);
+    return rtnval.format("YYYY-MM-DD");
+  }
+
   window.addEventListener("beforeunload", unloadHandler);
 
   var checkResponse = function (url, options) {
@@ -94,6 +103,10 @@ $(function () {
       $(submit_btn).prop("disabled", true);
     }
   });
+
+  $("#id_bank_start_date").val(randomDate());
+  $("#id_employer_start_date").val(randomDate());
+  $("#id_home_start_date").val(randomDate());
 
   var form = $("#main-form");
   var validator = form.validate({
