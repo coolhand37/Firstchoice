@@ -319,7 +319,7 @@ $(function () {
       $(".progress-circle").circleProgress("startAngle", 3 * (Math.PI/2));
 
       // We need to figure out which tier to run this lead against.
-      var tier = 2;
+      var tier = 1;
 
       // Convert the form elements into JSON to be posted to the backend.
       var items = $(this).serializeArray();
@@ -327,12 +327,6 @@ $(function () {
       $.each(items, function () {
         if (this.name.startsWith("dob_") || this.name.startsWith("pay_date_next_")) {
           return;
-        }
-        if ((submitBtn == "main-submit" && this.name == "loan_amount_requested" && this.value < 1000) || submitBtn == "tier1-submit") {
-          tier = 1;
-        }
-        else if (submitBtn == "tier0-submit" && this.name == "loan_amount_requested") {
-          tier = 0;
         }
         if (rtnval[this.name] !== undefined) {
           if (!rtnval[this.name].push) {
@@ -350,10 +344,18 @@ $(function () {
         }
       });
 
-      // Now adjust the loan amount to be requested if we are resubmitting a
-      // declined lead.
-      if (submitBtn == "tier1-submit" || submitBtn == "tier0-submit") {
+      // Figure out which buyer tier this lead needs to be processed with.
+      var amount = parseInt($("select[name='loan_amount_requested']").val());
+      if (amount >= 1000 && submitBtn == "main-submit") {
+        tier = 2;
+      }
+      else if (submitBtn == "tier1-submit") {
         rtnval["loan_amount_requested"] = 800;
+        tier = 1;
+      }
+      else if (submitBtn == "tier0-submit") {
+        rtnval["loan_amount_requested"] = 800;
+        tier = 0;
       }
       rtnval["tier"] = tier;
 
