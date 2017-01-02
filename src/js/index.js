@@ -18,13 +18,13 @@ $(function () {
     window.history.back()
   });
 
-  $('main').on('click', '.preform-button', function(){
+  $('main').on('click', '.preform-button', function (event){
     var affid = getParameterByName("affid");
     var token = getParameterByName("r");
     var amount = $("select[name='amount']").val();
     var credit = $("select[name='creditscore']").val();
     var zipcode = $("input[name='zipcode']").val();
-    location.href = "form.html?amount="+amount+"&credit="+credit+"&zipcode="+zipcode+"&affid="+affid+"&r="+token;
-    return false;
+    window.location.href = "form.html?amount="+amount+"&credit="+credit+"&zipcode="+zipcode+"&affid="+affid+"&r="+token;
+    event.preventDefault();
   });
 });
