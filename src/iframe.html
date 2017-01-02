@@ -392,43 +392,13 @@
 											<span class="banking-back">&lt; Back to employment information</span>
 										</div>
 										<div class="next-steps-continue">
-											<button type="submit" class="form-button third-step-continue">Submit</button>
+											<button id="main-submit" type="submit" class="form-button third-step-continue">Submit</button>
 										</div>								
 									</div>
 									<hr>
 									<div class="consent-message">
-										By clicking the "Submit" button (1) you are providing written consent under the Fair Credit Reporting Act for FCPersonalLoans.com and its lenders to obtain consumer report information from your credit profile or other information from Credit Bureaus; (2) you understand and agree that you are submitting an application for credit, and are consenting to the use of your information to conduct anti-fraud security checks and evaluate your application for credit; (3) you understand that your application may be matched with multiple lenders, each of whom may obtain consumer report information from your credit profile; and (4) you agree by electronic signature to be contacted by FCPersonalLoans.com or third parties regarding this loan request, additional services such as credit related offers and credit repair including by phone/SMS, automatic dialing system and/or prerecorded messages. This consent is not required as a condition to purchase services.
+										By clicking the "Submit" button (1) you are providing written consent under the Fair Credit Reporting Act for FCPersonalLoans.com and its lenders to obtain consumer report information from your credit profile or other information from Credit Bureaus; (2) you understand and agree that you are submitting a loan request for credit, and are consenting to the use of your information to conduct anti-fraud security checks and evaluate your request for credit; (3) you understand that your loan request may be matched with multiple lenders, each of whom may obtain consumer report information from your credit profile; and (4) you agree by electronic signature to be contacted by FCPersonalLoans.com or third parties regarding this loan request, additional services such as credit related offers and credit repair including by phone/SMS, automatic dialing system and/or prerecorded messages. This consent is not required as a condition to purchase services.
 									</div>
-								</div>
-								<div class="application-processing-step hidden">
-									<div>
-										<h1>Your application is processing...</h1>
-										<h2>We're working hard to match your application with a cash lender.</h2>
-										<div class="progress-timer">
-											<div class="progress-circle"><strong></strong></div>
-										</div>
-										<div class="time-notification-box">
-											<h2>This process may take up to 5 minutes.</h2>
-											Please do not click the back button during this time
-										</div>
-										<h4>You will be redirected shortly to a loan agreement page</h4>
-									</div>
-								</div>
-								<div class="pl-denial hidden">
-									<h2><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Before we continue to process your application please note:</span> Based on analysis of your application and lending criteria it is going to be very difficult to find a lender willing to fund your requested loan amount.</h2> 
-									<h1 class="good-news">The good news, based on your application you are eligible for a short-term loan product up to $1,000.</h1> 
-									<div class="chance-approval high-chance">
-										<button>
-											<h2>Chance of approval: HIGHER</h2>
-											YES, I want to continue the application process with the opportunity to get approved for a short-term loan up to $1,000.
-										</button>
-									</div>
-									<div class="chance-approval low-chance">
-										<button>
-											<h2>Chance of approval: LOWER</h2>
-											NO, I want to continue to search for the original amount requested and understand my chances of being funded are low.
-										</button>
-									</div>	
 								</div>
 								{% for hidden in form.hidden_fields %}
 								  {{ hidden }}

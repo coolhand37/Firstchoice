@@ -1,5 +1,14 @@
 $(function () {
 
+  var unloadHandler = function (e) {
+    if ($(".bar-get-approved").hasClass("active")) {
+      var msg = "Refreshing will cancel your application, are you sure?";
+      e.returnValue = msg;
+      return msg;
+    }
+    e.preventDefault();
+  }
+
   var randomDate = function () {
     var today  = new Date();
     var start  = new Date(2010, 0, 1);
@@ -8,6 +17,8 @@ $(function () {
     var rtnval = moment(random);
     return rtnval.format("YYYY-MM-DD");
   }
+
+  window.addEventListener("beforeunload", unloadHandler);
 
   var createDate = function (prefix) {
     var yr = "select[name='"+prefix+"_year']";
