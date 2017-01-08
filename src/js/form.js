@@ -25,8 +25,7 @@ $(function () {
       $.ajax({
         url: url,
         type: "GET",
-        dataType: "jsonp",
-        jsonp: "callback",
+        dataType: "json",
         success: function (results) {
           if (results != undefined && results.status == "success") {
             if (options.success) {
@@ -123,9 +122,8 @@ $(function () {
       bank_aba: {
         required: true,
         remote: {
-          url: "https://offerannex.herokuapp.com/helpers/validate/bankaba",
+          url: "https://offerannex.herokuapp.com/worker/validate/bankaba",
           type: "GET",
-          dataType: "jsonp",
           data: {
             aba: function () {
               return $("input[name='bank_aba']").val();
@@ -188,6 +186,7 @@ $(function () {
   // Move to the second screen.
   $('main').on('click', '.first-step-continue', function() {
     if (form.valid()) {
+      console.log("move to second step");
       $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.application-first-step').toggle();
       $('.application-second-step').toggle();
@@ -199,6 +198,7 @@ $(function () {
 
   // Move back to the first screen.
   $('main').on('click', '.employment-back', function() {
+    console.log("move back to first step");
     $('.application-second-step').toggle();
     $('.application-first-step').toggle();
     $('.bar-personal-info').toggleClass('active');
@@ -211,6 +211,7 @@ $(function () {
       //
       // Before showing the second screen, calculate the second pay date.
       //
+      console.log("move to third step");
       var paydate = moment(createDate("pay_date_next"));
       var freq    = $("select[name='pay_frequency']").val();
       var nextpay = paydate;
@@ -254,6 +255,7 @@ $(function () {
 
   // Move back to the second screen.
   $('main').on('click', '.banking-back', function() {
+    console.log("move back to second step");
     $('.application-third-step').toggle();
     $('.application-second-step').toggle();
     $('.bar-employment-info').toggleClass('active');
@@ -270,8 +272,8 @@ $(function () {
     var cid = $("#id_cid").val();
     $.ajax({
       url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
-      jsonp: "callback",
-      dataType: "jsonp",
+      type: "GET",
+      dataType: "json",
       data: {
         "affid": affid,
         "subid": subid
@@ -299,6 +301,7 @@ $(function () {
 
   $("#main-form").submit(function (event) {
     if (form.valid()) {
+      console.log("form submitted");
       var submitBtn = $("#id_main_submit").val();
       $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.bar-banking-info').toggleClass('active');
