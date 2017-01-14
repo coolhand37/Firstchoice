@@ -297,7 +297,6 @@ $(function () {
 
   $("#main-form").submit(function (event) {
     if (form.valid()) {
-      console.log("form submitted");
       var submitBtn = $("#id_main_submit").val();
       $("html, body").animate({ scrollTop: 0 }, "slow");
       $('.bar-banking-info').toggleClass('active');
