@@ -76,7 +76,7 @@ $(function () {
       else if (s[0] == 'zip' && $('#id_home_zipcode').val() == '') {
         $('#id_home_zipcode').val(decodeURIComponent(s[1]));
       }
-      else if (s[0] == 'loan' && $('#id_loan_amount_requested').val() == '') {
+      else if (s[0] == 'loan') {
         $('#id_loan_amount_requested option[value="' + decodeURIComponent(s[1]) + '"]').attr('selected', 'selected');
       }
     }
