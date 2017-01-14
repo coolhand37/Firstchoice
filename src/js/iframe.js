@@ -57,30 +57,44 @@ $(function () {
     return yr + "-" + mo + "-" + dy;
   };
 
-  var getParameterByName = function (name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-      results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-  };
+  function processQueryString (e) {
+    var pairs = e.data.split('&');
+    var affid = '';
+    var subid = '';
+
+    for (var i = 0; i < pairs.length; i++) {
+      var s = pairs[i].split('=');
+      if (s[0] == 'fname' && $('#id_first_name').val() == '') {
+        $('#id_first_name').val(decodeURIComponent(s[1]));
+      }
+      else if (s[0] == 'lname' && $('#id_last_name').val() == '') {
+        $('#id_last_name').val(decodeURIComponent(s[1]));
+      }
+      else if (s[0] == 'email' && $('#id_email').val() == '') {
+        $('#id_email').val(s[1]);
+      }
+      else if (s[0] == 'zip' && $('#id_home_zipcode').val() == '') {
+        $('#id_home_zipcode').val(decodeURIComponent(s[1]));
+      }
+      else if (s[0] == 'loan' && $('#id_loan_amount_requested').val() == '') {
+        $('#id_loan_amount_requested option[value="' + decodeURIComponent(s[1]) + '"]').attr('selected', 'selected');
+      }
+    }
+  }
+
+  if (window.addEventListener) {
+    window.addEventListener("message", processQueryString, false);
+  }
+  else if (window.attachEvent) {
+    window.attachEvent('onmessage', processQueryString);
+  }
 
   $("input[name='phone_home']").mask("(000) 000-0000");
   $("input[name='phone_work']").mask("(000) 000-0000");
   $("input[name='ssn']").mask("000-00-0000");
 
-  var tmp_amount = getParameterByName("amount");
-  if (tmp_amount == "") {
-    tmp_amount = "300";
-  }
-
-  var tmp_credit = getParameterByName("credit");
-  if (tmp_credit == "") {
-    tmp_credit = "0";
-  }
-
-  $("select[name='loan_amount_requested']").val(tmp_amount);
-  $("select[name='credit']").val(tmp_credit);
-  $("input[name='home_zipcode']").val(getParameterByName("zipcode"));
+  $("select[name='loan_amount_requested']").val("300");
+  $("select[name='credit']").val("0");
 
   jQuery.validator.addMethod("phone", function (value, element) {
     return this.optional(element) || /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(value);
@@ -360,13 +374,13 @@ $(function () {
                   // them the decline link that was provided.
                   //
                   window.removeEventListener("beforeunload", unloadHandler);
-                  window.location.href = submit.redirect;
+                  window.parent.postMessage(submit.redirect, "*");
                 }
               },
               error: function (error, submit) {
                 window.removeEventListener("beforeunload", unloadHandler);
                 if (submit && submit.hasOwnProperty("redirect")) {
-                  window.location.href = submit.redirect;
+                  window.parent.postMessage(submit.redirect, "*");
                 }
               }
             })
@@ -378,7 +392,7 @@ $(function () {
         error: function (jqxhr, status, thrown) {
           window.removeEventListener("beforeunload", unloadHandler);
           console.error(status);
-          window.location.href = "https://www.fcpersonalloans.com/creditscore.html";
+          window.parent.postMessage("https://www.fcpersonalloans.com/creditscore.html", "*");
         }
       });
     }
