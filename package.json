@@ -31,6 +31,7 @@
     "gulp-usemin": "^0.3.25",
     "gulp-rev": "^7.1.2",
     "gulp-foreach": "^0.1.0",
-    "gulp-s3-deploy": "^1.0.1"
+    "gulp-s3-deploy": "^1.0.1",
+    "gulp-rename": "^1.2.2"
   }
 }

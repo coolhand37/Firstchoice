@@ -9,6 +9,7 @@ var usemin = require("gulp-usemin");
 var rev = require("gulp-rev");
 var foreach = require("gulp-foreach");
 var s3 = require("gulp-s3-deploy");
+var rename = require("gulp-rename");
 
 
 /****************************************
@@ -31,9 +32,17 @@ gulp.task("fonts", function () {
              .pipe(foreach(function (stream, file) {
                return stream.pipe(gulp.dest("./build/fonts"));
              }));
-})
+});
 
-gulp.task("build", ["images", "fonts"], function () {
+gulp.task("js", function () {
+  return gulp.src(["./src/js/forminit.js"])
+             .pipe(uglify())
+             .pipe(rev())
+             .pipe(rename({ suffix: ".min" }))
+             .pipe(gulp.dest("./build/js"));
+});
+
+gulp.task("build", ["images", "fonts", "js"], function () {
   return gulp.src("./src/*.html")
              .pipe(foreach(function (stream, file) {
                return stream.pipe(usemin({
@@ -52,7 +61,7 @@ gulp.task("deploy", function () {
                "bucket": "fcpersonalloans.com",
                "region": "us-east-1"
              }));
-})
+});
 
 /****************************************
   Servers (Web and API)
