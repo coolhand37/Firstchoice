@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>First Choice Personal Loans</title>
   <!-- build:css /css/iframe.css -->
   <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
   <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
@@ -419,6 +418,7 @@
                     </button>
                   </div>  
                 </div>
+                <input type="hidden" id="id_main_submit" name="main_submit" value="main-submit" />
                 {% for hidden in form.hidden_fields %}
                   {{ hidden }}
                 {% endfor %}

@@ -20,11 +20,41 @@ $(function () {
 
   window.addEventListener("beforeunload", unloadHandler);
 
+  var checkResponse = function (url, options) {
+    if (url != undefined && url != "") {
+      $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "json",
+        success: function (results) {
+          if (results != undefined && results.status == "success") {
+            if (options.success) {
+              options.success(results.submit);
+            }
+          }
+          else if (results != undefined && results.status == "error") {
+            if (options.error) {
+              options.error(JSON.stringify(results.error), results.submit);
+            }
+          }
+          else {
+            setTimeout(function () { checkResponse(url, options); }, 1000);
+          }
+        }
+      });
+    }
+    else {
+      console.log("No URL was provided");
+    }
+  };
+
   var createDate = function (prefix) {
-    var yr = "select[name='"+prefix+"_year']";
-    var mo = "select[name='"+prefix+"_month']";
-    var dy = "select[name='"+prefix+"_day']";
-    return $(yr).val() + "-" + $(mo).val() + "-" + $(dy).val();
+    var yr = $("select[name='"+prefix+"_year']").val();
+    var mo = $("select[name='"+prefix+"_month']").val();
+    var dy = $("select[name='"+prefix+"_day']").val();
+    if (mo.length == 1) mo = "0" + mo;
+    if (dy.length == 1) dy = "0" + dy;
+    return yr + "-" + mo + "-" + dy;
   };
 
   var getParameterByName = function (name) {
@@ -94,9 +124,8 @@ $(function () {
       bank_aba: {
         required: true,
         remote: {
-          url: "/helpers/validate/bankaba",
+          url: "/worker/validate/bankaba",
           type: "GET",
-          dataType: "json",
           data: {
             aba: function () {
               return $("input[name='bank_aba']").val();
@@ -143,6 +172,17 @@ $(function () {
       dob_month: "Required",
       dob_day: "Required"
     }
+  });
+
+  $(".progress-circle").circleProgress({
+    value: 0.0,
+    fill: "#099246",
+    size: 156,
+    thickness: 16,
+    startAngle: 3 * (Math.PI/2),
+    animation: { duration: 200000, easing: "linear" }
+  }).on("circle-animation-progress", function (event, progress) {
+    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
   // Move to the second screen.
@@ -218,6 +258,135 @@ $(function () {
     $('.application-second-step').toggle();
     $('.bar-employment-info').toggleClass('active');
     $('.bar-banking-info').toggleClass('active');
+  });
+
+  $("#tier1-submit").click(function () {
+    $("#id_main_submit").val("tier1-submit");
+  });
+
+  $("#tier0-submit").click(function () {
+    $("#id_main_submit").val("tier0-submit");
+  });
+
+  $("#main-form").submit(function (event) {
+    if (form.valid()) {
+      console.log("form submitted");
+      var submitBtn = $("#id_main_submit").val();
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $('.bar-banking-info').toggleClass('active');
+      $('.bar-get-approved').toggleClass('active');
+
+      if (submitBtn == "main-submit") {
+        $('.application-third-step').toggle();
+        $('.application-processing-step').toggle();
+        $("#id_main_submit").val("0");
+      }
+      else {
+        $('.pl-denial').toggle();
+        $('.application-processing-step').toggle();
+      }
+
+      // Start the progress bar animation.
+      $(".progress-circle").circleProgress("value", 1.0);
+      $(".progress-circle").circleProgress("startAngle", 3 * (Math.PI/2));
+
+      // We need to figure out which tier to run this lead against.
+      var tier = 1;
+
+      // Convert the form elements into JSON to be posted to the backend.
+      var items = $(this).serializeArray();
+      var rtnval = {};
+      $.each(items, function () {
+        if (this.name.startsWith("dob_") || this.name.startsWith("pay_date_next_")) {
+          return;
+        }
+        if (rtnval[this.name] !== undefined) {
+          if (!rtnval[this.name].push) {
+            rtnval[this.name] = [rtnval[this.name]];
+          }
+          rtnval[this.name].push(this.value || "");
+        }
+        else {
+          if (this.name.startsWith("phone_")) {
+            rtnval[this.name] = this.value.replace(/[\s-\(\)]/g, "") || "";
+          }
+          else {
+            rtnval[this.name] = this.value || "";
+          }
+        }
+      });
+
+      // Figure out which buyer tier this lead needs to be processed with.
+      var amount = parseInt($("select[name='loan_amount_requested']").val());
+      if (amount >= 1000 && submitBtn == "main-submit") {
+        tier = 2;
+      }
+      else if (submitBtn == "tier1-submit") {
+        rtnval["loan_amount_requested"] = 800;
+        tier = 1;
+      }
+      else if (submitBtn == "tier0-submit") {
+        rtnval["loan_amount_requested"] = 800;
+        tier = 0;
+      }
+      rtnval["tier"] = tier;
+
+      // Now build up the dob and pay_date_next fields.
+      rtnval.dob = createDate("dob");
+      rtnval.pay_date_next = createDate("pay_date_next");
+
+      $.ajax({
+        url: "/worker/campaign/submit",
+        data: rtnval,
+        type: "POST",
+        dataType: "json",
+        crossDomain: true,
+        success: function (result) {
+          if (result.hasOwnProperty("url")) {
+            checkResponse(result.url, {
+              success: function (submit) {
+                if (tier == 2 && submit.status != "A") {
+                  //
+                  // The user requested more than $1k and was declined. Before serving
+                  // them the decline link, we'll offer them the chance to go for a
+                  // lower loan amount.
+                  //
+                  $("html, body").animate({ scrollTop: 0 }, "slow");
+                  $('.application-processing-step').toggle();
+                  $('.pl-denial').toggle();
+                }
+                else {
+                  //
+                  // The user requested less than $1k or was accepted, so we'll serve
+                  // them the decline link that was provided.
+                  //
+                  window.removeEventListener("beforeunload", unloadHandler);
+                  window.location.href = submit.redirect;
+                }
+              },
+              error: function (error, submit) {
+                window.removeEventListener("beforeunload", unloadHandler);
+                if (submit && submit.hasOwnProperty("redirect")) {
+                  window.location.href = submit.redirect;
+                }
+              }
+            })
+          }
+          else {
+            alert("Something went wrong while processing your application. Please try resubmitting.");
+          }
+        },
+        error: function (jqxhr, status, thrown) {
+          window.removeEventListener("beforeunload", unloadHandler);
+          console.error(status);
+          window.location.href = "https://www.fcpersonalloans.com/creditscore.html";
+        }
+      });
+    }
+    else {
+      alert("Please make sure you filled all of the required fields in.");
+    }
+    event.preventDefault();
   });
 
 });
