@@ -108,6 +108,10 @@ $(function () {
     return this.optional(element) || value != $(param).val();
   }, "Matches home phone");
 
+  jQuery.validator.addMethod("datefield", function (value, element) {
+    return this.optional(element) || value != 0;
+  }, "Required");
+
   // Disable the submit button if the consent box is not checked.
   $(".consent").change(function () {
     var submit_btn = $("button.form-button.third-step-continue");
@@ -146,7 +150,37 @@ $(function () {
             }
           }
         }
-      }
+      },
+      home_zipcode: {
+        required: true,
+        remote: {
+          url: "/worker/validate/zipcode",
+          type: "GET",
+          data: {
+            zipcode: function () {
+              return $("input[name='home_zipcode']").val();
+            }
+          }
+        }
+      },
+      employer_zipcode: {
+        required: true,
+        remote: {
+          url: "/worker/validate/zipcode",
+          type: "GET",
+          data: {
+            zipcode: function () {
+              return $("input[name='employer_zipcode']").val();
+            }
+          }
+        }
+      },
+      pay_date_next_year: { required: true, datefield: true },
+      pay_date_next_month: { required: true, datefield: true },
+      pay_date_next_day: { required: true, datefield: true },
+      dob_year: { required: true, datefield: true },
+      dob_month: { required: true, datefield: true },
+      dob_day: { required: true, datefield: true }
     },
     messages: {
       loan_amount_requested: "Required",
@@ -203,6 +237,7 @@ $(function () {
   $('main').on('click', '.first-step-continue', function() {
     if (form.valid()) {
       $("html, body").animate({ scrollTop: 0 }, "slow");
+      window.parent.postMessage("scroll", "*");
       $('.application-first-step').toggle();
       $('.application-second-step').toggle();
       $('.bar-personal-info').toggleClass('active');
@@ -258,6 +293,7 @@ $(function () {
 
       $("input[name='pay_date_second_next']").val(nextpay.format("YYYY-MM-DD"));
       $("html, body").animate({ scrollTop: 0 }, "slow");
+      window.parent.postMessage("scroll", "*");
       $('.application-second-step').toggle();
       $('.application-third-step').toggle();
       $('.bar-employment-info').toggleClass('active');
@@ -286,10 +322,11 @@ $(function () {
     if (form.valid()) {
       var submitBtn = $("#id_main_submit").val();
       $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.bar-banking-info').toggleClass('active');
-      $('.bar-get-approved').toggleClass('active');
+      window.parent.postMessage("scroll", "*");
 
       if (submitBtn == "main-submit") {
+        $('.bar-banking-info').toggleClass('active');
+        $('.bar-get-approved').toggleClass('active');
         $('.application-third-step').toggle();
         $('.application-processing-step').toggle();
         $("#id_main_submit").val("0");
@@ -300,7 +337,7 @@ $(function () {
       }
 
       // Start the progress bar animation.
-      $(".progress-circle").circleProgress("value", 1.0);
+      $(".progress-circle").circleProgress({ value: 1.0 });
       $(".progress-circle").circleProgress("startAngle", 3 * (Math.PI/2));
 
       // We need to figure out which tier to run this lead against.
@@ -365,6 +402,7 @@ $(function () {
                   // lower loan amount.
                   //
                   $("html, body").animate({ scrollTop: 0 }, "slow");
+                  window.parent.postMessage("scroll", "*");
                   $('.application-processing-step').toggle();
                   $('.pl-denial').toggle();
                 }
