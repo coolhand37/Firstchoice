@@ -2,6 +2,9 @@ function cb (e) {
   if (e.data.substring(0, 4) == "http") {
     window.location = e.data.replace(/&/g, "&")
   }
+  else {
+    window.scrollTo(0,0);
+  }
 }
 
 if (window.addEventListener) {
