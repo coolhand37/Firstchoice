@@ -1,0 +1,777 @@
+/*********************************************
+	Inherited Styles
+**********************************************/
+
+html {
+    box-sizing: border-box;
+    color: #444;
+    font-size: 12pt;
+    font-family: 'Open Sans', sans-serif, Arial;
+    font-weight: 300;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+    color: inherit;
+    font: inherit;
+}
+
+
+/*********************************************
+	Defaults
+**********************************************/
+body {
+    font-size: 13px;
+    margin: 0px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.1em;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+}
+
+img {
+    border: none;
+}
+
+i {
+    padding-right: 5px;
+}
+
+/*********************************************
+    Layout
+**********************************************/
+
+.panel > div {
+    text-align: center;
+    position: relative;
+}
+
+/*********************************************
+    Components
+**********************************************/
+
+
+/*******Header********/
+
+
+/**************Form*******************/
+
+.application {
+    background-color: #f5f5f5;
+    padding-bottom: 20px;
+}
+
+.application h4 {
+    font-weight: normal;
+}
+
+header.application-header {
+    height: 55px;
+    position: relative;
+    box-shadow: 0px 0px 15px -2px #828080;
+
+}
+
+.hideit {
+    display: none;
+}
+
+.application-progressbar {
+    padding: 10px;
+    font-size: .7em;
+    color: #828080;
+}
+
+.application-progressbar > div {
+    display: inline-block;
+}
+
+.application-progressbar .active {
+    color: #0f6195;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+.progressbar-text {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.application-progressbar span {
+    font-size: .5em;
+}
+
+.application h2 i {
+    padding-left: 10px;
+}
+
+.application h2 i:hover {
+    cursor: help;
+}
+
+.application-form form {
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    background-color: white;
+
+}
+
+.application-form h3 {
+    font-size: .85em;
+    padding: 10px;
+}
+
+.application-form h2 {
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+.siteseal {
+    padding: 15px;
+}
+
+.application-form hr {
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-width: 1px 0 0 0;
+}
+
+.input {
+    padding-bottom: 15px;
+}
+
+.input select, .input input {
+    width: 100%;
+    border: none;
+    height: 35px;
+    color: black;
+}
+
+.input input {
+    border-radius: 5px;
+    padding-left: 8px;
+}
+
+.label {
+    text-align: left;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.credit-label > div {
+    display: inline-block;
+}
+
+.credit-linkout {
+    font-size: .7em;
+    padding-left: 20px;
+    font-weight: normal;
+}
+
+.credit-linkout a {
+    font-weight: bold;
+}
+
+.form-button {
+
+    border-radius: 3px;
+    width: 100%;
+    color: white;
+    background-color: #2185c5;
+    height: 45px;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+.form-button:disabled {
+    background-color: #7DD4A4;
+    pointer-events: none !important;
+    cursor: not-allowed;
+}
+
+.application .input select, input {
+    height: 35px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+}
+
+.three-field-format select {
+    width: 32.5%;
+}
+
+.first-step-continue {
+    width: 125px;
+}
+
+.application-second-step, .application-third-step h2 {
+    padding-top: 20px;
+}
+
+.form-submit {
+    padding-bottom: 40px;
+}
+
+.form-submit.next-steps {
+    padding-bottom: 20px;
+}
+
+.next-steps > div {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 20px;
+
+}
+
+.next-steps-back {
+    width: 60%;
+    text-align: left;
+    font-size: .9em;
+    padding-left: 20px;
+}
+
+.next-steps-back span:hover {
+    cursor: pointer;
+}
+
+.next-steps-continue {
+    text-align: right;
+    width: 38%;
+}
+
+.next-steps-continue button {
+    margin-top: 0px;
+    width: 125px;
+
+}
+
+.form-button:hover {
+    cursor: pointer;
+
+}
+
+.consent-checkbox {
+    padding: 10px;
+    text-align: left;
+}
+
+.consent {
+    height: initial;
+    margin-right: 10px;
+}
+
+.consent-message {
+    padding-bottom: 20px;
+    text-align: left;
+}
+
+.application-processing-step {
+    padding-top: 40px;
+    padding-bottom: 100px;
+}
+
+.application-processing-step h1 {
+    font-size: 1.6em;
+}
+
+.application-processing-step h2 {
+    font-size: 1.2em;
+    margin: 0;
+    font-weight: bold;
+}
+
+.progress-timer {
+    font-size: 8em;
+    padding: 40px;
+}
+
+.time-notification-box {
+    border: 1px solid #099246;
+    border-radius: 5px;
+    padding: 20px 5px;
+    margin-bottom: 10px;
+    background-color: #e1f2e8;
+}
+
+.good-news {
+    font-size: 1.6em;
+}
+
+.pl-denial {
+    padding-top: 20px;
+}
+
+.pl-denial span {
+    font-weight: bold;
+    color: #d64d4d;
+}
+
+.pl-denial > h2 {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.pl-denial i {
+    color: #d64d4d;
+}
+
+.chance-approval {
+    margin: 20px 0;
+    font-size: 1em;
+}
+
+.chance-approval > button {
+    border-radius: 5px;
+    padding: 20px;
+    width: 75%;
+    margin: auto;
+    font-weight: normal;
+}
+
+.high-chance > button {
+    border: 2px solid #099246;
+    background-color: #e1f2e8;
+}
+
+.low-chance > button {
+    border: 2px solid #d64d4d;
+    background-color: #f7e3e3;
+}
+
+.chance-approval > button:hover {
+    cursor: pointer;
+}
+
+.high-chance h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.low-chance h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.high-chance > button:hover {
+    background-color: #099246;
+}
+
+.low-chance > button:hover {
+    background-color: #d64d4d;
+}
+
+/*******Disclaimer Content********/
+
+.disclaimer {
+    background-color: grey;
+    padding: 10px;
+    text-align: left;
+    color: white;
+    font-size: .8em;
+}
+
+.copyright {
+    text-align: center;
+}
+
+/***********************************************
+                Media Points
+************************************************/
+@media (max-width: 400px) {
+    .application-progressbar {
+        font-size: .55em;
+    }
+}
+
+
+@media (min-width: 480px) {
+
+    .application-progressbar {
+        font-size: .9em;
+    }
+
+    .application-form h3 {
+        font-size: 1.6em;
+    }
+
+    .chance-approval > button {
+    width: 350px;
+    }
+}
+
+@media (min-width: 660px) {
+
+    .application-header .hideit {
+        display: block;
+    }
+
+    .application-header .showit {
+        display: none;
+    }
+
+    .logo-application {
+        position: static;
+        transform: none;
+        text-align: left;
+        padding: 5px 30px;
+    }
+
+    .back-button {
+        top: 20px;
+    }
+
+    .back-button button {
+        padding: 10px 20px;
+    }
+
+    .application-header > div, .application > div {
+        width: 660px;
+        margin: auto;
+    }
+
+    header.application-header {
+        height: 75px;
+    }
+
+    h2 {
+        font-size: 2.6em;
+    }
+
+    .field {
+        width: 48%;
+        display: inline-block;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .credit-linkout {
+        font-size: .85em;
+    }
+
+    .chance-approval {
+    font-size: 1.2em;
+    }
+
+    .low-chance {
+        margin-bottom: 60px;
+    }
+
+    .pl-denial > h2 {
+    font-size: 1.3em;
+    }
+
+    .good-news {
+    font-size: 1.9em;
+    }
+
+    .graphbar .hideit {
+        display: initial;
+    }
+
+    .graphbar .showit {
+        display: none;
+    }
+
+    .graphbar {
+        float: left;
+        margin-left: 20px;
+        margin-top: 60px;
+    }
+
+}
+
+/*@media (min-width: 770px) {
+    .application-header.credit-header > div, .credit-thanks, .credit-content, .credit-form-header > div, .credit-form .media-object, .credit-footer {
+        width: 720px;
+        margin: auto;
+    }
+}*/
+
+@media (min-width: 930px) {
+
+    .application-header > div, .application > div {
+        width: 930px;
+        margin: auto;
+    }
+
+    .application > div {
+        position: relative;
+        padding: 20px;
+    }
+
+    .application-form h3 {
+        padding: 20px;
+    }
+
+/*    .application-progressbar {
+        width: 250px;
+        position: absolute;
+        top: 30px;
+        right: 0;
+    }*/
+
+/*    .application-progressbar > div {
+        display: block;
+        padding-bottom: 15px;
+    }*/
+
+/*    .application-progressbar > div i {
+        float: left;
+        width: 20px;
+    }*/
+
+    .progressbar-text {
+        margin-left: 25px;
+        text-align: left;
+        display: block;
+    }
+
+/*    .ssl-info.hideit {
+        display: initial;
+    }
+
+    .ssl-info.showit {
+        display: none;
+    }
+
+    .ssl-info {
+        position: absolute;
+        width: 250px;
+        padding: 10px;
+        padding-top: 20px;
+        top: 200px;
+        right: 0;
+        border: 1px solid #e3e3e3;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .siteseal {
+        padding: 10px;
+    }*/
+
+    .field {
+        width: 170px;
+        display: inline-block;
+    }
+
+    .application-form form {
+        width: 650px;
+        margin: auto;
+    }
+
+    .application .field {
+        width: 97%;
+        margin: 0;
+        text-align: left;
+    }
+
+    .application .label {
+        display: inline-block;
+        width: 20%;
+        vertical-align: middle;
+        text-align: right;
+    }
+
+    .application .input {
+        width: 60%;
+        display: inline-block;
+        padding-left: 10px;
+        padding-right: 30px;
+    }
+
+    .application .label label {
+        vertical-align: middle;
+    }
+
+    .application-first-step .form-submit {
+        text-align: right;
+        padding-right: 160px;
+    }
+
+    .next-steps {
+        width: 75%;
+    }
+
+    .credit-linkout {
+        padding: 5px;
+        font-size: .65em;
+    }
+
+    .application .credit-label > div {
+        display: block;
+    }
+
+    .application .credit-linkout {
+        padding-left: 0;
+    }
+
+    .application-processing-step h1 {
+    font-size: 2.4em;
+    }
+
+    .application-processing-step h2 {
+        font-size: 1.5em;
+    }
+
+    .progress-timer {
+        font-size: 12em;
+    }
+
+    .application-processing-step h4 {
+        font-size: 1.2em;
+    }
+
+    .consent-checkbox {
+        padding-left: 20px;
+    }
+
+}
+
+@media (min-width: 1170px) {
+
+   .application-header > div, .application > div {
+        width: 1170px;
+        margin: auto;
+    }
+
+    .application-form form {
+        width: 780px;
+    }
+
+    .application-progressbar {
+        right: 100px;
+    }
+
+    .ssl-info {
+        right: 100px;
+    }
+
+}
+
+.hidden {
+    display: none;
+}
+
+input.error, select.error {
+  border: 1px solid #a94442 !important;
+}
+
+input.success, select.success {
+  border: 1px solid #3c763d !important;
+}
+
+.progress-circle {
+  position: relative;
+  height: 156px;
+}
+
+.progress-circle strong {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 10px;
+  right: 0;
+  top: 63px;
+  font-size: 24px;
+}
+
+.alert.errors {
+  text-align: left;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
+}
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
+}
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}

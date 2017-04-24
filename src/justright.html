@@ -1,0 +1,446 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Personal loan application</title>
+  <!-- build:css /css/justright.css -->
+  <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
+  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="css/justright.css">
+  <!-- endbuild -->
+</head>
+<body>
+
+<div class="panel application-page">
+  <div>
+    <main>
+      <div class="application">
+        <div>
+          <div class="application-progressbar">
+            <div class="bar-personal-info active">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <div class="progressbar-text">Personal Info</div>
+            </div>
+            <div class="bar-employment-info">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i><div class="progressbar-text">Employment Info</div>
+            </div>
+            <div class="bar-banking-info">
+              <i class="fa fa-map-marker" aria-hidden="true"></i><div class="progressbar-text">Banking Info</div>
+            </div>
+            <div class="bar-get-approved">
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i><div class="progressbar-text">Get Approved</div>
+            </div>
+          </div>
+          <div class="application-form">
+            <div>
+              <form method="post" action="" id="main-form">
+                <div class="application-first-step">
+                  <h3>Please complete the form below to begin your loan process</h3>
+                  <hr>
+                  <h2>Personal Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+                  {% if form.errors %}
+                  <div class="alert alert-danger errors">
+                    <div><strong>Please correct the errors below:</strong></div>
+                    <div>{{ form.non_field_errors }}</div>
+                  </div>
+                  {% endif %}
+                  <div class="field">
+                    <div class="label">
+                      {{ form.loan_amount_requested.label_tag }}
+                    </div>
+                    <div class="input">
+                      <select id="id_loan_amount_requested" name="loan_amount_requested" required>
+                        <option value="300">$100-$500</option>
+                        <option value="500">$501-$1000</option>
+                        <option value="2500">$1,001-$2,500</option>
+                        <option value="3500">$2,501-$5,000</option>
+                        <option value="5000">$5,001-$10,000</option>
+                        <option value="10000">$10,001-$15,000</option>
+                        <option value="15000">more than $15,001</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label credit-label">
+                      <div>
+                        {{ form.credit.label_tag }}
+                      </div>
+                      <div>
+                        <span class="credit-linkout">Not sure? <a href="http://www.ofnxtrack.com/aff_c?offer_id=64&aff_id=1">Click Here</a></span>
+                      </div>
+                    </div>
+                    <div class="input">
+                      {{ form.credit }}
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.first_name.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.first_name }}
+                    </div>
+                    {% if form.first_name.errors %}
+                    <label for="id_first_name" class="error">{{ form.first_name.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.last_name.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.last_name }}
+                    </div>
+                    {% if form.last_name.errors %}
+                    <label for="id_last_name" class="error">{{ form.last_name.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.home_address_1.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.home_address_1 }}
+                    </div>
+                    {% if form.home_address_1.errors %}
+                    <label for="id_home_address_1" class="error">{{ form.home_address_1.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.home_address_2.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.home_address_2 }}
+                    </div>
+                    {% if form.home_address_2.errors %}
+                    <label for="id_home_address_2" class="error">{{ form.home_address_2.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.home_zipcode.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.home_zipcode }}
+                    </div>
+                    {% if form.home_zipcode.errors %}
+                    <label for="id_home_zipcode" class="error">{{ form.home_zipcode.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.home_type.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.home_type }}
+                    </div>
+                    {% if form.home_type.errors %}
+                    <label for="id_home_type" class="error">{{ form.home_type.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.email.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.email }}
+                    </div>
+                    {% if form.email.errors %}
+                    <label for="id_email" class="error">{{ form.email.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.phone_home.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.phone_home }}
+                    </div>
+                    {% if form.phone_home.errors %}
+                    <label for="id_phone_home" class="error">{{ form.phone_home.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.best_contact_time.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.best_contact_time }}
+                    </div>
+                    {% if form.best_contact_time.errors %}
+                    <label for="id_best_contact_time" class="error">{{ form.best_contact_time.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.military.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.military }}
+                    </div>
+                    {% if form.military.errors %}
+                    <label for="id_military" class="error">{{ form.military.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="form-submit">
+                    <button class="form-button first-step-continue">Continue</button>
+                  </div>
+                </div>
+                <div class="application-second-step hidden">
+                  <h2>Employment Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.income_source.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.income_source }}
+                    </div>
+                    {% if form.income_source.errors %}
+                    <label for="id_income_source" class="error">{{ form.income_source.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.monthly_income.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.monthly_income }}
+                    </div>
+                    {% if form.monthly_income.errors %}
+                    <label for="id_monthly_income" class="error">{{ form.monthly_income.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.employer_name.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.employer_name }}
+                    </div>
+                    {% if form.employer_name.errors %}
+                    <label for="id_employer_name" class="error">{{ form.employer_name.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.phone_work.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.phone_work }}
+                    </div>
+                    {% if form.phone_work.errors %}
+                    <label for="id_phone_work" class="error">{{ form.phone_work.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.employer_address_1.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.employer_address_1 }}
+                    </div>
+                    {% if form.employer_address_1.errors %}
+                    <label for="id_employer_address_1" class="error">{{ form.employer_address_1.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.employer_address_2.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.employer_address_2 }}
+                    </div>
+                    {% if form.employer_address_2.errors %}
+                    <label for="id_employer_address_2" class="error">{{ form.employer_address_2.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.employer_zipcode.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.employer_zipcode }}
+                    </div>
+                    {% if form.employer_zipcode.errors %}
+                    <label for="id_employer_zipcode" class="error">{{ form.employer_zipcode.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.pay_frequency.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.pay_frequency }}
+                    </div>
+                    {% if form.pay_frequency.errors %}
+                    <label for="id_pay_frequency" class="error">{{ form.pay_frequency.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.pay_date_next.label_tag }}
+                    </div>
+                    <div class="input">
+                      <div class="three-field-format">
+                        {{ form.pay_date_next }}
+                      </div>
+                    </div>
+                    {% if form.pay_date_next.errors %}
+                    <label for="id_pay_date_next" class="error">{{ form.pay_date_next.errors }}</label>
+                    {% endif %}
+                  </div>
+                  <div class="form-submit next-steps">
+                    <div class="next-steps-back">
+                      <span class="employment-back">&lt; Back to personal information</span>
+                    </div>
+                    <div class="next-steps-continue">
+                      <button class="form-button second-step-continue">Continue</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="application-third-step hidden">
+                  <h2>Banking Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.bank_account_type.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.bank_account_type }}
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.direct_deposit.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.direct_deposit }}
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.bank_aba.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.bank_aba }}
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.bank_account.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.bank_account }}
+                    </div>
+                  </div>
+                  <h2>Security Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+
+                  <div class="field">
+                    <div class="label">
+                      {{ form.ssn.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.ssn }}
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.state_id_number.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.state_id_number }}
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.state_id_issue_state.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.state_id_issue_state }}
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.dob.label_tag }}
+                    </div>
+                    <div class="input">
+                      <div class="three-field-format">
+                        {{ form.dob }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="label">&nbsp;</div>
+                    <div style="width: 60%; display: inline-block; padding-left: 10px;">
+                      <input class="consent" type="checkbox" name="consent" checked="checked" required>I aggree to the <a href="privacy.html">Privacy Policy</a> and <a href="econsent.html">E-consent</a>
+                    </div>
+                  </div>
+                  <div class="form-submit next-steps">
+                    <div class="next-steps-back">
+                      <span class="banking-back">&lt; Back to employment information</span>
+                    </div>
+                    <div class="next-steps-continue">
+                      <button id="main-submit" type="submit" class="form-button third-step-continue">Submit</button>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="consent-message">
+                    By clicking the "Submit" button (1) you are providing written consent under the Fair Credit Reporting Act for FCPersonalLoans.com and its lenders to obtain consumer report information from your credit profile or other information from Credit Bureaus; (2) you understand and agree that you are submitting a loan request for credit, and are consenting to the use of your information to conduct anti-fraud security checks and evaluate your request for credit; (3) you understand that your loan request may be matched with multiple lenders, each of whom may obtain consumer report information from your credit profile; and (4) you agree by electronic signature to be contacted by FCPersonalLoans.com or third parties regarding this loan request, additional services such as credit related offers and credit repair including by phone/SMS, automatic dialing system and/or prerecorded messages. This consent is not required as a condition to purchase services.
+                  </div>
+                </div>
+                <div class="application-processing-step hidden">
+                  <div>
+                    <h1>Your request is processing...</h1>
+                    <h2>We're working hard to match your profile with a cash lender.</h2>
+                    <div class="progress-timer">
+                      <div class="progress-circle"><strong></strong></div>
+                    </div>
+                    <div class="time-notification-box">
+                      <h2>This process may take up to 5 minutes.</h2>
+                      Please do not click the back button during this time
+                    </div>
+                    <h4>You will be redirected shortly to a loan agreement page</h4>
+                  </div>
+                </div>
+                <div class="pl-denial hidden">
+                  <h2><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Before we continue to process your loan request please note:</span> Based on analysis of your profile and lending criteria it is going to be very difficult to find a lender willing to fund your requested loan amount.</h2>
+                  <h1 class="good-news">The good news, based on your profile you are eligible for a short-term loan product up to $1,000.</h1>
+                  <div class="chance-approval high-chance">
+                    <button id="tier1-submit" type="submit">
+                      <h2>Chance of approval: HIGHER</h2>
+                      YES, I want to continue the loan request process with the opportunity to get approved for a short-term loan up to $1,000.
+                    </button>
+                  </div>
+                  <div class="chance-approval low-chance">
+                    <button id="tier0-submit" type="submit">
+                      <h2>Chance of approval: LOWER</h2>
+                      NO, I want to continue to search for the original amount requested and understand my chances of being funded are low.
+                    </button>
+                  </div>
+                </div>
+                <input type="hidden" id="id_main_submit" name="main_submit" value="main-submit" />
+                {% for hidden in form.hidden_fields %}
+                  {{ hidden }}
+                {% endfor %}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- build:js /js/justright.min.js -->
+<script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../bower_components/jquery-circle-progress/dist/circle-progress.min.js"></script>
+<script type="text/javascript" src="../bower_components/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../bower_components/momentjs/min/moment.min.js"></script>
+<script type="text/javascript" src="js/startswith.js"></script>
+<script type="text/javascript" src="js/iframe.js"></script>
+<!-- endbuild -->
+</body>
+</html>
