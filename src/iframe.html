@@ -4,10 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Personal loan application</title>
   <!-- build:css /css/iframe.css -->
   <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
   <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/iframe.css">
   <!-- endbuild -->
 </head>
 <body>
@@ -24,8 +25,8 @@
               <i class="fa fa-phone" aria-hidden="true"></i>
               <div class="progressbar-text">Personal Info</div>
             </div>
-            <div class="bar-employment-info">  
-              <i class="fa fa-envelope-o" aria-hidden="true"></i><div class="progressbar-text">Employment Info</div>  
+            <div class="bar-employment-info">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i><div class="progressbar-text">Employment Info</div>
             </div>
             <div class="bar-banking-info">
               <i class="fa fa-map-marker" aria-hidden="true"></i><div class="progressbar-text">Banking Info</div>
@@ -35,7 +36,7 @@
             </div>
           </div>
           <div class="application-form">
-            <div>  
+            <div>
               <form method="post" action="" id="main-form">
                 <div class="application-first-step">
                   <h3>Please complete the form below to begin your loan process</h3>
@@ -44,7 +45,7 @@
                       <h4>Rest assured you're information will be kept safe. This site utilizes 256-bit SSL encryption.</h4>
                     </div>
                     <div class="siteseal">
-                      <img src="//www.fcpersonalloans.com/images/ssl.130.png" />
+                      <img src="//www.fcpersonalloans.com/images/SSL-seal.png" />
                     </div>
                   </div>
                   <hr>
@@ -84,7 +85,7 @@
                       {{ form.credit }}
                     </div>
                   </div>
-                  <div class="field">            
+                  <div class="field">
                     <div class="label">
                       {{ form.first_name.label_tag }}
                     </div>
@@ -95,7 +96,7 @@
                     <label for="id_first_name" class="error">{{ form.first_name.errors }}</label>
                     {% endif %}
                   </div>
-                  <div class="field">            
+                  <div class="field">
                     <div class="label">
                       {{ form.last_name.label_tag }}
                     </div>
@@ -106,7 +107,7 @@
                     <label for="id_last_name" class="error">{{ form.last_name.errors }}</label>
                     {% endif %}
                   </div>
-                  <div class="field">            
+                  <div class="field">
                     <div class="label">
                       {{ form.home_address_1.label_tag }}
                     </div>
@@ -117,7 +118,7 @@
                     <label for="id_home_address_1" class="error">{{ form.home_address_1.errors }}</label>
                     {% endif %}
                   </div>
-                  <div class="field">            
+                  <div class="field">
                     <div class="label">
                       {{ form.home_address_2.label_tag }}
                     </div>
@@ -211,7 +212,7 @@
                     <label for="id_monthly_income" class="error">{{ form.monthly_income.errors }}</label>
                     {% endif %}
                   </div>
-                  <div class="field">            
+                  <div class="field">
                     <div class="label">
                       {{ form.employer_name.label_tag }}
                     </div>
@@ -233,7 +234,7 @@
                     <label for="id_phone_work" class="error">{{ form.phone_work.errors }}</label>
                     {% endif %}
                   </div>
-                  <div class="field">            
+                  <div class="field">
                     <div class="label">
                       {{ form.employer_address_1.label_tag }}
                     </div>
@@ -244,7 +245,7 @@
                     <label for="id_employer_address_1" class="error">{{ form.employer_address_1.errors }}</label>
                     {% endif %}
                   </div>
-                  <div class="field">            
+                  <div class="field">
                     <div class="label">
                       {{ form.employer_address_2.label_tag }}
                     </div>
@@ -296,7 +297,7 @@
                     </div>
                     <div class="next-steps-continue">
                       <button class="form-button second-step-continue">Continue</button>
-                    </div>                  
+                    </div>
                   </div>
                 </div>
                 <div class="application-third-step hidden">
@@ -317,7 +318,7 @@
                       {{ form.direct_deposit }}
                     </div>
                   </div>
-                  <div class="field">            
+                  <div class="field">
                     <div class="label">
                       {{ form.bank_aba.label_tag }}
                     </div>
@@ -381,7 +382,7 @@
                     </div>
                     <div class="next-steps-continue">
                       <button id="main-submit" type="submit" class="form-button third-step-continue">Submit</button>
-                    </div>                
+                    </div>
                   </div>
                   <hr>
                   <div class="consent-message">
@@ -403,8 +404,8 @@
                   </div>
                 </div>
                 <div class="pl-denial hidden">
-                  <h2><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Before we continue to process your loan request please note:</span> Based on analysis of your profile and lending criteria it is going to be very difficult to find a lender willing to fund your requested loan amount.</h2> 
-                  <h1 class="good-news">The good news, based on your profile you are eligible for a short-term loan product up to $1,000.</h1> 
+                  <h2><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Before we continue to process your loan request please note:</span> Based on analysis of your profile and lending criteria it is going to be very difficult to find a lender willing to fund your requested loan amount.</h2>
+                  <h1 class="good-news">The good news, based on your profile you are eligible for a short-term loan product up to $1,000.</h1>
                   <div class="chance-approval high-chance">
                     <button id="tier1-submit" type="submit">
                       <h2>Chance of approval: HIGHER</h2>
@@ -416,7 +417,7 @@
                       <h2>Chance of approval: LOWER</h2>
                       NO, I want to continue to search for the original amount requested and understand my chances of being funded are low.
                     </button>
-                  </div>  
+                  </div>
                 </div>
                 <input type="hidden" id="id_main_submit" name="main_submit" value="main-submit" />
                 {% for hidden in form.hidden_fields %}
