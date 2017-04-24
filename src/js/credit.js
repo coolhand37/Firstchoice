@@ -16,12 +16,9 @@ $(function () {
   $("input[name='zipcode']").val(getParameterByName("zipcode"));
 
   $("#submit").click(function (event) {
-    var url = "http://bhmtracker.com/click.track?CID=326342&AFID=366675&SID=cleanup";
+    var url = "http://www.bhmediatrack.com/cmp/2WNF9Q/2BCRGX/?SID=cleanup";
     url += "&firstname=" + encodeURIComponent($("input[name='first_name']").val());
     url += "&lastname=" + encodeURIComponent($("input[name='last_name']").val());
-    url += "&address=" + encodeURIComponent($("input[name='address']").val());
-    url += "&city=" + encodeURIComponent($("input[name='city']").val());
-    url += "&state=" + encodeURIComponent($("select[name='state']").val());
     url += "&zipcode=" + encodeURIComponent($("input[name='zipcode']").val());
     url += "&email=" + encodeURIComponent($("input[name='email']").val());
     window.location.href = url;
