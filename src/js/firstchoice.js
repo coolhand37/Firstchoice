@@ -53,21 +53,24 @@ $(function () {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   };
 
-  function processQueryString (e) {
-    var pairs = e.data.split('&');
-    var affid = '';
-    var subid = '';
+  var getParameterByName = function (name, path) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec("?" + path);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  };
 
-    $('#id_first_name').val(getParameterByName("fname"));
-    $('#id_last_name').val(getParameterByName("lname"));
-    $('#id_email').val(getParameterByName("email"));
-    $('#id_home_zipcode').val(getParameterByName("zip"));
-    $('#id_loan_amount_requested option[value="' + getParameterByName("loan") + '"]').attr('selected', 'selected');
+  function processQueryString (e) {
+    $('#id_first_name').val(getParameterByName("fname", e.data));
+    $('#id_last_name').val(getParameterByName("lname", e.data));
+    $('#id_email').val(getParameterByName("email", e.data));
+    $('#id_home_zipcode').val(getParameterByName("zip", e.data));
+    $('#id_loan_amount_requested option[value="' + getParameterByName("loan", e.data) + '"]').attr('selected', 'selected');
 
     // Initialize the form by getting the transaction token from the server.
-    var token = getParameterByName("r");
-    var affid = getParameterByName("affid");
-    var subid = getParameterByName("subid");
+    var token = getParameterByName("r", e.data);
+    var affid = getParameterByName("affid", e.data);
+    var subid = getParameterByName("subid", e.data);
     $("#id_id").val(affid);
 
     if (token == undefined || token == "") {
