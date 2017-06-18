@@ -1,3 +1,15 @@
+AWS.config.region = 'us-east-1';
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: 'us-east-1:3a6af8c5-6f8e-4aee-ad8a-9ae0ae09a3d4' //Amazon Cognito Identity Pool ID
+});
+
+var options = {
+  appId : '360f4ae0c23643f48d58c3531e5df63a',
+  appTitle : "FCPL"
+};
+
+var mobileAnalyticsClient = new AMA.Manager(options);
+
 $(function () {
 
   var unloadHandler = function (e) {
@@ -107,6 +119,29 @@ $(function () {
   $("#id_employer_start_date").val(randomDate());
   $("#id_home_start_date").val(randomDate());
 
+  if (token == undefined || token == "") {
+    var cid = $("#id_cid").val();
+    $.ajax({
+      url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
+      type: "GET",
+      dataType: "json",
+      data: {
+        "affid": affid,
+        "subid": subid
+      },
+      success: function (result) {
+        if (result && result.status == "success") {
+          $("#id_client_ip").val(result.ip);
+          $("#id_user_agent").val(result.user_agent);
+          $("#id_tid").val(result.tid);
+        }
+      }
+    });
+  }
+  else {
+    $("#id_tid").val(token);
+  }
+
   var form = $("#main-form");
   var validator = form.validate({
     errorClass: "error",
@@ -183,6 +218,11 @@ $(function () {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
+  // Signal that the main form was loaded.
+  mobileAnalyticsClient.recordEvent("Screen_Started", {
+    "Screen_Name": "One"
+  });
+
   // Move to the second screen.
   $('main').on('click', '.first-step-continue', function() {
     if (form.valid()) {
@@ -191,6 +231,11 @@ $(function () {
       $('.application-second-step').toggle();
       $('.bar-personal-info').toggleClass('active');
       $('.bar-employment-info').toggleClass('active');
+
+      // Signal that the second screen was loaded.
+      mobileAnalyticsClient.recordEvent("Screen_Started", {
+        "Screen_Name": "Two"
+      });
     }
     return false;
   });
@@ -246,6 +291,11 @@ $(function () {
       $('.application-third-step').toggle();
       $('.bar-employment-info').toggleClass('active');
       $('.bar-banking-info').toggleClass('active');
+
+      // Signal that the third screen was loaded.
+      mobileAnalyticsClient.recordEvent("Screen_Started", {
+        "Screen_Name": "Three"
+      });
     }
     return false;
   });
@@ -306,6 +356,11 @@ $(function () {
         $('.application-third-step').toggle();
         $('.application-processing-step').toggle();
         $("#id_main_submit").val("0");
+
+        // Signal that the submit was initiated.
+        mobileAnalyticsClient.recordEvent("Screen_Started", {
+          "Screen_Name": "Submit"
+        });
       }
       else {
         $('.pl-denial').toggle();
