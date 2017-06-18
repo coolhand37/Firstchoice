@@ -79,35 +79,6 @@ $(function () {
     $('#id_email').val(getParameterByName("email", e.data));
     $('#id_home_zipcode').val(getParameterByName("zip", e.data));
     $('#id_loan_amount_requested option[value="' + getParameterByName("loan", e.data) + '"]').attr('selected', 'selected');
-
-    // Initialize the form by getting the transaction token from the server.
-    var token = getParameterByName("r", e.data);
-    var affid = getParameterByName("affid", e.data);
-    var subid = getParameterByName("subid", e.data);
-    $("#id_id").val(affid);
-
-    if (token == undefined || token == "") {
-      var cid = $("#id_cid").val();
-      $.ajax({
-        url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
-        type: "GET",
-        dataType: "json",
-        data: {
-          "affid": affid,
-          "subid": subid
-        },
-        success: function (result) {
-          if (result && result.status == "success") {
-            $("#id_client_ip").val(result.ip);
-            $("#id_user_agent").val(result.user_agent);
-            $("#id_tid").val(result.tid);
-          }
-        }
-      });
-    }
-    else {
-      $("#id_tid").val(token);
-    }
   }
 
   if (window.addEventListener) {
