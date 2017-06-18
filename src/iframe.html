@@ -184,6 +184,17 @@
                     <label for="id_best_contact_time" class="error">{{ form.best_contact_time.errors }}</label>
                     {% endif %}
                   </div>
+                  <div class="field">
+                    <div class="label">
+                      {{ form.military.label_tag }}
+                    </div>
+                    <div class="input">
+                      {{ form.military }}
+                    </div>
+                    {% if form.military.errors %}
+                    <label for="id_military" class="error">{{ form.military.errors }}</label>
+                    {% endif %}
+                  </div>
                   <div class="form-submit">
                     <button class="form-button first-step-continue">Continue</button>
                   </div>
