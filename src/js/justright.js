@@ -1,18 +1,5 @@
 $(function () {
 
-  // Setup the AWS analytics.
-  AWS.config.region = 'us-east-1';
-  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: 'us-east-1:3a6af8c5-6f8e-4aee-ad8a-9ae0ae09a3d4'
-  });
-
-  var aws_options = {
-    appId : '60ef047bfa774665aafd3ab257d6b866',
-    appTitle : "Just Right"
-  };
-
-  var mobileAnalyticsClient = new AMA.Manager(aws_options);
-
   var randomDate = function () {
     var today  = new Date();
     var start  = new Date(2010, 0, 1);
@@ -227,22 +214,12 @@ $(function () {
     }
   });
 
-  // Signal that the main form was loaded.
-  mobileAnalyticsClient.recordEvent("Screen_Started", {
-    "Screen_Name": "One"
-  });
-
   var form = $("#oaform");
   $("#oaform").submit(function (event) {
     if (form.valid()) {
       $("html, body").animate({ scrollTop: 0 }, "slow");
       window.parent.postMessage("scroll", "*");
       $('body').addClass('loading');
-
-      // Signal that the submit was initiated.
-      mobileAnalyticsClient.recordEvent("Screen_Started", {
-        "Screen_Name": "Submit"
-      });
 
       // Before submitting, calcluate the next paydate.
       var paydate = moment(createDate("pay_date_next"));
