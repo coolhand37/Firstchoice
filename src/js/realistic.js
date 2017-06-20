@@ -1,14 +1,5 @@
 $(function () {
 
-  var unloadHandler = function (e) {
-    if ($(".bar-get-approved").hasClass("active")) {
-      var msg = "Refreshing will cancel your application, are you sure?";
-      e.returnValue = msg;
-      return msg;
-    }
-    e.preventDefault();
-  }
-
   var randomDate = function () {
     var today  = new Date();
     var start  = new Date(2010, 0, 1);
@@ -17,8 +8,6 @@ $(function () {
     var rtnval = moment(random);
     return rtnval.format("YYYY-MM-DD");
   }
-
-  window.addEventListener("beforeunload", unloadHandler);
 
   var checkResponse = function (url, options) {
     if (url != undefined && url != "") {
@@ -57,29 +46,26 @@ $(function () {
     return yr + "-" + mo + "-" + dy;
   };
 
-  function processQueryString (e) {
-    var pairs = e.data.split('&');
-    var affid = '';
-    var subid = '';
+  var getParameterByName = function (name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  };
 
-    for (var i = 0; i < pairs.length; i++) {
-      var s = pairs[i].split('=');
-      if (s[0] == 'fname' && $('#id_first_name').val() == '') {
-        $('#id_first_name').val(decodeURIComponent(s[1]));
-      }
-      else if (s[0] == 'lname' && $('#id_last_name').val() == '') {
-        $('#id_last_name').val(decodeURIComponent(s[1]));
-      }
-      else if (s[0] == 'email' && $('#id_email').val() == '') {
-        $('#id_email').val(s[1]);
-      }
-      else if (s[0] == 'zip' && $('#id_home_zipcode').val() == '') {
-        $('#id_home_zipcode').val(decodeURIComponent(s[1]));
-      }
-      else if (s[0] == 'loan') {
-        $('#id_loan_amount_requested option[value="' + decodeURIComponent(s[1]) + '"]').attr('selected', 'selected');
-      }
-    }
+  var getParameterByName = function (name, path) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec("?" + path);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  };
+
+  function processQueryString (e) {
+    $('#id_first_name').val(getParameterByName("fname", e.data));
+    $('#id_last_name').val(getParameterByName("lname", e.data));
+    $('#id_email').val(getParameterByName("email", e.data));
+    $('#id_home_zipcode').val(getParameterByName("zip", e.data));
+    $('#id_loan_amount_requested option[value="' + getParameterByName("loan", e.data) + '"]').attr('selected', 'selected');
   }
 
   if (window.addEventListener) {
@@ -306,11 +292,9 @@ $(function () {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
-                window.removeEventListener("beforeunload", unloadHandler);
                 window.parent.postMessage(submit.redirect, "*");
               },
               error: function (error, submit) {
-                window.removeEventListener("beforeunload", unloadHandler);
                 if (submit && submit.hasOwnProperty("redirect")) {
                   window.parent.postMessage(submit.redirect, "*");
                 }
@@ -322,7 +306,6 @@ $(function () {
           }
         },
         error: function (jqxhr, status, thrown) {
-          window.removeEventListener("beforeunload", unloadHandler);
           console.error(status);
           window.parent.postMessage("https://www.fcpersonalloans.com/creditscore.html", "*");
         }
