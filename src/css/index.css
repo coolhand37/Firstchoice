@@ -446,21 +446,30 @@ header.application-header {
 
 }
 
+/*original form
 .application-progressbar {
     padding: 10px;
     font-size: .7em;
     color: #828080;
+}*/ 
+
+.application-progressbar {
+    padding: 10px;
+    font-size: .7em;
+    color: darkgreen;
+    font-weight: bold;
 }
 
 .application-progressbar > div {
     display: inline-block;
 }
 
+/*original form
 .application-progressbar .active {
     color: darkgreen;
     font-weight: bold;
     font-size: 1.4em;
-}
+}*/
 
 .progressbar-text {
     display: inline-block;
@@ -551,7 +560,7 @@ header.application-header {
 }
 
 .next-steps-continue {
-    text-align: right;
+    text-align: center;
     width: 38%;
 }
 
@@ -779,6 +788,7 @@ header.application-header {
                 Media Points
 ************************************************/
 @media (max-width: 400px) {
+
     .application-progressbar {
         font-size: .55em;
     }
@@ -1009,8 +1019,15 @@ header.application-header {
         padding: 20px;
     }
 
+    .application-form h2 {
+        text-align: left;
+        padding-left: 10px;
+    }
+
     .application-form h3 {
         padding: 20px;
+        padding-left: 10px; /*full form*/
+        text-align: left; /*full form*/
     }
 
     .application-progressbar {
@@ -1018,6 +1035,7 @@ header.application-header {
         position: absolute;
         top: 30px;
         right: 0;
+        font-size: 1.1em; /*full form*/
     }
 
     .application-progressbar > div {
@@ -1072,7 +1090,7 @@ header.application-header {
         font-size: 2.2em;
     }
 
-    .field {
+    .pre-form .field {
         width: 170px;
         display: inline-block;
     }
@@ -1081,6 +1099,16 @@ header.application-header {
         width: 650px;
     }
 
+    .paydate { /*full form*/
+        text-align: left;
+        width: 100%;
+    }
+
+    .paydate-label { /*full form*/
+        width: 48%;
+    }
+
+    /* original form 
     .application .field {
         width: 97%;
         margin: 0;
@@ -1112,19 +1140,21 @@ header.application-header {
 
     .next-steps {
         width: 75%;
-    }
+    }*/
 
     .credit-linkout {
         padding: 5px;
         font-size: .65em;
     }
 
+    /*original form
     .application .credit-label > div {
         display: block;
-    }
+    }*/
 
     .application .credit-linkout {
-        padding-left: 0;
+        /*padding-left: 0; original form*/
+        padding-left: 20px;
     }
 
 
