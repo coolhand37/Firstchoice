@@ -65,6 +65,8 @@ $(function () {
   $("input[name='phone_home']").mask("(000) 000-0000");
   $("input[name='phone_work']").mask("(000) 000-0000");
   $("input[name='ssn']").mask("000-00-0000");
+  $("input[name='home_zipcode']").mask("00000");
+  $("input[name='employer_zipcode']").mask("00000");
 
   var tmp_amount = getParameterByName("amount");
   if (tmp_amount == "") {
@@ -92,6 +94,10 @@ $(function () {
     return this.optional(element) || value != $(param).val();
   }, "Matches home phone");
 
+  jQuery.validator.addMethod("zipcode", function(value, element) {
+    return this.optional(element) || /^\d{5}(?:-\d{4})?$/.test(value);
+  }, "Please provide a valid zip code.");
+
   // Disable the submit button if the consent box is not checked.
   $(".consent").change(function () {
     var submit_btn = $("button.form-button.third-step-continue");
@@ -111,10 +117,16 @@ $(function () {
   var validator = form.validate({
     errorClass: "error",
     validClass: "success",
+    groups: {
+      pay_date_next: "pay_date_next_year pay_date_next_month pay_date_next_day",
+      dob: "dob_year dob_month dob_day"
+    },
     errorPlacement: function (error, element) {
       error.appendTo(element.parents(".field"));
     },
     rules: {
+      home_zipcode: { required: true, zipcode: true },
+      employer_zipcode: { required: true, zipcode: true },
       email: { required: true, email: true },
       phone_home: { required: true, phone: true },
       phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
@@ -138,7 +150,10 @@ $(function () {
       first_name: "Required",
       last_name: "Required",
       home_address_1: "Required",
-      home_zipcode: "Required",
+      home_zipcode: {
+        required: "Required",
+        zipcode: "Invalid format"
+      },
       home_type: "Required",
       email: {
         required: "Required",
@@ -154,7 +169,10 @@ $(function () {
         phoneWork: "Cannot match home phone"
       },
       employer_address_1: "Required",
-      employer_zipcode: "Required",
+      employer_zipcode: {
+        required: "Required",
+        zipcode: "Invalid format"
+      },
       pay_frequency: "Required",
       pay_date_next_year: "Required",
       pay_date_next_month: "Required",
