@@ -72,8 +72,8 @@
                       <select name="loan_amount_requested" required>
                         <option value="300">$100-$500</option>
                         <option value="500">$501-$1000</option>
-                        <option value="1000">$1001-$2,500</option>
-                        <option value="2500">$2,501-$5,000</option>
+                        <option value="2500">$1,001-$2,500</option>
+                        <option value="3500">$2,501-$5,000</option>
                         <option value="5000">$5,001-$10,000</option>
                         <option value="10000">$10,001-$15,000</option>
                         <option value="15000">more than $15,001</option>
@@ -135,7 +135,7 @@
                       <label>Zip Code</label>
                     </div>
                     <div class="input">
-                      <input name="home_zipcode" type="text" maxlength="5" required></input>
+                      <input name="home_zipcode" type="tel" pattern="[0-9]*" maxlength="5" required></input>
                     </div>
                   </div>
                   <div class="field">
@@ -155,7 +155,7 @@
                       <label>Email</label>
                     </div>
                     <div class="input">
-                      <input name="email" type="text" maxlength="64" required></input>
+                      <input name="email" type="email" maxlength="64" required></input>
                     </div>
                   </div>
                   <div class="field">
@@ -163,7 +163,7 @@
                       <label>Primary Phone</label>
                     </div>
                     <div class="input">
-                      <input name="phone_home" type="text" maxlength="16" required></input>
+                      <input name="phone_home" type="tel" maxlength="16" required></input>
                     </div>
                   </div>
                   <div class="field">
@@ -248,7 +248,7 @@
                       <label>Employer Phone</label>
                     </div>
                     <div class="input">
-                      <input name="phone_work" type="text" maxlength="16" required></input>
+                      <input name="phone_work" type="tel" maxlength="16" required></input>
                     </div>
                   </div>
                   <div class="field">
@@ -272,7 +272,7 @@
                       <label>Zip Code</label>
                     </div>
                     <div class="input">
-                      <input name="employer_zipcode" type="text" maxlength="5" required></input>
+                      <input name="employer_zipcode" type="tel" pattern="[0-9]*" maxlength="5" required></input>
                     </div>
                   </div>
                   <div class="field">
@@ -296,7 +296,7 @@
                     <div class="input">
                       <div class="three-field-format paydate-label">
                         <select name="pay_date_next_month" required>
-                          <option value="0">Month</option>
+                          <option value="">Month</option>
                           <option value="01">January</option>
                           <option value="02">February</option>
                           <option value="03">March</option>
@@ -311,7 +311,7 @@
                           <option value="12">December</option>
                         </select>
                         <select name="pay_date_next_day" required>
-                          <option value="0">Day</option>
+                          <option value="">Day</option>
                           <option value="01">1</option>
                           <option value="02">2</option>
                           <option value="03">3</option>
@@ -345,7 +345,7 @@
                           <option value="31">31</option>
                         </select>
                         <select name="pay_date_next_year" required>
-                          <option value="0">Year</option>
+                          <option value="">Year</option>
                           <option value="2017">2017</option>
                           <option value="2018">2018</option>
                         </select>
@@ -384,7 +384,7 @@
                       <label>ABA/Routing number</label>
                     </div>
                     <div class="input">
-                      <input name="bank_aba" type="text" maxlength="9" required></input>
+                      <input name="bank_aba" type="tel" pattern="[0-9]*" maxlength="9" required></input>
                     </div>
                   </div>
                   <div class="field">
@@ -402,7 +402,7 @@
                       <label>Social Security Number</label>
                     </div>
                     <div class="input">
-                      <input name="ssn" type="text" maxlength="11" required></input>
+                      <input name="ssn" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" maxlength="11" required></input>
                     </div>
                   </div>
                   <div class="field">
@@ -481,7 +481,7 @@
                     <div class="input">
                       <div class="three-field-format">
                         <select name="dob_month" required>
-                          <option value="00">Month</option>
+                          <option value="">Month</option>
                           <option value="01">January</option>
                           <option value="02">February</option>
                           <option value="03">March</option>
@@ -496,7 +496,7 @@
                           <option value="12">December</option>
                         </select>
                         <select name="dob_day" required>
-                          <option value="0">Day</option>
+                          <option value="">Day</option>
                           <option value="01">1</option>
                           <option value="02">2</option>
                           <option value="03">3</option>
@@ -530,7 +530,7 @@
                           <option value="31">31</option>
                         </select>
                         <select name="dob_year" required>
-                          <option value="0">Year</option>
+                          <option value="">Year</option>
                           <option value="2016">2016</option>
                           <option value="2015">2015</option>
                           <option value="2014">2014</option>
@@ -643,7 +643,7 @@
                   </div>
                   <div class="form-submit next-steps">
                     <div class="next-steps-continue">
-                      <button type="submit" class="form-button third-step-continue">Submit</button>
+                      <button id="main-submit" type="submit" class="form-button third-step-continue">Submit</button>
                     </div>
                   </div>
                   <hr>
@@ -666,16 +666,16 @@
                   </div>
                 </div>
                 <div class="pl-denial hidden">
-                  <h2><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Before we continue to process your laon requst please note:</span> Based on analysis of your profile and lending criteria it is going to be very difficult to find a lender willing to fund your requested loan amount.</h2>
+                  <h2><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span>Before we continue to process your loan request please note:</span> Based on analysis of your profile and lending criteria it is going to be very difficult to find a lender willing to fund your requested loan amount.</h2>
                   <h1 class="good-news">The good news, based on your profile you are eligible for a short-term loan product up to $1,000.</h1>
                   <div class="chance-approval high-chance">
-                    <button>
+                    <button id="tier1-submit" type="submit">
                       <h2>Chance of approval: HIGHER</h2>
                       YES, I want to continue the loan request process with the opportunity to get approved for a short-term loan up to $1,000.
                     </button>
                   </div>
                   <div class="chance-approval low-chance">
-                    <button>
+                    <button id="tier0-submit" type="submit">
                       <h2>Chance of approval: LOWER</h2>
                       NO, I want to continue to search for the original amount requested and understand my chances of being funded are low.
                     </button>
