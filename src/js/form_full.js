@@ -9,6 +9,15 @@ $(function () {
     e.preventDefault();
   }
 
+  var randomDate = function () {
+    var today  = new Date();
+    var start  = new Date(2010, 0, 1);
+    var end    = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+    var random = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    var rtnval = moment(random);
+    return rtnval.format("YYYY-MM-DD");
+  }
+
   window.addEventListener("beforeunload", unloadHandler);
 
   var checkResponse = function (url, options) {
@@ -16,8 +25,7 @@ $(function () {
       $.ajax({
         url: url,
         type: "GET",
-        dataType: "jsonp",
-        jsonp: "callback",
+        dataType: "json",
         success: function (results) {
           if (results != undefined && results.status == "success") {
             if (options.success) {
@@ -95,6 +103,10 @@ $(function () {
     }
   });
 
+  $("#id_bank_start_date").val(randomDate());
+  $("#id_employer_start_date").val(randomDate());
+  $("#id_home_start_date").val(randomDate());
+
   var form = $("#main-form");
   var validator = form.validate({
     errorClass: "error",
@@ -110,9 +122,8 @@ $(function () {
       bank_aba: {
         required: true,
         remote: {
-          url: "https://offerannex.herokuapp.com/helpers/validate/bankaba",
+          url: "https://offerannex.herokuapp.com/worker/validate/bankaba",
           type: "GET",
-          dataType: "jsonp",
           data: {
             aba: function () {
               return $("input[name='bank_aba']").val();
@@ -257,8 +268,8 @@ $(function () {
     var cid = $("#id_cid").val();
     $.ajax({
       url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
-      jsonp: "callback",
-      dataType: "jsonp",
+      type: "GET",
+      dataType: "json",
       data: {
         "affid": affid,
         "subid": subid
@@ -276,16 +287,70 @@ $(function () {
     $("#id_tid").val(token);
   }
 
+  $("#tier1-submit").click(function () {
+    $("#id_main_submit").val("tier1-submit");
+  });
+
+  $("#tier0-submit").click(function () {
+    $("#id_main_submit").val("tier0-submit");
+  });
+
   $("#main-form").submit(function (event) {
     if (form.valid()) {
+      var paydate = moment(createDate("pay_date_next"));
+      var freq    = $("select[name='pay_frequency']").val();
+      var nextpay = paydate;
+
+      // Make sure the paydate is in the future.
+      if (paydate.isBefore()) {
+        validator.showErrors({ "pay_date_next_year": "Invalid pay date" });
+        return false;
+      }
+
+      if (freq == "W") {
+        nextpay = paydate.add(1, "w");
+      }
+      else if (freq == "B") {
+        nextpay = paydate.add(2, "w");
+      }
+      else if (freq == "M") {
+        nextpay = paydate.add(1, "M");
+      }
+      else {
+        nextpay = paydate.add(15, "d");
+      }
+
+      // Now make sure the date doesn't fall on a weekend.
+      if (nextpay.isoWeekday() == 6) {
+        nextpay = nextpay.subtract(1, "d");
+      }
+      else if (nextpay.isoWeekday() == 7) {
+        nextpay = nextpay.add(1, "d");
+      }
+
+      var submitBtn = $("#id_main_submit").val();
       $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.application-third-step').toggle();
-      $('.application-processing-step').toggle();
       $('.bar-banking-info').toggleClass('active');
       $('.bar-get-approved').toggleClass('active');
 
+      if (submitBtn == "main-submit") {
+        $('.application-first-step').toggle();
+        $('.application-second-step').toggle();
+        $('.application-third-step').toggle();
+        $('.application-processing-step').toggle();
+        $("#id_main_submit").val("0");
+      }
+      else {
+        $('.pl-denial').toggle();
+        $('.application-processing-step').toggle();
+      }
+
       // Start the progress bar animation.
       $(".progress-circle").circleProgress("value", 1.0);
+      $(".progress-circle").circleProgress("startAngle", 3 * (Math.PI/2));
+
+      // We need to figure out which tier to run this lead against.
+      var tier = 1;
 
       // Convert the form elements into JSON to be posted to the backend.
       var items = $(this).serializeArray();
@@ -310,22 +375,54 @@ $(function () {
         }
       });
 
+      // Figure out which buyer tier this lead needs to be processed with.
+      var amount = parseInt($("select[name='loan_amount_requested']").val());
+      if (amount >= 1000 && submitBtn == "main-submit") {
+        tier = 2;
+      }
+      else if (submitBtn == "tier1-submit") {
+        rtnval["loan_amount_requested"] = 800;
+        tier = 1;
+      }
+      else if (submitBtn == "tier0-submit") {
+        rtnval["loan_amount_requested"] = 800;
+        tier = 0;
+      }
+      rtnval["tier"] = tier;
+
       // Now build up the dob and pay_date_next fields.
       rtnval.dob = createDate("dob");
       rtnval.pay_date_next = createDate("pay_date_next");
+      rtnval.pay_date_second_next = nextpay.format("YYYY-MM-DD");
 
       $.ajax({
         url: "https://offerannex.herokuapp.com/worker/campaign/submit",
         data: rtnval,
         type: "POST",
-        dataType: "jsonp",
+        dataType: "json",
         crossDomain: true,
         success: function (result) {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
-                window.removeEventListener("beforeunload", unloadHandler);
-                window.location.href = submit.redirect;
+                if (tier == 2 && submit.status != "A") {
+                  //
+                  // The user requested more than $1k and was declined. Before serving
+                  // them the decline link, we'll offer them the chance to go for a
+                  // lower loan amount.
+                  //
+                  $("html, body").animate({ scrollTop: 0 }, "slow");
+                  $('.application-processing-step').toggle();
+                  $('.pl-denial').toggle();
+                }
+                else {
+                  //
+                  // The user requested less than $1k or was accepted, so we'll serve
+                  // them the decline link that was provided.
+                  //
+                  window.removeEventListener("beforeunload", unloadHandler);
+                  window.location.href = submit.redirect;
+                }
               },
               error: function (error, submit) {
                 window.removeEventListener("beforeunload", unloadHandler);
@@ -339,8 +436,10 @@ $(function () {
             alert("Something went wrong while processing your application. Please try resubmitting.");
           }
         },
-        error: function (e) {
-          console.error(e);
+        error: function (jqxhr, status, thrown) {
+          window.removeEventListener("beforeunload", unloadHandler);
+          console.error(status);
+          window.location.href = "/creditscore.html";
         }
       });
     }
