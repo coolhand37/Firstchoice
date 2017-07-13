@@ -201,81 +201,6 @@ $(function () {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
-  // Move to the second screen.
-  $('main').on('click', '.first-step-continue', function() {
-    if (form.valid()) {
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.application-first-step').toggle();
-      $('.application-second-step').toggle();
-      $('.bar-personal-info').toggleClass('active');
-      $('.bar-employment-info').toggleClass('active');
-    }
-    return false;
-  });
-
-  // Move back to the first screen.
-  $('main').on('click', '.employment-back', function() {
-    $('.application-second-step').toggle();
-    $('.application-first-step').toggle();
-    $('.bar-personal-info').toggleClass('active');
-    $('.bar-employment-info').toggleClass('active');
-  });
-
-  // Move to the third screen.
-  $('main').on('click', '.second-step-continue', function() {
-    if (form.valid()) {
-      //
-      // Before showing the second screen, calculate the second pay date.
-      //
-      var paydate = moment(createDate("pay_date_next"));
-      var freq    = $("select[name='pay_frequency']").val();
-      var nextpay = paydate;
-
-      // Make sure the paydate is in the future.
-      if (paydate.isBefore()) {
-        validator.showErrors({ "pay_date_next_year": "Invalid pay date" });
-        return false;
-      }
-
-      if (freq == "W") {
-        nextpay = paydate.add(1, "w");
-      }
-      else if (freq == "B") {
-        nextpay = paydate.add(2, "w");
-      }
-      else if (freq == "M") {
-        nextpay = paydate.add(1, "M");
-      }
-      else {
-        nextpay = paydate.add(15, "d");
-      }
-
-      // Now make sure the date doesn't fall on a weekend.
-      if (nextpay.isoWeekday() == 6) {
-        nextpay = nextpay.subtract(1, "d");
-      }
-      else if (nextpay.isoWeekday() == 7) {
-        nextpay = nextpay.add(1, "d");
-      }
-
-      $("input[name='pay_date_second_next']").val(nextpay.format("YYYY-MM-DD"));
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.application-second-step').toggle();
-      $('.application-third-step').toggle();
-      $('.bar-employment-info').toggleClass('active');
-      $('.bar-banking-info').toggleClass('active');
-    }
-    return false;
-  });
-
-  // Move back to the second screen.
-  $('main').on('click', '.banking-back', function() {
-    $('.application-third-step').toggle();
-    $('.application-second-step').toggle();
-    $('.bar-employment-info').toggleClass('active');
-    $('.bar-banking-info').toggleClass('active');
-  });
-
   // Initialize the form by getting the transaction token from the server.
   var token = getParameterByName("r");
   var affid = getParameterByName("affid");
@@ -348,15 +273,13 @@ $(function () {
 
       var submitBtn = $("#id_main_submit").val();
       $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.bar-banking-info').toggleClass('active');
-      $('.bar-get-approved').toggleClass('active');
 
       if (submitBtn == "main-submit") {
+        $("#id_main_submit").val("0");
         $('.application-first-step').toggle();
         $('.application-second-step').toggle();
         $('.application-third-step').toggle();
         $('.application-processing-step').toggle();
-        $("#id_main_submit").val("0");
       }
       else {
         $('.pl-denial').toggle();
