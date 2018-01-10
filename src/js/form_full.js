@@ -1,3 +1,15 @@
+AWS.config.region = 'us-east-1';
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: 'us-east-1:3a6af8c5-6f8e-4aee-ad8a-9ae0ae09a3d4' //Amazon Cognito Identity Pool ID
+});
+
+var options = {
+  appId : '360f4ae0c23643f48d58c3531e5df63a',
+  appTitle : "FCPL"
+};
+
+var mobileAnalyticsClient = new AMA.Manager(options);
+
 $(function () {
 
   var unloadHandler = function (e) {
@@ -201,6 +213,11 @@ $(function () {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
+  // Signal that the main form was loaded.
+  mobileAnalyticsClient.recordEvent("Screen_Started", {
+    "Screen_Name": "One"
+  });
+
   // Move to the second screen.
   $('main').on('click', '.first-step-continue', function() {
     if (form.valid()) {
@@ -357,6 +374,11 @@ $(function () {
         $('.application-third-step').toggle();
         $('.application-processing-step').toggle();
         $("#id_main_submit").val("0");
+
+        // Signal that the submit was initiated.
+        mobileAnalyticsClient.recordEvent("Screen_Started", {
+          "Screen_Name": "Submit"
+        });
       }
       else {
         $('.pl-denial').toggle();
