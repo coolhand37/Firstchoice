@@ -1,4 +1,31 @@
+AWS.config.region = 'us-east-1';
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: 'us-east-1:3a6af8c5-6f8e-4aee-ad8a-9ae0ae09a3d4' //Amazon Cognito Identity Pool ID
+});
+
+var options = {
+  appId : '60ef047bfa774665aafd3ab257d6b866',
+  appTitle : "Just Right"
+};
+
+var mobileAnalyticsClient = new AMA.Manager(options);
+
+function popitup (url) {
+  newwindow=window.open(url,'name','height=800,width=600');
+  if (window.focus) {newwindow.focus()}
+  return false;
+}
+
 $(function () {
+
+  var unloadHandler = function (e) {
+    if ($(".bar-get-approved").hasClass("active")) {
+      var msg = "Refreshing will cancel your application, are you sure?";
+      e.returnValue = msg;
+      return msg;
+    }
+    e.preventDefault();
+  }
 
   var randomDate = function () {
     var today  = new Date();
@@ -8,6 +35,8 @@ $(function () {
     var rtnval = moment(random);
     return rtnval.format("YYYY-MM-DD");
   }
+
+  window.addEventListener("beforeunload", unloadHandler);
 
   var checkResponse = function (url, options) {
     if (url != undefined && url != "") {
@@ -41,18 +70,13 @@ $(function () {
     var yr = $("select[name='"+prefix+"_year']").val();
     var mo = $("select[name='"+prefix+"_month']").val();
     var dy = $("select[name='"+prefix+"_day']").val();
-    if (mo.length == 1) mo = "0" + mo;
-    if (dy.length == 1) dy = "0" + dy;
+    if (yr.length == 1) yr = '0'+yr;
+    if (mo.length == 1) mo = '0'+mo;
+    if (dy.length == 1) dy = '0'+dy;
     return yr + "-" + mo + "-" + dy;
   };
 
-  var getParameterByName = function (name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-      results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-  };
-
+  /** The items between these comments are required for iframe processing **/
   var getParameterByName = function (name, path) {
     name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -60,26 +84,39 @@ $(function () {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   };
 
+  // This function gets called when we receive a message from the parent.
   function processQueryString (e) {
     $('#id_first_name').val(getParameterByName("fname", e.data));
     $('#id_last_name').val(getParameterByName("lname", e.data));
     $('#id_email').val(getParameterByName("email", e.data));
     $('#id_home_zipcode').val(getParameterByName("zip", e.data));
-    $('#id_loan_amount_requested option[value="' + getParameterByName("loan", e.data) + '"]').attr('selected', 'selected');
+
+    var loan_amount = getParameterByName("loan", e.data);
+    if (loan_amount == "") {
+      $("select[name='loan_amount_requested']").val("300");
+    }
+    else {
+      $('#id_loan_amount_requested option[value="' + loan_amount + '"]').attr('selected', 'selected');
+    }
   }
 
+  // This handles receiving messages from the parent.
   if (window.addEventListener) {
     window.addEventListener("message", processQueryString, false);
   }
   else if (window.attachEvent) {
     window.attachEvent('onmessage', processQueryString);
   }
+  /** **/
 
+  // This sets the input mask for certain elements.
   $("input[name='phone_home']").mask("(000) 000-0000");
   $("input[name='phone_work']").mask("(000) 000-0000");
   $("input[name='ssn']").mask("000-00-0000");
+  $("input[name='home_zipcode']").mask("00000");
+  $("input[name='employer_zipcode']").mask("00000");
 
-  $("select[name='loan_amount_requested']").val("300");
+  // This intializes the form
   $("select[name='credit']").val("0");
 
   jQuery.validator.addMethod("phone", function (value, element) {
@@ -94,9 +131,9 @@ $(function () {
     return this.optional(element) || value != $(param).val();
   }, "Matches home phone");
 
-  jQuery.validator.addMethod("datefield", function (value, element) {
-    return this.optional(element) || value != 0;
-  }, "Required");
+  jQuery.validator.addMethod("zipcode", function(value, element) {
+    return this.optional(element) || /^\d{5}(?:-\d{4})?$/.test(value);
+  }, "Please provide a valid zip code.");
 
   // Disable the submit button if the consent box is not checked.
   $(".consent").change(function () {
@@ -109,6 +146,7 @@ $(function () {
     }
   });
 
+  // Create random dates for the following fields.
   $("#id_bank_start_date").val(randomDate());
   $("#id_employer_start_date").val(randomDate());
   $("#id_home_start_date").val(randomDate());
@@ -127,22 +165,6 @@ $(function () {
       $(element).parent(".form-group").removeClass(errorClass).addClass(validClass);
     },
     rules: {
-      email: { required: true, email: true },
-      phone_home: { required: true, phone: true },
-      phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
-      ssn: { required: true, ssn: true },
-      bank_aba: {
-        required: true,
-        remote: {
-          url: "/worker/validate/bankaba",
-          type: "GET",
-          data: {
-            aba: function () {
-              return $("input[name='bank_aba']").val();
-            }
-          }
-        }
-      },
       home_zipcode: {
         required: true,
         remote: {
@@ -167,12 +189,28 @@ $(function () {
           }
         }
       },
-      pay_date_next_year: { required: true, datefield: true },
-      pay_date_next_month: { required: true, datefield: true },
-      pay_date_next_day: { required: true, datefield: true },
-      dob_year: { required: true, datefield: true },
-      dob_month: { required: true, datefield: true },
-      dob_day: { required: true, datefield: true }
+      email: { required: true, email: true },
+      phone_home: { required: true, phone: true },
+      phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
+      ssn: { required: true, ssn: true },
+      bank_aba: {
+        required: true,
+        remote: {
+          url: "/worker/validate/bankaba",
+          type: "GET",
+          data: {
+            aba: function () {
+              return $("input[name='bank_aba']").val();
+            }
+          }
+        }
+      },
+      pay_date_next_year: { required: true },
+      pay_date_next_month: { required: true },
+      pay_date_next_day: { required: true },
+      dob_year: { required: true },
+      dob_month: { required: true },
+      dob_day: { required: true }
     },
     messages: {
       loan_amount_requested: "Required",
@@ -180,7 +218,10 @@ $(function () {
       first_name: "Required",
       last_name: "Required",
       home_address_1: "Required",
-      home_zipcode: "Required",
+      home_zipcode: {
+        required: "Required",
+        zipcode: "Invalid format"
+      },
       home_type: "Required",
       email: {
         required: "Required",
@@ -196,7 +237,10 @@ $(function () {
         phoneWork: "Cannot match home phone"
       },
       employer_address_1: "Required",
-      employer_zipcode: "Required",
+      employer_zipcode: {
+        required: "Required",
+        zipcode: "Invalid format"
+      },
       pay_frequency: "Required",
       pay_date_next_year: "Required",
       pay_date_next_month: "Required",
@@ -214,14 +258,26 @@ $(function () {
     }
   });
 
+  $(".progress-circle").circleProgress({
+    value: 0.0,
+    fill: "#099246",
+    size: 156,
+    thickness: 16,
+    startAngle: 3 * (Math.PI/2),
+    animation: { duration: 200000, easing: "linear" }
+  }).on("circle-animation-progress", function (event, progress) {
+    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
+  });
+
+  // Signal that the main form was loaded.
+  mobileAnalyticsClient.recordEvent("Screen_Started", {
+    "Screen_Name": "One"
+  });
+
   var form = $("#oaform");
   $("#oaform").submit(function (event) {
+    event.preventDefault();
     if (form.valid()) {
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      window.parent.postMessage("scroll", "*");
-      $('body').addClass('loading');
-
-      // Before submitting, calcluate the next paydate.
       var paydate = moment(createDate("pay_date_next"));
       var freq    = $("select[name='pay_frequency']").val();
       var nextpay = paydate;
@@ -253,7 +309,20 @@ $(function () {
         nextpay = nextpay.add(1, "d");
       }
 
-      $("input[name='pay_date_second_next']").val(nextpay.format("YYYY-MM-DD"));
+      $('.application-form').addClass('hidden');
+      $('.application-processing-step').removeClass('hidden');
+
+      // Signal that the submit was initiated.
+      mobileAnalyticsClient.recordEvent("Screen_Started", {
+        "Screen_Name": "Submit"
+      });
+
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      window.parent.postMessage("scroll", "*");
+
+      // Start the progress bar animation.
+      $(".progress-circle").circleProgress("value", 1.0);
+      $(".progress-circle").circleProgress("startAngle", 3 * (Math.PI/2));
 
       // Convert the form elements into JSON to be posted to the backend.
       var items = $(this).serializeArray();
@@ -281,6 +350,7 @@ $(function () {
       // Now build up the dob and pay_date_next fields.
       rtnval.dob = createDate("dob");
       rtnval.pay_date_next = createDate("pay_date_next");
+      rtnval.pay_date_second_next = nextpay.format("YYYY-MM-DD");
 
       $.ajax({
         url: "/worker/campaign/submit",
@@ -314,7 +384,6 @@ $(function () {
     else {
       alert("Please make sure you filled all of the required fields in.");
     }
-    event.preventDefault();
   });
 
 });

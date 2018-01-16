@@ -56,15 +56,6 @@ i {
 }
 
 /*********************************************
-    Layout
-**********************************************/
-
-.panel > div {
-    text-align: center;
-    position: relative;
-}
-
-/*********************************************
     Components
 **********************************************/
 
@@ -127,35 +118,8 @@ header.application-header {
     cursor: help;
 }
 
-.application-form form {
-    border: 1px solid #e3e3e3;
-    border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    background-color: white;
-
-}
-
-.application-form h3 {
-    font-size: .85em;
-    padding: 10px;
-}
-
-.application-form h2 {
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    font-weight: normal;
-}
-
 .siteseal {
     padding: 15px;
-}
-
-.application-form hr {
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-width: 1px 0 0 0;
 }
 
 .input {
@@ -289,6 +253,7 @@ header.application-header {
 .application-processing-step {
     padding-top: 40px;
     padding-bottom: 100px;
+    text-align: center;
 }
 
 .application-processing-step h1 {
@@ -411,10 +376,6 @@ header.application-header {
         font-size: .9em;
     }
 
-    .application-form h3 {
-        font-size: 1.6em;
-    }
-
     .chance-approval > button {
     width: 350px;
     }
@@ -520,10 +481,6 @@ header.application-header {
         padding: 20px;
     }
 
-    .application-form h3 {
-        padding: 20px;
-    }
-
 /*    .application-progressbar {
         width: 250px;
         position: absolute;
@@ -574,11 +531,6 @@ header.application-header {
     .field {
         width: 170px;
         display: inline-block;
-    }
-
-    .application-form form {
-        width: 650px;
-        margin: auto;
     }
 
     .application .field {
@@ -654,10 +606,6 @@ header.application-header {
    .application-header > div, .application > div {
         width: 1170px;
         margin: auto;
-    }
-
-    .application-form form {
-        width: 780px;
     }
 
     .application-progressbar {
@@ -774,4 +722,17 @@ input.success, select.success {
 }
 .alert-danger .alert-link {
   color: #843534;
+}
+.three-field-format select {
+  width: 32.5%;
+  display: inline-block;
+}
+.seldate {
+  display: inline;
+  width: 32%;
+}
+.btn-justright {
+  color: #fff;
+  background-color: #0997d5;
+  border-color: #006591;
 }

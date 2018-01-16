@@ -5,24 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <link rel="stylesheet" href="{% static "fonts/font-awesome/font-awesome.css" %}">
     <link rel="stylesheet" href="{% static "styles/bootstrap.min.css" %}">
-    <style type="text/css">
-      .three-field-format select { width: 32.5%; display: inline-block; }
-      .seldate { display: inline; width: 32%; }
-      span.error { font-weight: bold; color: #F00; }
-      body.loading { overflow: hidden; }
-      .modal {
-          display: none;
-          position: fixed;
-          z-index: 1000;
-          top: 0;
-          left: 0;
-          height: 100%;
-          width: 100%;
-          background: rgba(255, 255, 255, .8)
-                      no-repeat;
-      }
-      body.loading .modal { display: block; }
-    </style>
+    <!-- build:css /css/justright.css -->
+    <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="css/justright.css">
+    <!-- endbuild -->
     <script type="text/javascript">window._trackJs = { token: '2978d2ae3758479f828b5b18cf3c4c5e' };</script>
     <script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js" crossorigin></script>
   </head>
@@ -36,450 +23,452 @@
       </div>
       {% endif %}
 
-      <form name="oaform" id="oaform" method="post" action="" role="form">
-        <div class="row">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                1. Customer Information&nbsp;&nbsp;
-                <span data-toggle="tooltip" data-placement="bottom" title="Our lenders use your address to locate a branch near you. They will also validate your address to help speed your paperwork along."><span class="glyphicon glyphicon-question-sign"></span></span>
-              </h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group {% if form.loan_amount_requested.errors %}has-error{% endif %}">
-                    {{ form.loan_amount_requested.label_tag }}
-                    <select name="loan_amount_requested" id="id_loan_amount_requested" class="form-control required">
-                      <option value="">Select a loan amount</option>
-                      <option value="200" {% if form.loan_amount_requested.value == "200" %}selected{% endif %}>$200 or less</option>
-                      <option value="300" {% if form.loan_amount_requested.value == "300" %}selected{% endif %}>$300</option>
-                      <option value="400" {% if form.loan_amount_requested.value == "400" %}selected{% endif %}>$400</option>
-                      <option value="500" {% if form.loan_amount_requested.value == "500" %}selected{% endif %}>$500</option>
-                      <option value="600" {% if form.loan_amount_requested.value == "600" %}selected{% endif %}>$600</option>
-                      <option value="700" {% if form.loan_amount_requested.value == "700" %}selected{% endif %}>$700</option>
-                      <option value="800" {% if form.loan_amount_requested.value == "800" %}selected{% endif %}>$800</option>
-                      <option value="900" {% if form.loan_amount_requested.value == "900" %}selected{% endif %}>$900</option>
-                      <option value="1000" {% if form.loan_amount_requested.value == "1000" %}selected{% endif %}>$1000</option>
-                      <option value="2000" {% if form.loan_amount_requested.value == "2000" %}selected{% endif %}>$1,000 - $2,000</option>
-                      <option value="5000" {% if form.loan_amount_requested.value == "5000" %}selected{% endif %}>$2,000 - $5,000</option>
-                      <option value="10000" {% if form.loan_amount_requested.value == "10000" %}selected{% endif %}>$5,000 - $10,000</option>
-                      <option value="20000" {% if form.loan_amount_requested.value == "20000" %}selected{% endif %}>$10,000 - $20,000</option>
-                      <option value="35000" {% if form.loan_amount_requested.value == "35000" %}selected{% endif %}>$20,000 - $35,000</option>
-                    </select>
-                    {% if form.loan_amount_requested.errors %}
-                    <span for="id_loan_amount_requested" class="help-block">{{ form.loan_amount_requested.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
+      <div class="application-form">
+        <form action="" id="oaform">
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  1. Customer Information&nbsp;&nbsp;
+                  <span data-toggle="tooltip" data-placement="bottom" title="Our lenders use your address to locate a branch near you. They will also validate your address to help speed your paperwork along."><span class="glyphicon glyphicon-question-sign"></span></span>
+                </h3>
               </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.first_name.errors %}has-error{% endif %}">
-                    {{ form.first_name.label_tag }}
-                    {{ form.first_name }}
-                    {% if form.first_name.errors %}
-                    <span for="id_first_name" class="help-block">{{ form.first_name.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.last_name.errors %}has-error{% endif %}">
-                    {{ form.last_name.label_tag }}
-                    {{ form.last_name }}
-                    {% if form.last_name.errors %}
-                    <span for="id_last_name" class="help-block">{{ form.last_name.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.home_address_1.errors %}has-error{% endif %}">
-                    {{ form.home_address_1.label_tag }}
-                    {{ form.home_address_1 }}
-                    {% if form.home_address_1.errors %}
-                    <span for="id_home_address_1" class="help-block">{{ form.home_address_1.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.home_address_2.errors %}has-error{% endif %}">
-                    {{ form.home_address_2.label_tag }}
-                    {{ form.home_address_2 }}
-                    {% if form.home_address_2.errors %}
-                    <span for="id_home_home_address_2" class="help-block">{{ form.home_address_2.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group {% if form.home_zipcode.errors %}has-error{% endif %}">
-                    {{ form.home_zipcode.label_tag }}
-                    {{ form.home_zipcode }}
-                    {% if form.home_zipcode.errors %}
-                    <span for="id_home_zipcode" class="help-block">{{ form.home_zipcode.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group {% if form.home_type.errors %}has-error{% endif %}">
-                    {{ form.home_type.label_tag }}
-                    {{ form.home_type }}
-                    {% if form.home_type.errors %}
-                    <span for="id_home_type" class="help-block">{{ form.home_type.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group {% if form.military.errors %}has-error{% endif %}">
-                    {{ form.military.label_tag }}
-                    {{ form.military }}
-                    {% if form.military.errors %}
-                    <span for="id_military" class="help-block">{{ form.military.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!-- end panel -->
-        </div> <!-- end row -->
-
-        <div class="row">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                2. Contact Information&nbsp;&nbsp;
-                <span data-toggle="tooltip" data-placement="bottom" title="Our lenders need a way to contact you. This may be to set up an appointment or to get additional information to process your application."><span class="glyphicon glyphicon-question-sign"></span></span>
-              </h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.email.errors %}has-error{% endif %}">
-                    {{ form.email.label_tag }}
-                    {{ form.email }}
-                    {% if form.email.errors %}
-                    <span for="id_email" class="help-block">{{ form.email.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.phone_home.errors %}has-error{% endif %}">
-                    {{ form.phone_home.label_tag }}
-                    {{ form.phone_home }}
-                    {% if form.phone_home.errors %}
-                    <span for="id_phone_home" class="help-block">{{ form.phone_home.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group {% if form.best_contact_time.errors %}has-error{% endif %}">
-                    {{ form.best_contact_time.label_tag }}
-                    {{ form.best_contact_time }}
-                    {% if form.best_contact_time.errors %}
-                    <span for="id_best_contact_time" class="help-block">{{ form.best_contact_time.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!-- end panel -->
-        </div> <!-- end row -->
-
-        <div class="row">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                3. Employment Information&nbsp;&nbsp;
-                <span data-toggle="tooltip" data-placement="bottom" title="Our lenders need to verify where you work and need to make sure you make enough to pay back the loan you're applying for."><span class="glyphicon glyphicon-question-sign"></span></span>
-              </h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group {% if form.income_source.errors %}has-error{% endif %}">
-                    {{ form.income_source.label_tag }}
-                    {{ form.income_source }}
-                    {% if form.income_source.errors %}
-                    <span for="id_income_source" class="help-block">{{ form.income_source.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group {% if form.monthly_income.errors %}has-error{% endif %}">
-                    {{ form.monthly_income.label_tag }}
-                    <select id="id_monthly_income" name="monthly_income" class="form-control required">
-                      <option value="">Select a monthly income</option>
-                      <option value="1000" {% if form.monthly_income.value == "1000" %}selected{% endif %}>$751 - $1000</option>
-                      <option value="1250" {% if form.monthly_income.value == "1250" %}selected{% endif %}>$1001 - $1250</option>
-                      <option value="1500" {% if form.monthly_income.value == "1500" %}selected{% endif %}>$1251 - $1500</option>
-                      <option value="1750" {% if form.monthly_income.value == "1750" %}selected{% endif %}>$1501 - $1750</option>
-                      <option value="2000" {% if form.monthly_income.value == "2000" %}selected{% endif %}>$1751 - $2000</option>
-                      <option value="2250" {% if form.monthly_income.value == "2250" %}selected{% endif %}>$2001 - $2250</option>
-                      <option value="2500" {% if form.monthly_income.value == "2500" %}selected{% endif %}>$2251 - $2500</option>
-                      <option value="2750" {% if form.monthly_income.value == "2750" %}selected{% endif %}>$2501 - $2750</option>
-                      <option value="3000" {% if form.monthly_income.value == "3000" %}selected{% endif %}>$2751 - $3000</option>
-                      <option value="3250" {% if form.monthly_income.value == "3250" %}selected{% endif %}>$3001 - $3250</option>
-                      <option value="3500" {% if form.monthly_income.value == "3500" %}selected{% endif %}>$3251 - $3500</option>
-                      <option value="3750" {% if form.monthly_income.value == "3750" %}selected{% endif %}>$3501 - $3750</option>
-                      <option value="4000" {% if form.monthly_income.value == "4000" %}selected{% endif %}>$3751 - $4000</option>
-                      <option value="4250" {% if form.monthly_income.value == "4250" %}selected{% endif %}>$4001 - $4250</option>
-                      <option value="4500" {% if form.monthly_income.value == "4500" %}selected{% endif %}>$4251 - $4500</option>
-                      <option value="4750" {% if form.monthly_income.value == "4750" %}selected{% endif %}>$4501 - $4750</option>
-                      <option value="5000" {% if form.monthly_income.value == "5000" %}selected{% endif %}>$4751 - $5000</option>
-                      <option value="5001" {% if form.monthly_income.value == "5001" %}selected{% endif %}>More than $5000</option>
-                    </select>
-                    {% if form.monthly_income.errors %}
-                    <span for="id_monthly_income" class="help-block">{{ form.monthly_income.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.employer_name.errors %}has-error{% endif %}">
-                    {{ form.employer_name.label_tag }}
-                    {{ form.employer_name }}
-                    {% if form.employer_name.errors %}
-                    <span for="id_employer_name" class="help-block">{{ form.employer_name.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.phone_work.errors %}has-error{% endif %}">
-                    {{ form.phone_work.label_tag }}
-                    {{ form.phone_work }}
-                    {% if form.phone_work.errors %}
-                    <span for="id_phone_work" class="help-block">{{ form.phone_work.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.employer_address_1.errors %}has-error{% endif %}">
-                    {{ form.employer_address_1.label_tag }}
-                    {{ form.employer_address_1 }}
-                    {% if form.employer_address_1.errors %}
-                    <span for="id_employer_address_1" class="help-block">{{ form.employer_address_1.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.employer_address_2.errors %}has-error{% endif %}">
-                    {{ form.employer_address_2.label_tag }}
-                    {{ form.employer_address_2 }}
-                    {% if form.employer_address_2.errors %}
-                    <span for="id_employer_address_2" class="help-block">{{ form.employer_address_2.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.employer_zipcode.errors %}has-error{% endif %}">
-                    {{ form.employer_zipcode.label_tag }}
-                    {{ form.employer_zipcode }}
-                    {% if form.employer_zipcode.errors %}
-                    <span for="id_employer_zipcode" class="help-block">{{ form.employer_zipcode.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.direct_deposit.errors %}has-error{% endif %}">
-                    {{ form.direct_deposit.label_tag }}
-                    {{ form.direct_deposit }}
-                    {% if form.direct_deposit.errors %}
-                    <span for="id_direct_deposit" class="help-block">{{ form.direct_deposit.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.pay_frequency.errors %}has-error{% endif %}">
-                    {{ form.pay_frequency.label_tag }}
-                    {{ form.pay_frequency }}
-                    {% if form.pay_frequency.errors %}
-                    <span for="id_pay_frequency" class="help-block">{{ form.pay_frequency.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.pay_date_next.errors %}has-error{% endif %}">
-                    {{ form.pay_date_next.label_tag }}
-                    <div class="three-field-format">
-                      {{ form.pay_date_next }}
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group {% if form.loan_amount_requested.errors %}has-error{% endif %}">
+                      {{ form.loan_amount_requested.label_tag }}
+                      <select name="loan_amount_requested" id="id_loan_amount_requested" class="form-control required">
+                        <option value="">Select a loan amount</option>
+                        <option value="200" {% if form.loan_amount_requested.value == "200" %}selected{% endif %}>$200 or less</option>
+                        <option value="300" {% if form.loan_amount_requested.value == "300" %}selected{% endif %}>$300</option>
+                        <option value="400" {% if form.loan_amount_requested.value == "400" %}selected{% endif %}>$400</option>
+                        <option value="500" {% if form.loan_amount_requested.value == "500" %}selected{% endif %}>$500</option>
+                        <option value="600" {% if form.loan_amount_requested.value == "600" %}selected{% endif %}>$600</option>
+                        <option value="700" {% if form.loan_amount_requested.value == "700" %}selected{% endif %}>$700</option>
+                        <option value="800" {% if form.loan_amount_requested.value == "800" %}selected{% endif %}>$800</option>
+                        <option value="900" {% if form.loan_amount_requested.value == "900" %}selected{% endif %}>$900</option>
+                        <option value="1000" {% if form.loan_amount_requested.value == "1000" %}selected{% endif %}>$1000</option>
+                        <option value="2000" {% if form.loan_amount_requested.value == "2000" %}selected{% endif %}>$1,000 - $2,000</option>
+                        <option value="5000" {% if form.loan_amount_requested.value == "5000" %}selected{% endif %}>$2,000 - $5,000</option>
+                        <option value="10000" {% if form.loan_amount_requested.value == "10000" %}selected{% endif %}>$5,000 - $10,000</option>
+                        <option value="20000" {% if form.loan_amount_requested.value == "20000" %}selected{% endif %}>$10,000 - $20,000</option>
+                        <option value="35000" {% if form.loan_amount_requested.value == "35000" %}selected{% endif %}>$20,000 - $35,000</option>
+                      </select>
+                      {% if form.loan_amount_requested.errors %}
+                      <span for="id_loan_amount_requested" class="help-block">{{ form.loan_amount_requested.errors }}</span>
+                      {% endif %}
                     </div>
-                    {% if form.pay_date_next.errors %}
-                    <span for="id_pay_date_next" class="help-block">{{ form.pay_date_next.errors }}</span>
-                    {% endif %}
                   </div>
                 </div>
-              </div>
-            </div>
-          </div> <!-- end panel -->
-        </div> <!-- end row -->
-
-        <div class="row">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                4. Bank Information&nbsp;&nbsp;
-                <span data-toggle="tooltip" data-placement="bottom" title="This information is used to verify your account and gives the lender a place to deposit your money once funded."><span class="glyphicon glyphicon-question-sign"></span></span>
-              </h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-sm-12">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.bank_account_type.errors %}has-error{% endif %}">
-                    {{ form.bank_account_type.label_tag }}
-                    {{ form.bank_account_type }}
-                    {% if form.bank_account_type.errors %}
-                    <span for="id_bank_account_type" class="help-block">{{ form.bank_account_type.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="alert alert-warning">Don't have a checking account? <a href="http://www.ofnxtrack.com/aff_c?offer_id=65&aff_id=1000&aff_sub=" target="_blank">Click Here!</a></div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.bank_aba.errors %}has-error{% endif %}">
-                    {{ form.bank_aba.label_tag }}
-                    {{ form.bank_aba }}
-                    {% if form.bank_aba.errors %}
-                    <span for="id_bank_aba" class="help-block">{{ form.bank_aba.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.bank_account.errors %}has-error{% endif %}">
-                    {{ form.bank_account.label_tag }}
-                    {{ form.bank_account }}
-                    {% if form.bank_account.errors %}
-                    <span for="id_bank_account" class="help-block">{{ form.bank_account.errors }}</span>
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> <!-- end panel -->
-        </div> <!-- end row -->
-
-        <div class="row">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                5. Security Information&nbsp;&nbsp;
-                <!--<span data-toggle="popover" data-placement="bottom" title="Why do we need this?" data-content="This is the final piece to your application. The lenders will check your credit history based on your social security number and date of birth. In the event more information is needed they will use your drivers license for further verification."><span class="glyphicon glyphicon-question-sign"></span></span>-->
-                <span data-toggle="tooltip" data-placement="bottom" title="This is the final piece to your application. The lenders will check your credit history based on your social security number and date of birth. In the event more information is needed they will use your drivers license for further verification."><span class="glyphicon glyphicon-question-sign"></span></span>
-              </h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.dob.errors %}has-error{% endif %}">
-                    {{ form.dob.label_tag }}
-                    <div class="three-field-format">
-                      {{ form.dob }}
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.first_name.errors %}has-error{% endif %}">
+                      {{ form.first_name.label_tag }}
+                      {{ form.first_name }}
+                      {% if form.first_name.errors %}
+                      <span for="id_first_name" class="help-block">{{ form.first_name.errors }}</span>
+                      {% endif %}
                     </div>
-                    {% if form.dob.errors %}
-                    <span for="id_dob" class="help-block">{{ form.dob.errors }}</span>
-                    {% endif %}
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.last_name.errors %}has-error{% endif %}">
+                      {{ form.last_name.label_tag }}
+                      {{ form.last_name }}
+                      {% if form.last_name.errors %}
+                      <span for="id_last_name" class="help-block">{{ form.last_name.errors }}</span>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.state_id_number.errors %}has-error{% endif %}">
-                    {{ form.state_id_number.label_tag }}
-                    {{ form.state_id_number }}
-                    {% if form.state_id_number.errors %}
-                    <span for="id_state_id_number" class="help-block">{{ form.state_id_number.errors }}</span>
-                    {% endif %}
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.home_address_1.errors %}has-error{% endif %}">
+                      {{ form.home_address_1.label_tag }}
+                      {{ form.home_address_1 }}
+                      {% if form.home_address_1.errors %}
+                      <span for="id_home_address_1" class="help-block">{{ form.home_address_1.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.home_address_2.errors %}has-error{% endif %}">
+                      {{ form.home_address_2.label_tag }}
+                      {{ form.home_address_2 }}
+                      {% if form.home_address_2.errors %}
+                      <span for="id_home_home_address_2" class="help-block">{{ form.home_address_2.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group {% if form.home_zipcode.errors %}has-error{% endif %}">
+                      {{ form.home_zipcode.label_tag }}
+                      {{ form.home_zipcode }}
+                      {% if form.home_zipcode.errors %}
+                      <span for="id_home_zipcode" class="help-block">{{ form.home_zipcode.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group {% if form.home_type.errors %}has-error{% endif %}">
+                      {{ form.home_type.label_tag }}
+                      {{ form.home_type }}
+                      {% if form.home_type.errors %}
+                      <span for="id_home_type" class="help-block">{{ form.home_type.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group {% if form.military.errors %}has-error{% endif %}">
+                      {{ form.military.label_tag }}
+                      {{ form.military }}
+                      {% if form.military.errors %}
+                      <span for="id_military" class="help-block">{{ form.military.errors }}</span>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.state_id_issue_state.errors %}has-error{% endif %}">
-                    {{ form.state_id_issue_state.label_tag }}
-                    {{ form.state_id_issue_state }}
-                    {% if form.state_id_issue_state.errors %}
-                    <span for="id_state_id_issue_state" class="help-block">{{ form.state_id_issue_state.errors }}</span>
-                    {% endif %}
+            </div> <!-- end panel -->
+          </div> <!-- end row -->
+
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  2. Contact Information&nbsp;&nbsp;
+                  <span data-toggle="tooltip" data-placement="bottom" title="Our lenders need a way to contact you. This may be to set up an appointment or to get additional information to process your application."><span class="glyphicon glyphicon-question-sign"></span></span>
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.email.errors %}has-error{% endif %}">
+                      {{ form.email.label_tag }}
+                      {{ form.email }}
+                      {% if form.email.errors %}
+                      <span for="id_email" class="help-block">{{ form.email.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.phone_home.errors %}has-error{% endif %}">
+                      {{ form.phone_home.label_tag }}
+                      {{ form.phone_home }}
+                      {% if form.phone_home.errors %}
+                      <span for="id_phone_home" class="help-block">{{ form.phone_home.errors }}</span>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="form-group  {% if form.ssn.errors %}has-error{% endif %}">
-                    {{ form.ssn.label_tag }}
-                    {{ form.ssn }}
-                    {% if form.ssn.errors %}
-                    <span for="id_ssn" class="help-block">{{ form.ssn.errors }}</span>
-                    {% endif %}
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group {% if form.best_contact_time.errors %}has-error{% endif %}">
+                      {{ form.best_contact_time.label_tag }}
+                      {{ form.best_contact_time }}
+                      {% if form.best_contact_time.errors %}
+                      <span for="id_best_contact_time" class="help-block">{{ form.best_contact_time.errors }}</span>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group {% if form.credit.errors %}has-error{% endif %}">
-                    {{ form.credit.label_tag }}
-                    {{ form.credit }}
-                    {% if form.credit.errors %}
-                    <span for="id_credit" class="help-block">{{ form.credit.errors }}</span>
-                    {% endif %}
+            </div> <!-- end panel -->
+          </div> <!-- end row -->
+
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  3. Employment Information&nbsp;&nbsp;
+                  <span data-toggle="tooltip" data-placement="bottom" title="Our lenders need to verify where you work and need to make sure you make enough to pay back the loan you're applying for."><span class="glyphicon glyphicon-question-sign"></span></span>
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group {% if form.income_source.errors %}has-error{% endif %}">
+                      {{ form.income_source.label_tag }}
+                      {{ form.income_source }}
+                      {% if form.income_source.errors %}
+                      <span for="id_income_source" class="help-block">{{ form.income_source.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group {% if form.monthly_income.errors %}has-error{% endif %}">
+                      {{ form.monthly_income.label_tag }}
+                      <select id="id_monthly_income" name="monthly_income" class="form-control required">
+                        <option value="">Select a monthly income</option>
+                        <option value="1000" {% if form.monthly_income.value == "1000" %}selected{% endif %}>$751 - $1000</option>
+                        <option value="1250" {% if form.monthly_income.value == "1250" %}selected{% endif %}>$1001 - $1250</option>
+                        <option value="1500" {% if form.monthly_income.value == "1500" %}selected{% endif %}>$1251 - $1500</option>
+                        <option value="1750" {% if form.monthly_income.value == "1750" %}selected{% endif %}>$1501 - $1750</option>
+                        <option value="2000" {% if form.monthly_income.value == "2000" %}selected{% endif %}>$1751 - $2000</option>
+                        <option value="2250" {% if form.monthly_income.value == "2250" %}selected{% endif %}>$2001 - $2250</option>
+                        <option value="2500" {% if form.monthly_income.value == "2500" %}selected{% endif %}>$2251 - $2500</option>
+                        <option value="2750" {% if form.monthly_income.value == "2750" %}selected{% endif %}>$2501 - $2750</option>
+                        <option value="3000" {% if form.monthly_income.value == "3000" %}selected{% endif %}>$2751 - $3000</option>
+                        <option value="3250" {% if form.monthly_income.value == "3250" %}selected{% endif %}>$3001 - $3250</option>
+                        <option value="3500" {% if form.monthly_income.value == "3500" %}selected{% endif %}>$3251 - $3500</option>
+                        <option value="3750" {% if form.monthly_income.value == "3750" %}selected{% endif %}>$3501 - $3750</option>
+                        <option value="4000" {% if form.monthly_income.value == "4000" %}selected{% endif %}>$3751 - $4000</option>
+                        <option value="4250" {% if form.monthly_income.value == "4250" %}selected{% endif %}>$4001 - $4250</option>
+                        <option value="4500" {% if form.monthly_income.value == "4500" %}selected{% endif %}>$4251 - $4500</option>
+                        <option value="4750" {% if form.monthly_income.value == "4750" %}selected{% endif %}>$4501 - $4750</option>
+                        <option value="5000" {% if form.monthly_income.value == "5000" %}selected{% endif %}>$4751 - $5000</option>
+                        <option value="5001" {% if form.monthly_income.value == "5001" %}selected{% endif %}>More than $5000</option>
+                      </select>
+                      {% if form.monthly_income.errors %}
+                      <span for="id_monthly_income" class="help-block">{{ form.monthly_income.errors }}</span>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="alert alert-warning">
-                    Don't know your credit score?
-                    <a id="creditscore" href="http://www.ofnxtrack.com/aff_c?offer_id=64&aff_id=1" target="_blank">Click Here!</a>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.employer_name.errors %}has-error{% endif %}">
+                      {{ form.employer_name.label_tag }}
+                      {{ form.employer_name }}
+                      {% if form.employer_name.errors %}
+                      <span for="id_employer_name" class="help-block">{{ form.employer_name.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.phone_work.errors %}has-error{% endif %}">
+                      {{ form.phone_work.label_tag }}
+                      {{ form.phone_work }}
+                      {% if form.phone_work.errors %}
+                      <span for="id_phone_work" class="help-block">{{ form.phone_work.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.employer_address_1.errors %}has-error{% endif %}">
+                      {{ form.employer_address_1.label_tag }}
+                      {{ form.employer_address_1 }}
+                      {% if form.employer_address_1.errors %}
+                      <span for="id_employer_address_1" class="help-block">{{ form.employer_address_1.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.employer_address_2.errors %}has-error{% endif %}">
+                      {{ form.employer_address_2.label_tag }}
+                      {{ form.employer_address_2 }}
+                      {% if form.employer_address_2.errors %}
+                      <span for="id_employer_address_2" class="help-block">{{ form.employer_address_2.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.employer_zipcode.errors %}has-error{% endif %}">
+                      {{ form.employer_zipcode.label_tag }}
+                      {{ form.employer_zipcode }}
+                      {% if form.employer_zipcode.errors %}
+                      <span for="id_employer_zipcode" class="help-block">{{ form.employer_zipcode.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.direct_deposit.errors %}has-error{% endif %}">
+                      {{ form.direct_deposit.label_tag }}
+                      {{ form.direct_deposit }}
+                      {% if form.direct_deposit.errors %}
+                      <span for="id_direct_deposit" class="help-block">{{ form.direct_deposit.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.pay_frequency.errors %}has-error{% endif %}">
+                      {{ form.pay_frequency.label_tag }}
+                      {{ form.pay_frequency }}
+                      {% if form.pay_frequency.errors %}
+                      <span for="id_pay_frequency" class="help-block">{{ form.pay_frequency.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.pay_date_next.errors %}has-error{% endif %}">
+                      {{ form.pay_date_next.label_tag }}
+                      <div class="three-field-format">
+                        {{ form.pay_date_next }}
+                      </div>
+                      {% if form.pay_date_next.errors %}
+                      <span for="id_pay_date_next" class="help-block">{{ form.pay_date_next.errors }}</span>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div> <!-- end panel -->
-        </div> <!-- end row -->
+            </div> <!-- end panel -->
+          </div> <!-- end row -->
 
-        <div class="row checkbox {% if form.consent.errors %}has-error{% endif %}">
-          <label>
-            {{ form.consent }}
-            By checking this box you agree to using electronic signatures and to receive electronic communications such as notifications, disclosures, and documents from third parties. <a href="/static/consent.html" onclick="return popitup('/static/consent.html')">See E-Consent</a>
-          </label>
-          {% if form.consent.errors %}
-          <span class="help-block">{{ form.consent.errors }}</span>
-          {% endif %}
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  4. Bank Information&nbsp;&nbsp;
+                  <span data-toggle="tooltip" data-placement="bottom" title="This information is used to verify your account and gives the lender a place to deposit your money once funded."><span class="glyphicon glyphicon-question-sign"></span></span>
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.bank_account_type.errors %}has-error{% endif %}">
+                      {{ form.bank_account_type.label_tag }}
+                      {{ form.bank_account_type }}
+                      {% if form.bank_account_type.errors %}
+                      <span for="id_bank_account_type" class="help-block">{{ form.bank_account_type.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="alert alert-warning">Don't have a checking account? <a href="http://www.ofnxtrack.com/aff_c?offer_id=65&aff_id=1000&aff_sub=" target="_blank">Click Here!</a></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.bank_aba.errors %}has-error{% endif %}">
+                      {{ form.bank_aba.label_tag }}
+                      {{ form.bank_aba }}
+                      {% if form.bank_aba.errors %}
+                      <span for="id_bank_aba" class="help-block">{{ form.bank_aba.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.bank_account.errors %}has-error{% endif %}">
+                      {{ form.bank_account.label_tag }}
+                      {{ form.bank_account }}
+                      {% if form.bank_account.errors %}
+                      <span for="id_bank_account" class="help-block">{{ form.bank_account.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- end panel -->
+          </div> <!-- end row -->
+
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  5. Security Information&nbsp;&nbsp;
+                  <!--<span data-toggle="popover" data-placement="bottom" title="Why do we need this?" data-content="This is the final piece to your application. The lenders will check your credit history based on your social security number and date of birth. In the event more information is needed they will use your drivers license for further verification."><span class="glyphicon glyphicon-question-sign"></span></span>-->
+                  <span data-toggle="tooltip" data-placement="bottom" title="This is the final piece to your application. The lenders will check your credit history based on your social security number and date of birth. In the event more information is needed they will use your drivers license for further verification."><span class="glyphicon glyphicon-question-sign"></span></span>
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.dob.errors %}has-error{% endif %}">
+                      {{ form.dob.label_tag }}
+                      <div class="three-field-format">
+                        {{ form.dob }}
+                      </div>
+                      {% if form.dob.errors %}
+                      <span for="id_dob" class="help-block">{{ form.dob.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.state_id_number.errors %}has-error{% endif %}">
+                      {{ form.state_id_number.label_tag }}
+                      {{ form.state_id_number }}
+                      {% if form.state_id_number.errors %}
+                      <span for="id_state_id_number" class="help-block">{{ form.state_id_number.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.state_id_issue_state.errors %}has-error{% endif %}">
+                      {{ form.state_id_issue_state.label_tag }}
+                      {{ form.state_id_issue_state }}
+                      {% if form.state_id_issue_state.errors %}
+                      <span for="id_state_id_issue_state" class="help-block">{{ form.state_id_issue_state.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group  {% if form.ssn.errors %}has-error{% endif %}">
+                      {{ form.ssn.label_tag }}
+                      {{ form.ssn }}
+                      {% if form.ssn.errors %}
+                      <span for="id_ssn" class="help-block">{{ form.ssn.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group {% if form.credit.errors %}has-error{% endif %}">
+                      {{ form.credit.label_tag }}
+                      {{ form.credit }}
+                      {% if form.credit.errors %}
+                      <span for="id_credit" class="help-block">{{ form.credit.errors }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="alert alert-warning">
+                      Don't know your credit score?
+                      <a id="creditscore" href="http://www.ofnxtrack.com/aff_c?offer_id=64&aff_id=1" target="_blank">Click Here!</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- end panel -->
+          </div> <!-- end row -->
+
+          <div class="row checkbox {% if form.consent.errors %}has-error{% endif %}">
+            <label>
+              <input type="checkbox" checked="checked" class="form-control" />
+              By checking this box you agree to using electronic signatures and to receive electronic communications such as notifications, disclosures, and documents from third parties.
+            </label>
+          </div>
+
+          <div class="row">
+            <button type="submit" class="btn btn-justright btn-lg btn-block">Submit</button>
+          </div>
+
+          {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+          {% endfor %}
+        </form>
+      </div>
+
+      <div class="application-processing-step hidden">
+        <div>
+          <h1>Your request is processing...</h1>
+          <h2>We're working hard to match your profile with a cash lender.</h2>
+          <div class="progress-timer">
+            <div class="progress-circle"><strong></strong></div>
+          </div>
+          <div class="time-notification-box">
+            <h2>This process may take up to 5 minutes.</h2>
+            Please do not click the back button during this time
+          </div>
+          <h4>You will be redirected shortly to a loan agreement page</h4>
         </div>
-
-        <div class="row">
-          <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
-        </div>
-
-        {% for hidden in form.hidden_fields %}
-          {{ hidden }}
-        {% endfor %}
-      </form>
-    </div>
-
-    <!-- modal dialog -->
-    <div class="modal">
-      <div style="width: 90%; text-align: center; margin-top: 10%; border: 2px solid #000000; background-color: #CDCDCD;">
-        <h2>Please wait while your application is being processed!</h2>
-        <div style="width: 80%; font-size: 12px; margin: 0 auto; font-family: Arial;">
-          We're trying to match your application with the right lender. This may take several minutes
-          so your patience is appreciated!
-        </div>
-        <div style="margin: 30px 0px 15px 0px;"><img src="//www.offerannex.com/static/images/loader.gif" /></div>
       </div>
     </div>
 
