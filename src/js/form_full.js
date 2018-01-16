@@ -10,6 +10,12 @@ var options = {
 
 var mobileAnalyticsClient = new AMA.Manager(options);
 
+function popitup (url) {
+  newwindow=window.open(url,'name','height=800,width=600');
+  if (window.focus) {newwindow.focus()}
+  return false;
+}
+
 $(function () {
 
   var unloadHandler = function (e) {
@@ -137,8 +143,30 @@ $(function () {
       error.appendTo(element.parents(".field"));
     },
     rules: {
-      home_zipcode: { required: true, zipcode: true },
-      employer_zipcode: { required: true, zipcode: true },
+      home_zipcode: {
+        required: true,
+        remote: {
+          url: "https://offerannex.herokuapp.com/worker/validate/zipcode",
+          type: "GET",
+          data: {
+            zipcode: function () {
+              return $("input[name='home_zipcode']").val();
+            }
+          }
+        }
+      },
+      employer_zipcode: {
+        required: true,
+        remote: {
+          url: "https://offerannex.herokuapp.com/worker/validate/zipcode",
+          type: "GET",
+          data: {
+            zipcode: function () {
+              return $("input[name='employer_zipcode']").val();
+            }
+          }
+        }
+      },
       email: { required: true, email: true },
       phone_home: { required: true, phone: true },
       phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
@@ -154,7 +182,13 @@ $(function () {
             }
           }
         }
-      }
+      },
+      pay_date_next_year: { required: true },
+      pay_date_next_month: { required: true },
+      pay_date_next_day: { required: true },
+      dob_year: { required: true },
+      dob_month: { required: true },
+      dob_day: { required: true }
     },
     messages: {
       loan_amount_requested: "Required",
@@ -218,81 +252,6 @@ $(function () {
     "Screen_Name": "One"
   });
 
-  // Move to the second screen.
-  $('main').on('click', '.first-step-continue', function() {
-    if (form.valid()) {
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.application-first-step').toggle();
-      $('.application-second-step').toggle();
-      $('.bar-personal-info').toggleClass('active');
-      $('.bar-employment-info').toggleClass('active');
-    }
-    return false;
-  });
-
-  // Move back to the first screen.
-  $('main').on('click', '.employment-back', function() {
-    $('.application-second-step').toggle();
-    $('.application-first-step').toggle();
-    $('.bar-personal-info').toggleClass('active');
-    $('.bar-employment-info').toggleClass('active');
-  });
-
-  // Move to the third screen.
-  $('main').on('click', '.second-step-continue', function() {
-    if (form.valid()) {
-      //
-      // Before showing the second screen, calculate the second pay date.
-      //
-      var paydate = moment(createDate("pay_date_next"));
-      var freq    = $("select[name='pay_frequency']").val();
-      var nextpay = paydate;
-
-      // Make sure the paydate is in the future.
-      if (paydate.isBefore()) {
-        validator.showErrors({ "pay_date_next_year": "Invalid pay date" });
-        return false;
-      }
-
-      if (freq == "W") {
-        nextpay = paydate.add(1, "w");
-      }
-      else if (freq == "B") {
-        nextpay = paydate.add(2, "w");
-      }
-      else if (freq == "M") {
-        nextpay = paydate.add(1, "M");
-      }
-      else {
-        nextpay = paydate.add(15, "d");
-      }
-
-      // Now make sure the date doesn't fall on a weekend.
-      if (nextpay.isoWeekday() == 6) {
-        nextpay = nextpay.subtract(1, "d");
-      }
-      else if (nextpay.isoWeekday() == 7) {
-        nextpay = nextpay.add(1, "d");
-      }
-
-      $("input[name='pay_date_second_next']").val(nextpay.format("YYYY-MM-DD"));
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.application-second-step').toggle();
-      $('.application-third-step').toggle();
-      $('.bar-employment-info').toggleClass('active');
-      $('.bar-banking-info').toggleClass('active');
-    }
-    return false;
-  });
-
-  // Move back to the second screen.
-  $('main').on('click', '.banking-back', function() {
-    $('.application-third-step').toggle();
-    $('.application-second-step').toggle();
-    $('.bar-employment-info').toggleClass('active');
-    $('.bar-banking-info').toggleClass('active');
-  });
-
   // Initialize the form by getting the transaction token from the server.
   var token = getParameterByName("r");
   var affid = getParameterByName("affid");
@@ -321,14 +280,6 @@ $(function () {
   else {
     $("#id_tid").val(token);
   }
-
-  $("#tier1-submit").click(function () {
-    $("#id_main_submit").val("tier1-submit");
-  });
-
-  $("#tier0-submit").click(function () {
-    $("#id_main_submit").val("tier0-submit");
-  });
 
   $("#main-form").submit(function (event) {
     if (form.valid()) {
