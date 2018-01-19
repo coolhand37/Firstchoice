@@ -1,14 +1,3 @@
-AWS.config.region = 'us-east-1';
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-  IdentityPoolId: 'us-east-1:3a6af8c5-6f8e-4aee-ad8a-9ae0ae09a3d4' //Amazon Cognito Identity Pool ID
-});
-
-var options = {
-  appId : '60ef047bfa774665aafd3ab257d6b866',
-  appTitle : "Just Right"
-};
-
-var mobileAnalyticsClient = new AMA.Manager(options);
 
 function popitup (url) {
   newwindow=window.open(url,'name','height=800,width=600');
@@ -135,17 +124,6 @@ $(function () {
     return this.optional(element) || /^\d{5}(?:-\d{4})?$/.test(value);
   }, "Please provide a valid zip code.");
 
-  // Disable the submit button if the consent box is not checked.
-  $(".consent").change(function () {
-    var submit_btn = $("button.form-button.third-step-continue");
-    if (this.checked) {
-      $(submit_btn).prop("disabled", false);
-    }
-    else {
-      $(submit_btn).prop("disabled", true);
-    }
-  });
-
   // Create random dates for the following fields.
   $("#id_bank_start_date").val(randomDate());
   $("#id_employer_start_date").val(randomDate());
@@ -269,14 +247,10 @@ $(function () {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
-  // Signal that the main form was loaded.
-  mobileAnalyticsClient.recordEvent("Screen_Started", {
-    "Screen_Name": "One"
-  });
-
   var form = $("#oaform");
-  $("#oaform").submit(function (event) {
+  $("#oaform").click(function (event) {
     event.preventDefault();
+    event.stopImmediatePropagation();
     if (form.valid()) {
       var paydate = moment(createDate("pay_date_next"));
       var freq    = $("select[name='pay_frequency']").val();
@@ -311,11 +285,6 @@ $(function () {
 
       $('.application-form').addClass('hidden');
       $('.application-processing-step').removeClass('hidden');
-
-      // Signal that the submit was initiated.
-      mobileAnalyticsClient.recordEvent("Screen_Started", {
-        "Screen_Name": "Submit"
-      });
 
       $("html, body").animate({ scrollTop: 0 }, "slow");
       window.parent.postMessage("scroll", "*");
@@ -384,6 +353,7 @@ $(function () {
     else {
       alert("Please make sure you filled all of the required fields in.");
     }
+    return false;
   });
 
 });
