@@ -1,14 +1,9 @@
-AWS.config.region = 'us-east-1';
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-  IdentityPoolId: 'us-east-1:3a6af8c5-6f8e-4aee-ad8a-9ae0ae09a3d4' //Amazon Cognito Identity Pool ID
-});
 
-var options = {
-  appId : '360f4ae0c23643f48d58c3531e5df63a',
-  appTitle : "FCPL"
-};
-
-var mobileAnalyticsClient = new AMA.Manager(options);
+function popitup (url) {
+  newwindow=window.open(url,'name','height=800,width=600');
+  if (window.focus) {newwindow.focus()}
+  return false;
+}
 
 $(function () {
 
@@ -110,6 +105,11 @@ $(function () {
     return this.optional(element) || /^\d{5}(?:-\d{4})?$/.test(value);
   }, "Please provide a valid zip code.");
 
+  jQuery.validator.addMethod("dob", function(value, element, param) {
+    var diff = moment().diff(createDate(param), 'years');
+    return diff >= 18;
+  }, "Must be at least 18 years old.");
+
   // Disable the submit button if the consent box is not checked.
   $(".consent").change(function () {
     var submit_btn = $("button.form-button.third-step-continue");
@@ -137,8 +137,30 @@ $(function () {
       error.appendTo(element.parents(".field"));
     },
     rules: {
-      home_zipcode: { required: true, zipcode: true },
-      employer_zipcode: { required: true, zipcode: true },
+      home_zipcode: {
+        required: true,
+        remote: {
+          url: "https://offerannex.herokuapp.com/worker/validate/zipcode",
+          type: "GET",
+          data: {
+            zipcode: function () {
+              return $("input[name='home_zipcode']").val();
+            }
+          }
+        }
+      },
+      employer_zipcode: {
+        required: true,
+        remote: {
+          url: "https://offerannex.herokuapp.com/worker/validate/zipcode",
+          type: "GET",
+          data: {
+            zipcode: function () {
+              return $("input[name='employer_zipcode']").val();
+            }
+          }
+        }
+      },
       email: { required: true, email: true },
       phone_home: { required: true, phone: true },
       phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
@@ -154,7 +176,13 @@ $(function () {
             }
           }
         }
-      }
+      },
+      pay_date_next_year: { required: true },
+      pay_date_next_month: { required: true },
+      pay_date_next_day: { required: true },
+      dob_year: { required: true, dob: "dob" },
+      dob_month: { required: true },
+      dob_day: { required: true }
     },
     messages: {
       loan_amount_requested: "Required",
@@ -196,7 +224,10 @@ $(function () {
       ssn: "Required",
       state_id_number: "Required",
       state_id_issue_state: "Required",
-      dob_year: "Required",
+      dob_year: {
+        required: "Required",
+        dob: "Must be at least 18 years old"
+      },
       dob_month: "Required",
       dob_day: "Required"
     }
@@ -213,11 +244,6 @@ $(function () {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
-  // Signal that the main form was loaded.
-  mobileAnalyticsClient.recordEvent("Screen_Started", {
-    "Screen_Name": "One"
-  });
-
   // Move to the second screen.
   $('main').on('click', '.first-step-continue', function() {
     if (form.valid()) {
@@ -226,11 +252,6 @@ $(function () {
       $('.application-second-step').toggle();
       $('.bar-personal-info').toggleClass('active');
       $('.bar-employment-info').toggleClass('active');
-
-      // Signal that the second screen was loaded.
-      mobileAnalyticsClient.recordEvent("Screen_Started", {
-        "Screen_Name": "Two"
-      });
     }
     return false;
   });
@@ -286,11 +307,6 @@ $(function () {
       $('.application-third-step').toggle();
       $('.bar-employment-info').toggleClass('active');
       $('.bar-banking-info').toggleClass('active');
-
-      // Signal that the third screen was loaded.
-      mobileAnalyticsClient.recordEvent("Screen_Started", {
-        "Screen_Name": "Three"
-      });
     }
     return false;
   });
@@ -341,6 +357,8 @@ $(function () {
   });
 
   $("#main-form").submit(function (event) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
     if (form.valid()) {
       var submitBtn = $("#id_main_submit").val();
       $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -351,11 +369,6 @@ $(function () {
         $('.application-third-step').toggle();
         $('.application-processing-step').toggle();
         $("#id_main_submit").val("0");
-
-        // Signal that the submit was initiated.
-        mobileAnalyticsClient.recordEvent("Screen_Started", {
-          "Screen_Name": "Submit"
-        });
       }
       else {
         $('.pl-denial').toggle();
@@ -410,6 +423,7 @@ $(function () {
       // Now build up the dob and pay_date_next fields.
       rtnval.dob = createDate("dob");
       rtnval.pay_date_next = createDate("pay_date_next");
+      rtnval.pay_date_second_next = nextpay.format("YYYY-MM-DD");
 
       $.ajax({
         url: "https://offerannex.herokuapp.com/worker/campaign/submit",
@@ -462,7 +476,7 @@ $(function () {
     else {
       alert("Please make sure you filled all of the required fields in.");
     }
-    event.preventDefault();
+    return false;
   });
 
 });
