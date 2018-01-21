@@ -124,13 +124,17 @@ $(function () {
     return this.optional(element) || /^\d{5}(?:-\d{4})?$/.test(value);
   }, "Please provide a valid zip code.");
 
+  jQuery.validator.addMethod("dob", function(value, element, param) {
+    var diff = moment().diff(createDate(param), 'years');
+    return diff >= 18;
+  }, "Must be at least 18 years old.");
+
   // Create random dates for the following fields.
   $("#id_bank_start_date").val(randomDate());
   $("#id_employer_start_date").val(randomDate());
   $("#id_home_start_date").val(randomDate());
 
-  var form = $("#oaform");
-  var validator = form.validate({
+  $("#oaform").validate({
     errorClass: "has-error",
     validClass: "has-success",
     errorPlacement: function (error, element) {
@@ -186,7 +190,7 @@ $(function () {
       pay_date_next_year: { required: true },
       pay_date_next_month: { required: true },
       pay_date_next_day: { required: true },
-      dob_year: { required: true },
+      dob_year: { required: true, dob: "dob" },
       dob_month: { required: true },
       dob_day: { required: true }
     },
@@ -230,37 +234,17 @@ $(function () {
       ssn: "Required",
       state_id_number: "Required",
       state_id_issue_state: "Required",
-      dob_year: "Required",
+      dob_year: {
+        required: "Required",
+        dob: "Must be at least 18 years old"
+      },
       dob_month: "Required",
       dob_day: "Required"
-    }
-  });
-
-  $(".progress-circle").circleProgress({
-    value: 0.0,
-    fill: "#099246",
-    size: 156,
-    thickness: 16,
-    startAngle: 3 * (Math.PI/2),
-    animation: { duration: 200000, easing: "linear" }
-  }).on("circle-animation-progress", function (event, progress) {
-    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
-  });
-
-  var form = $("#oaform");
-  $("#oaform").click(function (event) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    if (form.valid()) {
+    },
+    submitHandler: function (in_form, event) {
       var paydate = moment(createDate("pay_date_next"));
       var freq    = $("select[name='pay_frequency']").val();
       var nextpay = paydate;
-
-      // Make sure the paydate is in the future.
-      if (paydate.isBefore()) {
-        validator.showErrors({ "pay_date_next_year": "Invalid pay date" });
-        return false;
-      }
 
       if (freq == "W") {
         nextpay = paydate.add(1, "w");
@@ -294,7 +278,7 @@ $(function () {
       $(".progress-circle").circleProgress("startAngle", 3 * (Math.PI/2));
 
       // Convert the form elements into JSON to be posted to the backend.
-      var items = $(this).serializeArray();
+      var items = $(in_form).serializeArray();
       var rtnval = {};
       $.each(items, function () {
         if (this.name.startsWith("dob_") || this.name.startsWith("pay_date_next_")) {
@@ -349,11 +333,24 @@ $(function () {
           window.parent.postMessage("https://www.fcpersonalloans.com/creditscore.html", "*");
         }
       });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return false;
+    },
+    invalidHandler: function (event, validator) {
+      alert("Please make sure you filled all of the required fields in.");  
     }
-    else {
-      alert("Please make sure you filled all of the required fields in.");
-    }
-    return false;
+  });
+
+  $(".progress-circle").circleProgress({
+    value: 0.0,
+    fill: "#099246",
+    size: 156,
+    thickness: 16,
+    startAngle: 3 * (Math.PI/2),
+    animation: { duration: 200000, easing: "linear" }
+  }).on("circle-animation-progress", function (event, progress) {
+    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
 
 });
