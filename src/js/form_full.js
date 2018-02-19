@@ -1,5 +1,44 @@
 $(function () {
 
+
+  // $('body').on('click', '.privacy-lightbox', function(){
+  //   $(this).siblings('.contactus_box').removeClass('hidden')
+  // })
+  // $('.close').on('click', function() {
+  //   $(this).parents('.contactus_box').addClass('hidden')
+  // })
+
+  $(".privacy-form-link").click(function(){
+    $(".privacy-lightbox").toggle();
+    $('body').css({
+        'overflow': 'hidden',
+    });
+  });
+
+  $(".econsent-form-link").click(function(){
+    $(".econsent-lightbox").toggle();
+    $('body').css({
+        'overflow': 'hidden',
+    });
+  });
+
+  $('.privacy-close').click(function() {
+      $(".privacy-lightbox").toggle();
+      $('body').css({
+          'overflow': 'visible',
+      });
+      return false
+  });
+
+  $('.econsent-close').click(function() {
+      $(".econsent-lightbox").toggle();
+      $('body').css({
+          'overflow': 'visible',
+      });
+      return false
+  });
+ 
+
   var unloadHandler = function (e) {
     if ($(".bar-get-approved").hasClass("active")) {
       var msg = "Refreshing will cancel your application, are you sure?";
