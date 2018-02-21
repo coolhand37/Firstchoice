@@ -495,7 +495,6 @@ header.application-header {
     padding-right: 10px;
     padding-top: 10px;
     background-color: white;
-
 }
 
 .application-form h3 {
@@ -578,6 +577,57 @@ header.application-header {
 .consent-checkbox {
     padding: 10px;
     text-align: left;
+}
+
+.privacy-form-link, .econsent-form-link {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.privacy-lightbox, .econsent-lightbox {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px;
+    padding-top: 0;
+    width: 80%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: white;
+    overflow: auto;
+    height: 100%;
+
+}
+
+.application-lightbox-header {
+    height: 55px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    background-color: white;
+    width: 80%;
+}
+
+.privacy-policy-lightbox, .econsent-policy-lightbox {
+    padding: 20px 0px 100px 0px;
+    text-align: left;
+}
+
+.close-button {
+    padding: 5px 20px 5px 20px;
+    background-color: #099246;
+    border-radius: 5px;
+    color: white;
+    width: 100px;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 .consent {

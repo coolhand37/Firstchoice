@@ -7,6 +7,45 @@ function popitup (url) {
 
 $(function () {
 
+
+  // $('body').on('click', '.privacy-lightbox', function(){
+  //   $(this).siblings('.contactus_box').removeClass('hidden')
+  // })
+  // $('.close').on('click', function() {
+  //   $(this).parents('.contactus_box').addClass('hidden')
+  // })
+
+  $(".privacy-form-link").click(function(){
+    $(".privacy-lightbox").toggle();
+    $('body').css({
+        'overflow': 'hidden',
+    });
+  });
+
+  $(".econsent-form-link").click(function(){
+    $(".econsent-lightbox").toggle();
+    $('body').css({
+        'overflow': 'hidden',
+    });
+  });
+
+  $('.privacy-close').click(function() {
+      $(".privacy-lightbox").toggle();
+      $('body').css({
+          'overflow': 'visible',
+      });
+      return false
+  });
+
+  $('.econsent-close').click(function() {
+      $(".econsent-lightbox").toggle();
+      $('body').css({
+          'overflow': 'visible',
+      });
+      return false
+  });
+ 
+
   var unloadHandler = function (e) {
     if ($(".bar-get-approved").hasClass("active")) {
       var msg = "Refreshing will cancel your application, are you sure?";
@@ -259,15 +298,13 @@ $(function () {
 
       var submitBtn = $("#id_main_submit").val();
       $("html, body").animate({ scrollTop: 0 }, "slow");
-      $('.bar-banking-info').toggleClass('active');
-      $('.bar-get-approved').toggleClass('active');
 
       if (submitBtn == "main-submit") {
+        $("#id_main_submit").val("0");
         $('.application-first-step').toggle();
         $('.application-second-step').toggle();
         $('.application-third-step').toggle();
         $('.application-processing-step').toggle();
-        $("#id_main_submit").val("0");
       }
       else {
         $('.pl-denial').toggle();
