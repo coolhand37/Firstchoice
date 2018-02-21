@@ -230,70 +230,11 @@ $(function () {
       },
       dob_month: "Required",
       dob_day: "Required"
-    }
-  });
-
-  $(".progress-circle").circleProgress({
-    value: 0.0,
-    fill: "#099246",
-    size: 156,
-    thickness: 16,
-    startAngle: 3 * (Math.PI/2),
-    animation: { duration: 200000, easing: "linear" }
-  }).on("circle-animation-progress", function (event, progress) {
-    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
-  });
-
-  // Initialize the form by getting the transaction token from the server.
-  var token = getParameterByName("r");
-  var affid = getParameterByName("affid");
-  var subid = getParameterByName("subid");
-  $("#id_id").val(affid);
-
-  if (token == undefined || token == "") {
-    var cid = $("#id_cid").val();
-    $.ajax({
-      url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
-      type: "GET",
-      dataType: "json",
-      data: {
-        "affid": affid,
-        "subid": subid
-      },
-      success: function (result) {
-        if (result && result.status == "success") {
-          $("#id_client_ip").val(result.ip);
-          $("#id_user_agent").val(result.user_agent);
-          $("#id_tid").val(result.tid);
-        }
-      }
-    });
-  }
-  else {
-    $("#id_tid").val(token);
-  }
-
-  $("#tier1-submit").click(function () {
-    $("#id_main_submit").val("tier1-submit");
-  });
-
-  $("#tier0-submit").click(function () {
-    $("#id_main_submit").val("tier0-submit");
-  });
-
-  $("#main-form").submit(function (event) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    if (form.valid()) {
+    },
+    submitHandler: function (in_form, event) {
       var paydate = moment(createDate("pay_date_next"));
       var freq    = $("select[name='pay_frequency']").val();
       var nextpay = paydate;
-
-      // Make sure the paydate is in the future.
-      if (paydate.isBefore()) {
-        validator.showErrors({ "pay_date_next_year": "Invalid pay date" });
-        return false;
-      }
 
       if (freq == "W") {
         nextpay = paydate.add(1, "w");
@@ -341,7 +282,7 @@ $(function () {
       var tier = 1;
 
       // Convert the form elements into JSON to be posted to the backend.
-      var items = $(this).serializeArray();
+      var items = $(in_form).serializeArray();
       var rtnval = {};
       $.each(items, function () {
         if (this.name.startsWith("dob_") || this.name.startsWith("pay_date_next_")) {
@@ -430,11 +371,61 @@ $(function () {
           window.location.href = "/creditscore.html";
         }
       });
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return false;
+    },
+    invalidHandler: function (event, validator) {
+      alert("Please make sure you filled all of the required fields in.");  
     }
-    else {
-      alert("Please make sure you filled all of the required fields in.");
-    }
-    return false;
+  });
+
+  $(".progress-circle").circleProgress({
+    value: 0.0,
+    fill: "#099246",
+    size: 156,
+    thickness: 16,
+    startAngle: 3 * (Math.PI/2),
+    animation: { duration: 200000, easing: "linear" }
+  }).on("circle-animation-progress", function (event, progress) {
+    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
+  });
+
+  // Initialize the form by getting the transaction token from the server.
+  var token = getParameterByName("r");
+  var affid = getParameterByName("affid");
+  var subid = getParameterByName("subid");
+  $("#id_id").val(affid);
+
+  if (token == undefined || token == "") {
+    var cid = $("#id_cid").val();
+    $.ajax({
+      url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
+      type: "GET",
+      dataType: "json",
+      data: {
+        "affid": affid,
+        "subid": subid
+      },
+      success: function (result) {
+        if (result && result.status == "success") {
+          $("#id_client_ip").val(result.ip);
+          $("#id_user_agent").val(result.user_agent);
+          $("#id_tid").val(result.tid);
+        }
+      }
+    });
+  }
+  else {
+    $("#id_tid").val(token);
+  }
+
+  $("#tier1-submit").click(function () {
+    $("#id_main_submit").val("tier1-submit");
+  });
+
+  $("#tier0-submit").click(function () {
+    $("#id_main_submit").val("tier0-submit");
   });
 
 });
