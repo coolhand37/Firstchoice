@@ -150,8 +150,8 @@ $(function () {
   }, "Must be at least 18 years old.");
 
   // Disable the submit button if the consent box is not checked.
+  var submit_btn = $("button.form-button.third-step-continue");
   $(".consent").change(function () {
-    var submit_btn = $("button.form-button.third-step-continue");
     if (this.checked) {
       $(submit_btn).prop("disabled", false);
     }
@@ -159,6 +159,12 @@ $(function () {
       $(submit_btn).prop("disabled", true);
     }
   });
+  if ($(".consent").prop("checked")) {
+    $(submit_btn).prop("disabled", false);
+  }
+  else {
+    $(submit_btn).prop("disabled", true);
+  }
 
   $("#id_bank_start_date").val(randomDate());
   $("#id_employer_start_date").val(randomDate());
