@@ -147,6 +147,12 @@ $(function () {
       $(submit_btn).prop("disabled", true);
     }
   });
+  if ($(".consent").prop("checked")) {
+    $(submit_btn).prop("disabled", false);
+  }
+  else {
+    $(submit_btn).prop("disabled", true);
+  }
 
   $("#id_bank_start_date").val(randomDate());
   $("#id_employer_start_date").val(randomDate());
