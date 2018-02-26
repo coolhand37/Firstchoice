@@ -138,8 +138,8 @@ $(function () {
   }, "Please provide a valid zip code.");
 
   // Disable the submit button if the consent box is not checked.
+  var submit_btn = $("button.form-button.third-step-continue");
   $(".consent").change(function () {
-    var submit_btn = $("button.form-button.third-step-continue");
     if (this.checked) {
       $(submit_btn).prop("disabled", false);
     }
