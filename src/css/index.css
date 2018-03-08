@@ -498,8 +498,13 @@ header.application-header {
 }
 
 .application-form h3 {
-    font-size: .85em;
+    font-size: 1em;
     padding: 10px;
+}
+
+.application-form h5 {
+    font-size: .9em;
+    font-weight: normal;
 }
 
 .application-form h2 {
@@ -512,6 +517,29 @@ header.application-header {
     margin-top: 0;
     margin-bottom: 20px;
     border-width: 1px 0 0 0;
+}
+
+.info-headers {
+    position: relative;
+}
+
+.info-bubble {
+    border: solid black 1px;
+    position: absolute;
+    right: 0;
+    left: 160px;
+    top: 25px;
+    margin: auto;
+    width: 175px;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    background-color: black;
+    border-radius: 10px;
+}
+
+.banking-info-bubble, .security-info-bubble {
+    top: 45px;
 }
 
 .application .input select, input {
@@ -855,6 +883,10 @@ header.application-header {
         font-size: 1.6em;
     }
 
+     .application-form h5 {
+        font-size: 1.2em;
+     }
+
     .chance-approval > button {
     width: 350px;
     }
@@ -1080,6 +1112,11 @@ header.application-header {
         text-align: left; /*full form*/
     }
 
+    .application-form h5 {
+        text-align: left;
+        padding-left: 10px;
+    }
+
     .application-progressbar {
         width: 250px;
         position: absolute;
@@ -1126,6 +1163,22 @@ header.application-header {
 
     .siteseal {
         padding: 10px;
+    }
+
+    .personal-info-bubble {
+        left: -250px;
+    }
+
+    .employment-info-bubble {
+        left: -200px;
+    }
+
+    .banking-info-bubble {
+        left: -255px;
+    }
+
+    .security-info-bubble {
+        left: -255px;
     }
 
     .pre-form {
@@ -1260,6 +1313,22 @@ header.application-header {
 
     .ssl-info {
         right: 100px;
+    }
+
+    .personal-info-bubble {
+        left: -375px;
+    }
+
+    .employment-info-bubble {
+        left: -315px;
+    }
+
+    .banking-info-bubble {
+        left: -385px;
+    }
+
+    .security-info-bubble {
+        left: -385px;
     }
 
 }
