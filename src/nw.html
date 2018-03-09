@@ -48,7 +48,9 @@
             <div>
               <form action="" id="main-form">
                 <div class="application-first-step">
-                  <h3>Welcome! You're one step away from beginning your loan process.</h3>
+                  <h3>Welcome! Please complete the form below to begin your loan process.</h3>
+                  <h5>Checking your loan options does <strong>not</strong> affect your credit score.</h5>
+                  <br>
                   <div class="ssl-info">
                     <div>
                       <h4>Rest assured you're information will be kept safe. This site utilizes 256-bit SSL encryption.</h4>
@@ -61,7 +63,12 @@
                     </div>
                   </div>
                   <hr>
-                  <h2>Personal Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+                  <div class="info-headers">
+                    <h2>Personal Information <i class="fa fa-question-circle personal-qmark" aria-hidden="true"></i></h2>
+                    <div class="info-bubble personal-info-bubble hidden">
+                      <span>Lenders will need to verify your information to qualify you for a loan. So the more accurate your information the quicker the lender can contact you and try to get your loan funded.</span>
+                    </div>
+                  </div>
                   <div class="field">
                     <div class="label">
                       <label>Loan Amount</label>
@@ -190,7 +197,12 @@
                   </div>
                 </div>
                 <div class="application-second-step">
-                  <h2>Employment Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+                  <div class="info-headers">
+                    <h2>Employment Information <i class="fa fa-question-circle employment-qmark" aria-hidden="true"></i></h2>
+                    <div class="info-bubble employment-info-bubble hidden">
+                        <span>Lenders need to verify where you work and make sure you make enough to pay back the loan you're applying for.</span>
+                    </div>
+                  </div>
                   <div class="field">
                     <div class="label">
                       <label>Type of income</label>
@@ -352,7 +364,12 @@
                   </div>
                 </div>
                 <div class="application-third-step">
-                  <h2>Banking Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
+                  <div class="info-headers">
+                    <h2>Banking Information <i class="fa fa-question-circle banking-qmark" aria-hidden="true"></i></h2>
+                    <div class="info-bubble banking-info-bubble hidden">
+                      <span>This information is used to verify your account and gives the lender a place to deposit your money once funded.</span>
+                    </div>
+                  </div>
                   <div class="field">
                     <div class="label">
                       <label>Account type</label>
@@ -393,8 +410,12 @@
                       <input name="bank_account" type="text" maxlength="32" required></input>
                     </div>
                   </div>
-                  <h2>Security Information <i class="fa fa-question-circle" aria-hidden="true"></i></h2>
-
+                  <div class="info-headers">
+                    <h2>Security Information <i class="fa fa-question-circle security-qmark" aria-hidden="true"></i></h2>
+                    <div class="info-bubble security-info-bubble hidden">
+                          <span>This is the final piece to your application. Lenders will check your credit history based on your SSN and date of birth. In the event more information is needed they will use your drivers license for further verification.</span>
+                    </div>
+                  </div>
                   <div class="field">
                     <div class="label">
                       <label>Social Security Number</label>

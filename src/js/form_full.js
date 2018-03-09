@@ -7,7 +7,6 @@ function popitup (url) {
 
 $(function () {
 
-
   // $('body').on('click', '.privacy-lightbox', function(){
   //   $(this).siblings('.contactus_box').removeClass('hidden')
   // })
@@ -43,6 +42,22 @@ $(function () {
           'overflow': 'visible',
       });
       return false
+  });
+
+  $('.personal-qmark').hover(function() {
+      $('.personal-info-bubble').toggle();
+  });
+
+  $('.employment-qmark').hover(function() {
+      $('.employment-info-bubble').toggle();
+  });
+
+  $('.banking-qmark').hover(function() {
+      $('.banking-info-bubble').toggle();
+  });
+
+  $('.security-qmark').hover(function() {
+      $('.security-info-bubble').toggle();
   });
  
 
