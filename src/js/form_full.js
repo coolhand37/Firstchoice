@@ -149,6 +149,14 @@ $(function () {
     return diff >= 18;
   }, "Must be at least 18 years old.");
 
+  jQuery.validator.addMethod("payday", function(value, element, param) {
+    var payday_mo = $("select[name='pay_date_next_month']").val();
+    var payday_dy = $("select[name='pay_date_next_day']").val();
+    var payday_yr = $("select[name='pay_date_next_year']").val();
+    var payday = payday_yr + "-" + payday_mo + "-" + payday_dy;
+    return moment().diff(payday) <= 0;
+  }, "Pay date must be in the future.");
+
   // Disable the submit button if the consent box is not checked.
   var submit_btn = $("button.form-button.third-step-continue");
   $(".consent").change(function () {
@@ -170,14 +178,27 @@ $(function () {
   $("#id_employer_start_date").val(randomDate());
   $("#id_home_start_date").val(randomDate());
 
+  // Disable the submit button if the consent box is not checked.
+  var submit_btn = $("button.form-button.third-step-continue");
+  $(".consent").change(function () {
+    if (this.checked) {
+      $(submit_btn).prop("disabled", false);
+    }
+    else {
+      $(submit_btn).prop("disabled", true);
+    }
+  });
+  if ($(".consent").prop("checked")) {
+    $(submit_btn).prop("disabled", false);
+  }
+  else {
+    $(submit_btn).prop("disabled", true);
+  }
+
   var form = $("#main-form");
   var validator = form.validate({
     errorClass: "error",
     validClass: "success",
-    groups: {
-      pay_date_next: "pay_date_next_year pay_date_next_month pay_date_next_day",
-      dob: "dob_year dob_month dob_day"
-    },
     errorPlacement: function (error, element) {
       error.appendTo(element.parents(".field"));
     },
@@ -222,7 +243,7 @@ $(function () {
           }
         }
       },
-      pay_date_next_year: { required: true },
+      pay_date_next_year: { required: true, payday: "payday" },
       pay_date_next_month: { required: true },
       pay_date_next_day: { required: true },
       dob_year: { required: true, dob: "dob" },
@@ -259,7 +280,10 @@ $(function () {
         zipcode: "Invalid format"
       },
       pay_frequency: "Required",
-      pay_date_next_year: "Required",
+      pay_date_next_year: {
+        required: "Required",
+        payday: "Pay dayte must be in the future"
+      },
       pay_date_next_month: "Required",
       pay_date_next_day: "Required",
       bank_account_type: "Required",
