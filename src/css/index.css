@@ -851,15 +851,34 @@ header.application-header {
 }
 
 .credit-form-button {
-    padding-bottom: 20px;
+    /*padding-bottom: 30px;*/
+    background-color: #ef7e15;
+    border-radius: 9px;
+    width: 320px;
+    font-size: 1.6em;
+    height: 100%;
+    padding: 17px;
+    margin: auto;
+    color: white;
+    text-transform: capitalize;
+    margin-bottom: 30px;
 }
 
-.credit-form-button .form-button {
-    background-color: #ef7e15;
-    border-radius: 20px;
-    width: 300px;
-    font-size: 1.4em;
+.credit-form-button a {
+    text-decoration: none;
+
 }
+
+
+/*.credit-form-button .form-button {
+    background-color: #ef7e15;
+    border-radius: 9px;
+    width: 320px;
+    font-size: 1.6em;
+    height: 100%;
+    padding: 17px;
+
+}*/
 
 
 /***********************************************
