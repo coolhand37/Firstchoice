@@ -1221,6 +1221,10 @@ header.application-header {
         width: 650px;
     }
 
+    .application-form.form-only form {
+        width: 100% !important;
+    }
+
     .paydate { /*full form*/
         text-align: left;
         width: 100%;
@@ -1324,6 +1328,10 @@ header.application-header {
 
     .application-form form {
         width: 780px;
+    }
+
+    .application-form.form-only form {
+        width: 100% !important;
     }
 
     .application-progressbar {
