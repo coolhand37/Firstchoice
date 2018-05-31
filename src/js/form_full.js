@@ -7,13 +7,6 @@ function popitup (url) {
 
 $(function () {
 
-  // $('body').on('click', '.privacy-lightbox', function(){
-  //   $(this).siblings('.contactus_box').removeClass('hidden')
-  // })
-  // $('.close').on('click', function() {
-  //   $(this).parents('.contactus_box').addClass('hidden')
-  // })
-
   $(".privacy-form-link").click(function(){
     $(".privacy-lightbox").toggle();
     $('body').css({
@@ -59,7 +52,6 @@ $(function () {
   $('.security-qmark').hover(function() {
       $('.security-info-bubble').toggle();
   });
- 
 
   var unloadHandler = function (e) {
     if ($(".bar-get-approved").hasClass("active")) {
@@ -110,17 +102,10 @@ $(function () {
   };
 
   var createDate = function (prefix) {
-    var yr = "select[name='"+prefix+"_year']";
-    var mo = "select[name='"+prefix+"_month']";
-    var dy = "select[name='"+prefix+"_day']";
-    return $(yr).val() + "-" + $(mo).val() + "-" + $(dy).val();
-  };
-
-  var getParameterByName = function (name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-      results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    var yr = $("select[name='"+prefix+"_year']").val();
+    var mo = $("select[name='"+prefix+"_month']").val();
+    var dy = $("select[name='"+prefix+"_day']").val();
+    return yr + "-" + mo + "-" + dy;
   };
 
   $("input[name='phone_home']").mask("(000) 000-0000");
@@ -192,23 +177,6 @@ $(function () {
   $("#id_bank_start_date").val(randomDate());
   $("#id_employer_start_date").val(randomDate());
   $("#id_home_start_date").val(randomDate());
-
-  // Disable the submit button if the consent box is not checked.
-  var submit_btn = $("button.form-button.third-step-continue");
-  $(".consent").change(function () {
-    if (this.checked) {
-      $(submit_btn).prop("disabled", false);
-    }
-    else {
-      $(submit_btn).prop("disabled", true);
-    }
-  });
-  if ($(".consent").prop("checked")) {
-    $(submit_btn).prop("disabled", false);
-  }
-  else {
-    $(submit_btn).prop("disabled", true);
-  }
 
   var form = $("#main-form");
   var validator = form.validate({
@@ -297,7 +265,7 @@ $(function () {
       pay_frequency: "Required",
       pay_date_next_year: {
         required: "Required",
-        payday: "Pay dayte must be in the future"
+        payday: "Pay date must be in the future"
       },
       pay_date_next_month: "Required",
       pay_date_next_day: "Required",
@@ -342,7 +310,8 @@ $(function () {
       }
 
       var submitBtn = $("#id_main_submit").val();
-      $("html, body").animate({ scrollTop: 0 }, "slow");
+      var showTiers = $("#id_main_submit").attr("tiers");
+      scrollPageToTop();
 
       if (submitBtn == "main-submit") {
         $("#id_main_submit").val("0");
@@ -361,7 +330,7 @@ $(function () {
       $(".progress-circle").circleProgress("startAngle", 3 * (Math.PI/2));
 
       // We need to figure out which tier to run this lead against.
-///      var tier = 1;
+      var tier = 1;
 
       // Convert the form elements into JSON to be posted to the backend.
       var items = $(in_form).serializeArray();
@@ -388,18 +357,21 @@ $(function () {
 
       // Figure out which buyer tier this lead needs to be processed with.
       var amount = parseInt($("select[name='loan_amount_requested']").val());
-//      if (amount >= 1000 && submitBtn == "main-submit") {
-//        tier = 2;
-//      }
-//      else if (submitBtn == "tier1-submit") {
-//        rtnval["loan_amount_requested"] = 800;
-//        tier = 1;
-//      }
-//      else if (submitBtn == "tier0-submit") {
-//        rtnval["loan_amount_requested"] = 800;
-//        tier = 0;
-//      }
-//      rtnval["tier"] = tier;
+      if (amount >= 1000 && submitBtn == "main-submit") {
+        tier = 2;
+      }
+      else if (submitBtn == "tier1-submit") {
+        rtnval["loan_amount_requested"] = 800;
+        tier = 1;
+      }
+      else if (submitBtn == "tier0-submit") {
+        rtnval["loan_amount_requested"] = 800;
+        tier = 0;
+      }
+
+      if (showTiers !== "no") {
+        rtnval["tier"] = tier;
+      }
 
       // Now build up the dob and pay_date_next fields.
       rtnval.dob = createDate("dob");
@@ -416,29 +388,29 @@ $(function () {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
-//                if (tier == 2 && submit.status != "A") {
-//                  //
-//                  // The user requested more than $1k and was declined. Before serving
-//                  // them the decline link, we'll offer them the chance to go for a
-//                  // lower loan amount.
-//                  //
-//                  $("html, body").animate({ scrollTop: 0 }, "slow");
-//                  $('.application-processing-step').toggle();
-//                  $('.pl-denial').toggle();
-//                }
-//                else {
+                if (showTiers !== "no" && tier == 2 && submit.status != "A") {
+                  //
+                  // The user requested more than $1k and was declined. Before serving
+                  // them the decline link, we'll offer them the chance to go for a
+                  // lower loan amount.
+                  //
+                  $("html, body").animate({ scrollTop: 0 }, "slow");
+                  $('.application-processing-step').toggle();
+                  $('.pl-denial').toggle();
+                }
+                else {
                   //
                   // The user requested less than $1k or was accepted, so we'll serve
                   // them the decline link that was provided.
                   //
                   window.removeEventListener("beforeunload", unloadHandler);
-                  window.location.href = submit.redirect;
-//                }
+                  redirectUser(submit.redirect);
+                }
               },
               error: function (error, submit) {
                 window.removeEventListener("beforeunload", unloadHandler);
                 if (submit && submit.hasOwnProperty("redirect")) {
-                  window.location.href = submit.redirect;
+                  redirectUser(submit.redirect);
                 }
               }
             })
@@ -450,7 +422,7 @@ $(function () {
         error: function (jqxhr, status, thrown) {
           window.removeEventListener("beforeunload", unloadHandler);
           console.error(status);
-          window.location.href = "/creditscore.html";
+          redirectUser("https://www.fcpersonalloans.com/creditscore.html");
         }
       });
       event.preventDefault();
@@ -458,7 +430,8 @@ $(function () {
       return false;
     },
     invalidHandler: function (event, validator) {
-      alert("Please make sure you filled all of the required fields in.");  
+      alert("Please make sure you filled all of the required fields in.");
+      return false;
     }
   });
 
@@ -472,35 +445,6 @@ $(function () {
   }).on("circle-animation-progress", function (event, progress) {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
-
-  // Initialize the form by getting the transaction token from the server.
-  var token = getParameterByName("r");
-  var affid = getParameterByName("affid");
-  var subid = getParameterByName("subid");
-  $("#id_id").val(affid);
-
-  if (token == undefined || token == "") {
-    var cid = $("#id_cid").val();
-    $.ajax({
-      url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
-      type: "GET",
-      dataType: "json",
-      data: {
-        "affid": affid,
-        "subid": subid
-      },
-      success: function (result) {
-        if (result && result.status == "success") {
-          $("#id_client_ip").val(result.ip);
-          $("#id_user_agent").val(result.user_agent);
-          $("#id_tid").val(result.tid);
-        }
-      }
-    });
-  }
-  else {
-    $("#id_tid").val(token);
-  }
 
   $("#tier1-submit").click(function () {
     $("#id_main_submit").val("tier1-submit");
