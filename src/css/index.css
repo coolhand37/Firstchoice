@@ -531,6 +531,10 @@ header.application-header {
     position: relative;
 }
 
+.info-headers h2 {
+    text-align: left;
+}
+
 .info-bubble {
     border: solid black 1px;
     position: absolute;
@@ -976,6 +980,10 @@ header.application-header {
         margin: auto;
     }
 
+    .application.form-only > div {
+        width: 100%;
+    }
+
     .collapsed-menu {
         display: none;
     }
@@ -1130,6 +1138,10 @@ header.application-header {
     .application-header > div, .application > div {
         width: 930px;
         margin: auto;
+    }
+
+    .application.form-only > div {
+        width: 100%;
     }
 
     .application > div {
@@ -1342,6 +1354,10 @@ header.application-header {
    .application-header > div, .application > div {
         width: 1170px;
         margin: auto;
+    }
+
+    .application.form-only > div {
+        width: 100%;
     }
 
     .application-form form {

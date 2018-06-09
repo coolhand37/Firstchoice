@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +20,7 @@
     <main>
       <div class="loan_amount_denial">
       </div>
-      <div class="application">
+      <div class="application form-only">
         <div>
           <div class="application-form form-only">
             <div>
@@ -774,18 +775,10 @@
                     </button>
                   </div>
                 </div>
-                <input type="hidden" id="id_cid" name="cid" value="17" />
-                <input type="hidden" id="id_client_ip" name="client_ip" value="" />
-                <input type="hidden" id="id_user_agent" name="user_agent" value="" />
-                <input type="hidden" id="id_tid" name="tid" value="" />
-                <input type="hidden" id="id_id" name="id" value="" />
-                <input type="hidden" id="id_pay_date_second_next" name="pay_date_second_next" />
-                <input type="hidden" id="id_tier" name="tier" value="2" />
-                <input type="hidden" id="id_apikey" name="apikey" value="Tg4TtCFA3PVD" />
-                <input type="hidden" id="id_main_submit" name="main_submit" value="main-submit" />
-                <input type="hidden" id="id_bank_start_date" name="bank_start_date" value="" />
-                <input type="hidden" id="id_employer_start_date" name="employer_start_date" value="" />
-                <input type="hidden" id="id_home_start_date" name="home_start_date" value="" />
+                <input type="hidden" id="id_main_submit" name="main_submit" value="main-submit" tiers="no" />
+                {% for hidden in form.hidden_fields %}
+                  {{ hidden }}
+                {% endfor %}
               </form>
             </div>
           </div>
@@ -795,7 +788,7 @@
   </div>
 </div>
 
-<!-- build:js /js/form_full.min.js -->
+<!-- build:js /js/form_full_iframe.min.js -->
 <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="../bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../bower_components/jquery-circle-progress/dist/circle-progress.min.js"></script>
