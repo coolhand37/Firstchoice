@@ -34,7 +34,7 @@ $(function () {
         type: "GET",
         dataType: "json",
         success: function (results) {
-          if (results != undefined && results.status == "success") {
+          if (results != undefined && (results.status == "success" || results.status == "finished")) {
             if (options.success) {
               options.success(results.submit);
             }

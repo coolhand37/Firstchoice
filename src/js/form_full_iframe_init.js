@@ -16,18 +16,21 @@ var getParameterByName = function (name, path) {
  * This function gets called when the iframe is loaded. It will populate the form with the fields on the URL.
  */
 function processQueryString (e) {
-  $('#id_first_name').val(getParameterByName("fname", e.data));
-  $('#id_last_name').val(getParameterByName("lname", e.data));
-  $('#id_email').val(getParameterByName("email", e.data));
-  $('#id_home_zipcode').val(getParameterByName("zip", e.data));
+  $("input[name='first_name']").val(getParameterByName("fname", e.data));
+  $("input[name='last_name']").val(getParameterByName("lname", e.data));
+  $("input[name='email']").val(getParameterByName("email", e.data));
+  $("input[name='home_zipcode']").val(getParameterByName("zip", e.data));
 
   var loan_amount = getParameterByName("loan", e.data);
   if (loan_amount == "") {
     $("select[name='loan_amount_requested']").val("300");
   }
   else {
-    $('#id_loan_amount_requested option[value="' + loan_amount + '"]').attr('selected', 'selected');
+    $("select[name='loan_amount_requested'] option[value='" + loan_amount + "']").attr('selected', 'selected');
   }
+}
+
+function initialize () {
 }
 
 function scrollPageToTop () {
@@ -35,8 +38,9 @@ function scrollPageToTop () {
   window.parent.postMessage("scroll", "*");
 }
 
-function redirectUser (submit) {
-  window.parent.postMessage(submit.redirect, "*");
+function redirectUser (url) {
+  console.log("Redirecting the parent: ")
+  window.parent.postMessage(url, "*");
 }
 
 // This handles receiving messages from the parent.

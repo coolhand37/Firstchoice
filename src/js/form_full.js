@@ -80,7 +80,7 @@ $(function () {
         type: "GET",
         dataType: "json",
         success: function (results) {
-          if (results != undefined && results.status == "success") {
+          if (results != undefined && (results.status == "success" || results.status == "finished")) {
             if (options.success) {
               options.success(results.submit);
             }
@@ -445,6 +445,8 @@ $(function () {
   }).on("circle-animation-progress", function (event, progress) {
     $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
   });
+
+  initialize();
 
   $("#tier1-submit").click(function () {
     $("#id_main_submit").val("tier1-submit");
