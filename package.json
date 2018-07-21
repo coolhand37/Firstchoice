@@ -17,7 +17,13 @@
   },
   "homepage": "https://github.com/coolhand37/Firstchoice#readme",
   "dependencies": {
-    "jquery": "^3.1.0"
+    "normalize.css": "~4.2.0",
+    "font-awesome": "~4.6.0",
+    "jquery": "^3.1.0",
+    "jquery-validation": "~1.15.0",
+    "jquery-circle-progress": "~1.2.0",
+    "jquery-mask-plugin": "~1.14.0",
+    "moment": "~2.17.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
