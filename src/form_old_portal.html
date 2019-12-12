@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>First Choice Personal Loans</title>
+  <!-- build:css /css/site.css -->
+  <link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
+  <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="css/index.css">
+  <!-- endbuild -->
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script type="text/javascript">
+  
+    function mycallback (event) {
+      if (event.data.substring(0, 4) == 'http') {
+        window.location = event.data.replace(/&amp;/g, '&');
+      }
+      else {
+        window.scrollTo(0,0);
+      }
+    }
+
+    function getParameterByName (name) {
+      name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+      return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    var token = null;
+    var affid = getParameterByName('affid');
+    if (affid && affid != '') {
+      affid = affid.replace(/K6k6clX7FKnw/g, '1133');
+    }
+
+    $.ajax({
+      url: 'https://www.offerannex.com/tracker?a=' + affid,
+      dataType: 'jsonp',
+      jsonpCallback: 'callback',
+      async: false,
+      success: function (msg) {
+        if (msg.hasOwnProperty('token')) {
+          token = msg.token;
+        }
+      }
+    });
+
+    function sendCommand () {
+      var iframe = document.getElementById("loan_frame").contentWindow;
+      var search = [];
+      
+      var amount = getParameterByName('amount');
+      if (amount && amount != '') search.push('loan=' + amount);
+
+      var zipcode = getParameterByName('zipcode');
+      if (zipcode && zipcode != '') search.push('zip=' + zipcode);
+
+      if (affid && affid != '') {
+        affid = affid.replace(/K6k6clX7FKnw/g, '1133');
+        search.push('affid=' + affid);
+      }
+
+      var subid = getParameterByName('subid');
+      if (subid && subid != '') search.push('subid=' + subid);
+
+      if (token && token != null) {
+        search.push('r=' + token);
+      }
+
+      iframe.postMessage(search.join('&'), "https://www.offerannex.com");
+    }
+    
+    if (window.addEventListener) {
+      window.addEventListener('message', mycallback, false);
+    }
+    else if (window.attachEvent) {
+      window.attachEvent('onmessage', mycallback);
+    }
+    
+  </script>
+</head> 
+<body>
+
+<div class="panel application-page">
+  <div>
+    <header class="application-header">
+      <div class="logo-application">
+        <div class="showit">
+          <img src="images/fclogosmall.png">
+        </div>
+        <div class="hideit">
+          <img src="images/fclogobig.png">
+        </div>
+      </div>
+    </header>
+    <main>
+      <iframe id="loan_frame" src="https://www.offerannex.com/affiliate/2/28/?key=Wwz04l6T51yG" frameborder="0" onload="sendCommand();" height="1900px" width="100%"></iframe>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>

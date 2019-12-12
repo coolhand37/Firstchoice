@@ -17,21 +17,27 @@
   },
   "homepage": "https://github.com/coolhand37/Firstchoice#readme",
   "dependencies": {
-    "jquery": "^3.1.0"
+    "normalize.css": "~4.2.0",
+    "font-awesome": "~4.6.0",
+    "jquery": "^3.1.0",
+    "jquery-validation": "~1.15.0",
+    "jquery-circle-progress": "~1.2.0",
+    "jquery-mask-plugin": "~1.14.0",
+    "moment": "~2.17.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-foreach": "^0.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev": "^7.1.2",
+    "gulp-s3-deploy": "^1.0.1",
     "gulp-serve": "^1.4.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-usemin": "^0.3.25",
     "gulp-util": "^3.0.7",
     "hbsfy": "^2.7.0",
     "rimraf": "^2.5.4",
-    "vinyl-source-stream": "^1.1.0",
-    "gulp-uglify": "^2.0.0",
-    "gulp-minify-css": "^1.2.4",
-    "gulp-usemin": "^0.3.25",
-    "gulp-rev": "^7.1.2",
-    "gulp-foreach": "^0.1.0",
-    "gulp-s3-deploy": "^1.0.1",
-    "gulp-rename": "^1.2.2"
+    "vinyl-source-stream": "^1.1.0"
   }
 }

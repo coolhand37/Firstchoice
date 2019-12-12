@@ -329,10 +329,18 @@ footer.main-footer {
     text-transform: uppercase;
 }
 
+.form-button.blue {
+    background-color: #095992;
+}
+
 .form-button:disabled {
     background-color: #7DD4A4;
     pointer-events: none !important;
     cursor: not-allowed;
+}
+
+.form-button.blue:disabled {
+    background-color: #7DABD4;
 }
 
 .submit-terms {
@@ -523,6 +531,10 @@ header.application-header {
     position: relative;
 }
 
+.info-headers h2 {
+    text-align: left;
+}
+
 .info-bubble {
     border: solid black 1px;
     position: absolute;
@@ -695,6 +707,15 @@ header.application-header {
     margin-bottom: 10px;
     background-color: #e1f2e8;
 }
+
+.time-notification-box.blue {
+    border: 1px solid #0672A1;
+    border-radius: 5px;
+    padding: 20px 5px;
+    margin-bottom: 10px;
+    background-color: #D3DEF2;
+}
+
 
 .good-news {
     font-size: 1.6em;
@@ -959,6 +980,10 @@ header.application-header {
         margin: auto;
     }
 
+    .application.form-only > div {
+        width: 100%;
+    }
+
     .collapsed-menu {
         display: none;
     }
@@ -1115,6 +1140,10 @@ header.application-header {
         margin: auto;
     }
 
+    .application.form-only > div {
+        width: 100%;
+    }
+
     .application > div {
         position: relative;
         padding: 20px;
@@ -1221,6 +1250,10 @@ header.application-header {
         width: 650px;
     }
 
+    .application-form.form-only form {
+        width: 100% !important;
+    }
+
     .paydate { /*full form*/
         text-align: left;
         width: 100%;
@@ -1299,6 +1332,7 @@ header.application-header {
 
     .application-processing-step h2 {
         font-size: 1.5em;
+        text-align: center;
     }
 
     .progress-timer {
@@ -1322,8 +1356,16 @@ header.application-header {
         margin: auto;
     }
 
+    .application.form-only > div {
+        width: 100%;
+    }
+
     .application-form form {
         width: 780px;
+    }
+
+    .application-form.form-only form {
+        width: 100% !important;
     }
 
     .application-progressbar {

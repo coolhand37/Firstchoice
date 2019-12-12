@@ -1,11 +1,11 @@
-$(function () {
 
-  // $('body').on('click', '.privacy-lightbox', function(){
-  //   $(this).siblings('.contactus_box').removeClass('hidden')
-  // })
-  // $('.close').on('click', function() {
-  //   $(this).parents('.contactus_box').addClass('hidden')
-  // })
+function popitup (url) {
+  newwindow=window.open(url,'name','height=800,width=600');
+  if (window.focus) {newwindow.focus()}
+  return false;
+}
+
+$(function () {
 
   $(".privacy-form-link").click(function(){
     $(".privacy-lightbox").toggle();
@@ -52,7 +52,6 @@ $(function () {
   $('.security-qmark').hover(function() {
       $('.security-info-bubble').toggle();
   });
- 
 
   var unloadHandler = function (e) {
     if ($(".bar-get-approved").hasClass("active")) {
@@ -81,7 +80,7 @@ $(function () {
         type: "GET",
         dataType: "json",
         success: function (results) {
-          if (results != undefined && results.status == "success") {
+          if (results != undefined && (results.status == "success" || results.status == "finished")) {
             if (options.success) {
               options.success(results.submit);
             }
@@ -103,17 +102,10 @@ $(function () {
   };
 
   var createDate = function (prefix) {
-    var yr = "select[name='"+prefix+"_year']";
-    var mo = "select[name='"+prefix+"_month']";
-    var dy = "select[name='"+prefix+"_day']";
-    return $(yr).val() + "-" + $(mo).val() + "-" + $(dy).val();
-  };
-
-  var getParameterByName = function (name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-      results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    var yr = $("select[name='"+prefix+"_year']").val();
+    var mo = $("select[name='"+prefix+"_month']").val();
+    var dy = $("select[name='"+prefix+"_day']").val();
+    return yr + "-" + mo + "-" + dy;
   };
 
   $("input[name='phone_home']").mask("(000) 000-0000");
@@ -152,6 +144,19 @@ $(function () {
     return this.optional(element) || /^\d{5}(?:-\d{4})?$/.test(value);
   }, "Please provide a valid zip code.");
 
+  jQuery.validator.addMethod("dob", function(value, element, param) {
+    var diff = moment().diff(createDate(param), 'years');
+    return diff >= 18;
+  }, "Must be at least 18 years old.");
+
+  jQuery.validator.addMethod("payday", function(value, element, param) {
+    var payday_mo = $("select[name='pay_date_next_month']").val();
+    var payday_dy = $("select[name='pay_date_next_day']").val();
+    var payday_yr = $("select[name='pay_date_next_year']").val();
+    var payday = payday_yr + "-" + payday_mo + "-" + payday_dy;
+    return moment().diff(payday) <= 0;
+  }, "Pay date must be in the future.");
+
   // Disable the submit button if the consent box is not checked.
   var submit_btn = $("button.form-button.third-step-continue");
   $(".consent").change(function () {
@@ -177,16 +182,34 @@ $(function () {
   var validator = form.validate({
     errorClass: "error",
     validClass: "success",
-    groups: {
-      pay_date_next: "pay_date_next_year pay_date_next_month pay_date_next_day",
-      dob: "dob_year dob_month dob_day"
-    },
     errorPlacement: function (error, element) {
       error.appendTo(element.parents(".field"));
     },
     rules: {
-      home_zipcode: { required: true, zipcode: true },
-      employer_zipcode: { required: true, zipcode: true },
+      home_zipcode: {
+        required: true,
+        remote: {
+          url: "https://offerannex.herokuapp.com/worker/validate/zipcode",
+          type: "GET",
+          data: {
+            zipcode: function () {
+              return $("input[name='home_zipcode']").val();
+            }
+          }
+        }
+      },
+      employer_zipcode: {
+        required: true,
+        remote: {
+          url: "https://offerannex.herokuapp.com/worker/validate/zipcode",
+          type: "GET",
+          data: {
+            zipcode: function () {
+              return $("input[name='employer_zipcode']").val();
+            }
+          }
+        }
+      },
       email: { required: true, email: true },
       phone_home: { required: true, phone: true },
       phone_work: { required: true, phone: true, phoneWork: "input[name='phone_home']" },
@@ -202,7 +225,13 @@ $(function () {
             }
           }
         }
-      }
+      },
+      pay_date_next_year: { required: true, payday: "payday" },
+      pay_date_next_month: { required: true },
+      pay_date_next_day: { required: true },
+      dob_year: { required: true, dob: "dob" },
+      dob_month: { required: true },
+      dob_day: { required: true }
     },
     messages: {
       loan_amount_requested: "Required",
@@ -234,7 +263,10 @@ $(function () {
         zipcode: "Invalid format"
       },
       pay_frequency: "Required",
-      pay_date_next_year: "Required",
+      pay_date_next_year: {
+        required: "Required",
+        payday: "Pay date must be in the future"
+      },
       pay_date_next_month: "Required",
       pay_date_next_day: "Required",
       bank_account_type: "Required",
@@ -244,71 +276,17 @@ $(function () {
       ssn: "Required",
       state_id_number: "Required",
       state_id_issue_state: "Required",
-      dob_year: "Required",
+      dob_year: {
+        required: "Required",
+        dob: "Must be at least 18 years old"
+      },
       dob_month: "Required",
       dob_day: "Required"
-    }
-  });
-
-  $(".progress-circle").circleProgress({
-    value: 0.0,
-    fill: "#099246",
-    size: 156,
-    thickness: 16,
-    startAngle: 3 * (Math.PI/2),
-    animation: { duration: 200000, easing: "linear" }
-  }).on("circle-animation-progress", function (event, progress) {
-    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
-  });
-
-  // Initialize the form by getting the transaction token from the server.
-  var token = getParameterByName("r");
-  var affid = getParameterByName("affid");
-  var subid = getParameterByName("subid");
-  $("#id_id").val(affid);
-
-  if (token == undefined || token == "") {
-    var cid = $("#id_cid").val();
-    $.ajax({
-      url: "https://offerannex.herokuapp.com/worker/campaign/"+cid+"/maketransaction",
-      type: "GET",
-      dataType: "json",
-      data: {
-        "affid": affid,
-        "subid": subid
-      },
-      success: function (result) {
-        if (result && result.status == "success") {
-          $("#id_client_ip").val(result.ip);
-          $("#id_user_agent").val(result.user_agent);
-          $("#id_tid").val(result.tid);
-        }
-      }
-    });
-  }
-  else {
-    $("#id_tid").val(token);
-  }
-
-  $("#tier1-submit").click(function () {
-    $("#id_main_submit").val("tier1-submit");
-  });
-
-  $("#tier0-submit").click(function () {
-    $("#id_main_submit").val("tier0-submit");
-  });
-
-  $("#main-form").submit(function (event) {
-    if (form.valid()) {
+    },
+    submitHandler: function (in_form, event) {
       var paydate = moment(createDate("pay_date_next"));
       var freq    = $("select[name='pay_frequency']").val();
       var nextpay = paydate;
-
-      // Make sure the paydate is in the future.
-      if (paydate.isBefore()) {
-        validator.showErrors({ "pay_date_next_year": "Invalid pay date" });
-        return false;
-      }
 
       if (freq == "W") {
         nextpay = paydate.add(1, "w");
@@ -332,7 +310,8 @@ $(function () {
       }
 
       var submitBtn = $("#id_main_submit").val();
-      $("html, body").animate({ scrollTop: 0 }, "slow");
+      var showTiers = $("#id_main_submit").attr("tiers");
+      scrollPageToTop();
 
       if (submitBtn == "main-submit") {
         $("#id_main_submit").val("0");
@@ -354,7 +333,7 @@ $(function () {
       var tier = 1;
 
       // Convert the form elements into JSON to be posted to the backend.
-      var items = $(this).serializeArray();
+      var items = $(in_form).serializeArray();
       var rtnval = {};
       $.each(items, function () {
         if (this.name.startsWith("dob_") || this.name.startsWith("pay_date_next_")) {
@@ -389,7 +368,10 @@ $(function () {
         rtnval["loan_amount_requested"] = 800;
         tier = 0;
       }
-      rtnval["tier"] = tier;
+
+      if (showTiers !== "no") {
+        rtnval["tier"] = tier;
+      }
 
       // Now build up the dob and pay_date_next fields.
       rtnval.dob = createDate("dob");
@@ -406,7 +388,7 @@ $(function () {
           if (result.hasOwnProperty("url")) {
             checkResponse(result.url, {
               success: function (submit) {
-                if (tier == 2 && submit.status != "A") {
+                if (showTiers !== "no" && tier == 2 && submit.status != "A") {
                   //
                   // The user requested more than $1k and was declined. Before serving
                   // them the decline link, we'll offer them the chance to go for a
@@ -422,13 +404,13 @@ $(function () {
                   // them the decline link that was provided.
                   //
                   window.removeEventListener("beforeunload", unloadHandler);
-                  window.location.href = submit.redirect;
+                  redirectUser(submit.redirect);
                 }
               },
               error: function (error, submit) {
                 window.removeEventListener("beforeunload", unloadHandler);
                 if (submit && submit.hasOwnProperty("redirect")) {
-                  window.location.href = submit.redirect;
+                  redirectUser(submit.redirect);
                 }
               }
             })
@@ -440,14 +422,38 @@ $(function () {
         error: function (jqxhr, status, thrown) {
           window.removeEventListener("beforeunload", unloadHandler);
           console.error(status);
-          window.location.href = "/creditscore.html";
+          redirectUser("https://www.fcpersonalloans.com/creditscore.html");
         }
       });
-    }
-    else {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return false;
+    },
+    invalidHandler: function (event, validator) {
       alert("Please make sure you filled all of the required fields in.");
+      return false;
     }
-    event.preventDefault();
+  });
+
+  $(".progress-circle").circleProgress({
+    value: 0.0,
+    fill: "#099246",
+    size: 156,
+    thickness: 16,
+    startAngle: 3 * (Math.PI/2),
+    animation: { duration: 200000, easing: "linear" }
+  }).on("circle-animation-progress", function (event, progress) {
+    $(this).find("strong").html(parseInt(100 * progress) + "<i>%</i>");
+  });
+
+  initialize();
+
+  $("#tier1-submit").click(function () {
+    $("#id_main_submit").val("tier1-submit");
+  });
+
+  $("#tier0-submit").click(function () {
+    $("#id_main_submit").val("tier0-submit");
   });
 
 });
