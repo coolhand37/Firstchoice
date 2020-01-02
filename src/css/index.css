@@ -22,7 +22,7 @@ html {
 **********************************************/
 body {
     font-size: 13px;
-    margin: 0px;
+    margin: 0;
 }
 
 h1, h2, h3, h4, h5 {
@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5 {
 }
 
 h1, h2, h3, h4, h5 {
-    margin: 0;   
+    margin: 0;
 }
 
 h2 {
@@ -76,7 +76,7 @@ header.main-header {
 
 header.privacy-header {
     position: fixed;
-    box-shadow: 0px 0px 15px -2px #828080;
+    box-shadow: 0 0 15px -2px #828080;
     background-color: white;
 }
 
@@ -193,7 +193,7 @@ footer.main-footer {
 }
 
 .hideit {
-    display: none; 
+    display: none;
 }
 
 .collapsed-menu {
@@ -215,8 +215,7 @@ footer.main-footer {
     height: 3px;
     border: none;
     background-color: white;
-    margin: auto;
-    margin-bottom: 5px;
+    margin: auto auto 5px;
     border-radius: 20px;
 }
 
@@ -257,10 +256,7 @@ footer.main-footer {
 }
 
 .pre-form {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 0px;
-    padding-bottom: 40px;
+    padding: 0 10px 40px;
 }
 
 .pre-form > div {
@@ -272,7 +268,6 @@ footer.main-footer {
 }
 
 .pre-form h3 {
-    padding-top: 10px;
     font-size: .85em;
     padding: 20px 0;
     font-weight: normal;
@@ -319,7 +314,7 @@ footer.main-footer {
 }
 
 .form-button {
-    
+
     border-radius: 3px;
     width: 100%;
     color: white;
@@ -364,7 +359,7 @@ footer.main-footer {
 
 .media-object {
     overflow: hidden;
-    padding: 10px 0px;
+    padding: 10px 0;
 }
 
 .selling-point {
@@ -381,7 +376,7 @@ footer.main-footer {
 
 .selling-point-content {
     margin-left: 35px;
-    padding: 0px 5px;
+    padding: 0 5px;
 }
 
 .econsent-headline {
@@ -436,13 +431,13 @@ footer.main-footer {
 }
 
 .application h4 {
-    font-weight: normal;
+    font-weight: 400;
 }
 
 header.application-header {
     height: 55px;
     position: relative;
-    box-shadow: 0px 0px 15px -2px #828080;
+    box-shadow: 0 0 15px -2px #828080;
 
 }
 
@@ -454,13 +449,6 @@ header.application-header {
 
 }
 
-/*original form
-.application-progressbar {
-    padding: 10px;
-    font-size: .7em;
-    color: #828080;
-}*/ 
-
 .application-progressbar {
     padding: 10px;
     font-size: .7em;
@@ -471,13 +459,6 @@ header.application-header {
 .application-progressbar > div {
     display: inline-block;
 }
-
-/*original form
-.application-progressbar .active {
-    color: darkgreen;
-    font-weight: bold;
-    font-size: 1.4em;
-}*/
 
 .progressbar-text {
     display: inline-block;
@@ -503,28 +484,6 @@ header.application-header {
     padding-right: 10px;
     padding-top: 10px;
     background-color: white;
-}
-
-.application-form h3 {
-    font-size: 1em;
-    padding: 10px;
-}
-
-.application-form h5 {
-    font-size: .9em;
-    font-weight: normal;
-}
-
-.application-form h2 {
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    font-weight: normal;
-}
-
-.application-form hr {
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-width: 1px 0 0 0;
 }
 
 .info-headers {
@@ -604,7 +563,7 @@ header.application-header {
 }
 
 .next-steps-continue button {
-    margin-top: 0px;
+    margin-top: 0;
     width: 125px;
 
 }
@@ -627,8 +586,7 @@ header.application-header {
 .privacy-lightbox, .econsent-lightbox {
     border: 1px solid black;
     border-radius: 5px;
-    padding: 20px;
-    padding-top: 0;
+    padding: 0 20px 20px;
     width: 80%;
     position: fixed;
     top: 0;
@@ -653,7 +611,7 @@ header.application-header {
 }
 
 .privacy-policy-lightbox, .econsent-policy-lightbox {
-    padding: 20px 0px 100px 0px;
+    padding: 20px 0 100px 0;
     text-align: left;
 }
 
@@ -759,7 +717,7 @@ header.application-header {
 
 .low-chance > button {
     border: 2px solid #d64d4d;
-    background-color: #f7e3e3;  
+    background-color: #f7e3e3;
 }
 
 .chance-approval > button:hover {
@@ -813,7 +771,7 @@ header.application-header {
     color: #0052a2;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    box-shadow: -3px -3px 16px 0px rgba(94,84,94,.7);
+    box-shadow: -3px -3px 16px 0 rgba(94,84,94,.7);
 
 }
 
@@ -843,12 +801,11 @@ header.application-header {
     background: #f1f1f1;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    box-shadow: 3px 6px 16px 0px rgba(94,84,94,1);
+    box-shadow: 3px 6px 16px 0 rgba(94,84,94,1);
 }
 
 .credit-form-fields {
-    padding: 20px;
-    padding-top: 0;
+    padding: 0 20px 20px;
 }
 
 .credit-form-fields .input {
@@ -879,10 +836,9 @@ header.application-header {
     font-size: 1.6em;
     height: 100%;
     padding: 17px;
-    margin: auto;
     color: white;
     text-transform: capitalize;
-    margin-bottom: 30px;
+    margin: auto auto 30px;
 }
 
 .credit-form-button a {
@@ -928,7 +884,7 @@ header.application-header {
      }
 
     .chance-approval > button {
-    width: 350px;
+        width: 350px;
     }
 }
 
@@ -1046,7 +1002,7 @@ header.application-header {
     .collapsed-navbar {
         display: none !important;
     }
-  
+
     .secondary-content p, .tertiary-content p {
         font-size: 1.2em;
     }
@@ -1149,22 +1105,6 @@ header.application-header {
         padding: 20px;
     }
 
-    .application-form h2 {
-        text-align: left;
-        padding-left: 10px;
-    }
-
-    .application-form h3 {
-        padding: 20px;
-        padding-left: 10px; /*full form*/
-        text-align: left; /*full form*/
-    }
-
-    .application-form h5 {
-        text-align: left;
-        padding-left: 10px;
-    }
-
     .application-progressbar {
         width: 250px;
         position: absolute;
@@ -1198,15 +1138,14 @@ header.application-header {
     }
 
     .ssl-info {
-        position: absolute;
         width: 250px;
-        padding: 10px;
-        padding-top: 20px;
-        top: 200px;
-        right: 0;
+        padding: 20px 10px 10px;
         border: 1px solid #e3e3e3;
         border-radius: 10px;
         background-color: white;
+        font-size: 13px;
+        color: #444;
+        margin-top: 25px;
     }
 
     .siteseal {
@@ -1254,6 +1193,10 @@ header.application-header {
         width: 100% !important;
     }
 
+    #oa-form-container > div > div > main > div > div > div > div > div {
+        width: 650px;
+    }
+
     .paydate { /*full form*/
         text-align: left;
         width: 100%;
@@ -1263,7 +1206,7 @@ header.application-header {
         width: 48%;
     }
 
-    /* original form 
+    /* original form
     .application .field {
         width: 97%;
         margin: 0;
@@ -1346,7 +1289,6 @@ header.application-header {
     .consent-checkbox {
         padding-left: 20px;
     }
-
 }
 
 @media (min-width: 1170px) {
@@ -1368,11 +1310,11 @@ header.application-header {
         width: 100% !important;
     }
 
-    .application-progressbar {
-        right: 100px;
+    #oa-form-container > div > div > main > div > div > div > div > div {
+        width: 780px;
     }
 
-    .ssl-info {
+    .application-progressbar {
         right: 100px;
     }
 
