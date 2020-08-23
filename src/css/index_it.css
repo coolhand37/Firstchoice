@@ -1,0 +1,1386 @@
+/*********************************************
+	Inherited Styles
+**********************************************/
+
+html {
+  box-sizing: border-box;
+  color: #444;
+  font-size: 12pt;
+  font-family: 'Open Sans', sans-serif, Arial;
+  font-weight: 300;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+  color: inherit;
+  font: inherit;
+}
+
+/*********************************************
+	Defaults
+**********************************************/
+body {
+  font-size: 13px;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.8em;
+}
+
+h3 {
+  font-size: 1.1em;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+}
+
+img {
+  border: none;
+}
+
+i {
+  padding-right: 5px;
+}
+
+
+/*********************************************
+	Helpers
+**********************************************/
+
+/*********************************************
+    Layout
+**********************************************/
+
+.panel > div {
+  position: relative;
+}
+
+header.main-header {
+  height: 55px;
+  width: 100%;
+}
+
+header.privacy-header {
+  position: fixed;
+  box-shadow: 0 0 15px -2px #828080;
+  background-color: white;
+}
+
+.collapsed-navbar {
+  position: absolute;
+  top: 55px;
+  width: 100%;
+  display: none;
+}
+
+.collapsed-navbar a {
+  background-color: #099246;
+  display: block;
+  text-decoration: none;
+  padding: 15px;
+  color: white;
+
+}
+
+.collapsed-navbar a:hover {
+  background-color: #015b25;
+}
+
+.main-navbar {
+  display: none;
+  position: absolute;
+  top: 45px;
+  right: 15px;
+  width: auto;
+}
+
+.main-navbar a {
+  color:  #099246;
+  display: inline;
+  font-size: .9em;
+  text-decoration: none;
+  padding: 15px;
+
+}
+
+.main-navbar a:hover {
+  color: #015b25;
+}
+
+.hero {
+  background-image: url("../images/herobcgsmall.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+}
+
+.application {
+  background-image: none;
+  color: #444;
+}
+
+.privacy-policy {
+  text-align: left;
+  padding: 100px 20px 20px 20px;
+}
+
+.main-content > div {
+  padding: 10px;
+}
+
+.secondary-content {
+  background-color: #c9d3cd;
+}
+
+.secondary-content {
+  padding: 20px;
+}
+
+.tertiary-content {
+  background-color: white;
+}
+
+.tertiary-content {
+  padding: 20px;
+}
+
+footer.main-footer {
+  color: white;
+}
+
+/*********************************************
+    Components
+**********************************************/
+
+/*******Header********/
+.main-header > div {
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  z-index: 2;
+  height: 55px;
+  right: 0;
+  left: 0;
+}
+
+.logo {
+  position: absolute;
+  left: 15px;
+  top: 7px;
+}
+
+.privacy-header .logo {
+  left: initial;
+  right: 20px;
+}
+
+.hideit {
+  display: none;
+}
+
+.collapsed-menu {
+  background-color: #099246;
+  height: 35px;
+  width: 45px;
+  border-radius: 5px;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+
+.collapsed-menu div:first-child {
+  margin-top: 8px;
+}
+
+.collapsed-menu div {
+  width: 60%;
+  height: 3px;
+  border: none;
+  background-color: white;
+  margin: auto auto 5px;
+  border-radius: 20px;
+}
+
+.siteseal {
+  padding: 15px;
+}
+
+.collapsed-menu:hover {
+  cursor: pointer;
+  background-color: #015b25;
+}
+
+.back-button {
+  background-color: #099246;
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.back-button button {
+  padding: 10px;
+}
+
+/********Hero Content*********/
+
+.hero-content {
+  padding: 10px;
+}
+
+.hero-headline {
+  padding-top: 20px;
+}
+
+.hero-content h3 {
+  font-weight: normal;
+  color: #099246;
+}
+
+.pre-form {
+  padding: 0 10px 40px;
+}
+
+.pre-form > div {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-image: url("../images/darkbcg.png");
+}
+
+.pre-form h3 {
+  font-size: .85em;
+  padding: 20px 0;
+  font-weight: normal;
+}
+
+.input {
+  padding-bottom: 15px;
+}
+
+.input select, .input input {
+  width: 100%;
+  border: none;
+  height: 35px;
+  color: black;
+}
+
+.input input {
+  border-radius: 5px;
+  padding-left: 8px;
+}
+
+.label {
+  text-align: left;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+.credit-label > div {
+  display: inline-block;
+}
+
+.credit-linkout {
+  font-size: .7em;
+  padding-left: 20px;
+  font-weight: normal;
+}
+
+.credit-linkout a {
+  font-weight: bold;
+}
+
+.form-submit.preform-submit {
+  padding-bottom: 10px;
+}
+
+.form-button {
+
+  border-radius: 3px;
+  width: 100%;
+  color: white;
+  background-color: #099246;
+  height: 45px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+.form-button.blue {
+  background-color: #095992;
+}
+
+.form-button:disabled {
+  background-color: #7DD4A4;
+  pointer-events: none !important;
+  cursor: not-allowed;
+}
+
+.form-button.blue:disabled {
+  background-color: #7DABD4;
+}
+
+.submit-terms {
+  font-size: .8em;
+  padding-bottom: 20px;
+}
+
+.cf::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+/********Main Content**********/
+
+.main-content-headline {
+  padding-bottom: 10px;
+}
+
+.media-object {
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.selling-point {
+  text-align: left;
+}
+
+.selling-point-image {
+  float: left;
+  font-size: 2.6em;
+  padding: 0 5px;
+  margin-top: -2px;
+  color: #099246;
+}
+
+.selling-point-content {
+  margin-left: 35px;
+  padding: 0 5px;
+}
+
+.econsent-headline {
+  text-align: center;
+}
+
+.econsent-italic {
+  font-style: italic;
+}
+
+
+/*******Secondary Content********/
+
+
+/*******Tertiary Content********/
+
+
+/*******Disclaimer Content********/
+
+.disclaimer {
+  background-color: grey;
+  padding: 10px;
+  text-align: left;
+  color: white;
+  font-size: .8em;
+}
+
+.copyright {
+  text-align: center;
+}
+
+/*******Footer********/
+
+.footer-contact-info {
+  text-align: center;
+  color: #099246;
+  font-weight: 500;
+}
+
+
+.footer-contact-info > div {
+  padding: 10px 20px;
+  display: inline-block;
+}
+
+/**************Form*******************/
+
+.application {
+  background-color: #f5f5f5;
+  padding-bottom: 20px;
+}
+
+.application h4 {
+  font-weight: 400;
+}
+
+header.application-header {
+  height: 55px;
+  position: relative;
+  box-shadow: 0 0 15px -2px #828080;
+
+}
+
+.logo-application {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.application-progressbar {
+  padding: 10px;
+  font-size: .7em;
+  color: darkgreen;
+  font-weight: bold;
+}
+
+.application-progressbar > div {
+  display: inline-block;
+}
+
+.progressbar-text {
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.application-progressbar span {
+  font-size: .5em;
+}
+
+.application h2 i {
+  padding-left: 10px;
+}
+
+.application h2 i:hover {
+  cursor: help;
+}
+
+.application-form {
+  border: 1px solid #e3e3e3;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: white;
+}
+
+.info-headers {
+  position: relative;
+}
+
+.info-headers h2 {
+  text-align: left;
+}
+
+.info-bubble {
+  border: solid black 1px;
+  position: absolute;
+  right: 0;
+  left: 160px;
+  top: 25px;
+  margin: auto;
+  width: 175px;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.banking-info-bubble, .security-info-bubble {
+  top: 45px;
+}
+
+.application .input select, input {
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+}
+
+.three-field-format select {
+  width: 32.5%;
+}
+
+.first-step-continue {
+  width: 125px;
+}
+
+.application-second-step, .application-third-step h2 {
+  padding-top: 20px;
+}
+
+.form-submit {
+  padding-bottom: 40px;
+}
+
+.form-submit.next-steps {
+  padding-bottom: 20px;
+}
+
+.next-steps > div {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 20px;
+
+}
+
+.next-steps-back {
+  width: 60%;
+  text-align: left;
+  font-size: .9em;
+  padding-left: 20px;
+}
+
+.next-steps-back span:hover {
+  cursor: pointer;
+}
+
+.next-steps-continue {
+  text-align: center;
+  width: 38%;
+}
+
+.next-steps-continue button {
+  margin-top: 0;
+  width: 125px;
+
+}
+
+.form-button:hover {
+  cursor: pointer;
+
+}
+
+.consent-checkbox {
+  padding: 10px;
+  text-align: left;
+}
+
+.privacy-form-link, .econsent-form-link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.privacy-lightbox, .econsent-lightbox {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0 20px 20px;
+  width: 80%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: white;
+  overflow: auto;
+  height: 100%;
+
+}
+
+.application-lightbox-header {
+  height: 55px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  background-color: white;
+  width: 80%;
+}
+
+.privacy-policy-lightbox, .econsent-policy-lightbox {
+  padding: 20px 0 100px 0;
+  text-align: left;
+}
+
+.close-button {
+  padding: 5px 20px 5px 20px;
+  background-color: #099246;
+  border-radius: 5px;
+  color: white;
+  width: 100px;
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.consent {
+  height: initial;
+  margin-right: 10px;
+}
+
+.consent-message {
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+.application-processing-step {
+  padding-top: 40px;
+  padding-bottom: 100px;
+}
+
+.application-processing-step h1 {
+  font-size: 1.6em;
+}
+
+.application-processing-step h2 {
+  font-size: 1.2em;
+  margin: 0;
+  font-weight: bold;
+}
+
+.progress-timer {
+  font-size: 8em;
+  padding: 40px;
+}
+
+.time-notification-box {
+  border: 1px solid #099246;
+  border-radius: 5px;
+  padding: 20px 5px;
+  margin-bottom: 10px;
+  background-color: #e1f2e8;
+}
+
+.time-notification-box.blue {
+  border: 1px solid #0672A1;
+  border-radius: 5px;
+  padding: 20px 5px;
+  margin-bottom: 10px;
+  background-color: #D3DEF2;
+}
+
+
+.good-news {
+  font-size: 1.6em;
+}
+
+.pl-denial {
+  padding-top: 20px;
+}
+
+.pl-denial span {
+  font-weight: bold;
+  color: #d64d4d;
+}
+
+.pl-denial > h2 {
+  margin-top: 20px;
+  font-size: 1.1em;
+}
+
+.pl-denial i {
+  color: #d64d4d;
+}
+
+.chance-approval {
+  margin: 20px 0;
+  font-size: 1em;
+}
+
+.chance-approval > button {
+  border-radius: 5px;
+  padding: 20px;
+  width: 75%;
+  margin: auto;
+  font-weight: normal;
+}
+
+.high-chance > button {
+  border: 2px solid #099246;
+  background-color: #e1f2e8;
+}
+
+.low-chance > button {
+  border: 2px solid #d64d4d;
+  background-color: #f7e3e3;
+}
+
+.chance-approval > button:hover {
+  cursor: pointer;
+}
+
+.high-chance h2 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.low-chance h2 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.high-chance > button:hover {
+  background-color: #099246;
+}
+
+.low-chance > button:hover {
+  background-color: #d64d4d;
+}
+
+
+/***********************************************
+                Credit Offer
+************************************************/
+
+.credit-thanks h1 {
+  margin-top: 30px;
+  color: black;
+}
+
+.credit-content > div {
+  margin: auto;
+  padding: 15px 20px;
+}
+
+.credit-form-header {
+  padding: 0 20px;
+  text-transform: capitalize;
+  line-height: 2.8em;
+}
+
+.credit-form-header > div {
+  background-color: #ffffff;
+  margin: auto;
+  padding: 20px;
+  border: 1px #efefef solid;
+  color: #0052a2;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  box-shadow: -3px -3px 16px 0 rgba(94,84,94,.7);
+
+}
+
+.credit-form-header span {
+  border-bottom: 5px #ef7e15 solid;
+}
+
+.credit-form-header i {
+  font-weight: normal;
+}
+
+.credit-form {
+  height: 715px;
+}
+
+.credit-form > div {
+  height: 620px;
+  padding: 0 20px;
+  background-image: url("../images/creditbcg.jpg");
+  background-size: cover;
+}
+
+.credit-form .media-object {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-top: 1px #e3e3e3 solid;
+  background: #f1f1f1;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  box-shadow: 3px 6px 16px 0 rgba(94,84,94,1);
+}
+
+.credit-form-fields {
+  padding: 0 20px 20px;
+}
+
+.credit-form-fields .input {
+  padding-bottom: 10px;
+}
+
+.credit-form-fields .input input, select {
+  border: 1px #D9D9D9 solid;
+  background-color: #fff;
+}
+
+.graphbar {
+  background-color: #F1F1F1;
+  padding: 10px;
+  margin: auto;
+  border-right: 1px #efefef solid;
+}
+
+.credit-footer {
+  padding: 20px;
+}
+
+.credit-form-button {
+  /*padding-bottom: 30px;*/
+  background-color: #ef7e15;
+  border-radius: 9px;
+  width: 320px;
+  font-size: 1.6em;
+  height: 100%;
+  padding: 17px;
+  color: white;
+  text-transform: capitalize;
+  margin: auto auto 30px;
+}
+
+.credit-form-button a {
+  text-decoration: none;
+
+}
+
+/***********************************************
+                Media Points
+************************************************/
+@media (max-width: 400px) {
+
+  .application-progressbar {
+    font-size: .55em;
+  }
+}
+
+
+@media (min-width: 480px) {
+
+  .application-progressbar {
+    font-size: .9em;
+  }
+
+  .application-form h3 {
+    font-size: 1.6em;
+  }
+
+  .application-form h5 {
+    font-size: 1.2em;
+  }
+
+  .chance-approval > button {
+    width: 350px;
+  }
+}
+
+@media (min-width: 660px) {
+
+  .logo.showit {
+    display: none;
+  }
+
+  .logo.hideit {
+    display: block;
+  }
+
+  .application-header .hideit {
+    display: block;
+  }
+
+  .application-header .showit {
+    display: none;
+  }
+
+  .logo-application {
+    position: static;
+    transform: none;
+    text-align: left;
+    padding: 5px 30px;
+  }
+
+  .back-button {
+    top: 20px;
+  }
+
+  .back-button button {
+    padding: 10px 20px;
+  }
+
+  .hero {
+    background-image: url("../images/herobcg.jpg");
+    background-position: top;
+  }
+
+  .hero > div, .main-content > div, .secondary-content > div, .tertiary-content > div, .privacy-policy > div {
+    width: 660px;
+    margin: auto;
+  }
+
+  .application-header > div, .application > div {
+    width: 660px;
+    margin: auto;
+  }
+
+  .application.form-only > div {
+    width: 100%;
+  }
+
+  .collapsed-menu {
+    display: none;
+  }
+
+  header.main-header {
+    height: 75px;
+  }
+
+  header.application-header {
+    height: 75px;
+  }
+
+  .main-header > div {
+    height: 75px;
+    width: 660px;
+  }
+
+  .main-navbar {
+    display: block;
+  }
+
+  h2 {
+    font-size: 2.6em;
+  }
+
+  .hero-content h3 {
+    font-size: 1.8em;
+  }
+
+  .pre-form {
+    padding-bottom: 40px;
+  }
+
+  .pre-form h3 {
+    font-size: 1.4em;
+  }
+
+  .field {
+    width: 48%;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .preform-button {
+    width: 30%;
+  }
+
+  .credit-linkout {
+    font-size: .85em;
+  }
+
+  .selling-point {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 1.2em;
+  }
+
+  .collapsed-navbar {
+    display: none !important;
+  }
+
+  .secondary-content p, .tertiary-content p {
+    font-size: 1.2em;
+  }
+
+  .chance-approval {
+    font-size: 1.2em;
+  }
+
+  .low-chance {
+    margin-bottom: 60px;
+  }
+
+  .pl-denial > h2 {
+    font-size: 1.3em;
+  }
+
+  .good-news {
+    font-size: 1.9em;
+  }
+
+  .credit-content > div {
+    font-size: 1.2em;
+  }
+
+  .graphbar .hideit {
+    display: initial;
+  }
+
+  .graphbar .showit {
+    display: none;
+  }
+
+  .graphbar {
+    float: left;
+    margin-left: 20px;
+    margin-top: 60px;
+  }
+
+  .credit-form-fields {
+    padding-top: 20px;
+    margin-left: 200px;
+    text-align: left;
+  }
+
+  .credit-form-fields .field {
+    width: 45%;
+  }
+
+  .credit-form {
+    height: 383px;
+  }
+
+  .credit-form > div {
+    height: 300px;
+  }
+
+  .credit-footer {
+    font-size: 1.2em;
+  }
+
+  .credit-footer .hideit {
+    display: initial;
+  }
+
+  .credit-footer .showit {
+    display: none;
+  }
+}
+
+@media (min-width: 770px) {
+  .application-header.credit-header > div, .credit-thanks, .credit-content, .credit-form-header > div, .credit-form .media-object, .credit-footer {
+    width: 720px;
+    margin: auto;
+  }
+}
+
+@media (min-width: 930px) {
+
+  .main-header > div {
+    height: 75px;
+    width: 930px;
+  }
+
+  .hero > div, .main-content > div, .secondary-content > div, .tertiary-content > div, .privacy-policy > div {
+    width: 930px;
+    margin: auto;
+  }
+
+  .application-header > div, .application > div {
+    width: 930px;
+    margin: auto;
+  }
+
+  .application.form-only > div {
+    width: 100%;
+  }
+
+  .application > div {
+    position: relative;
+    padding: 20px;
+  }
+
+  .application-progressbar {
+    width: 250px;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    font-size: 1.1em; /*full form*/
+  }
+
+  .application-progressbar > div {
+    display: block;
+    padding-bottom: 15px;
+  }
+
+  .application-progressbar > div i {
+    float: left;
+    width: 20px;
+  }
+
+  .progressbar-text {
+    margin-left: 25px;
+    text-align: left;
+    display: block;
+  }
+
+  .ssl-info.hideit {
+    display: initial;
+  }
+
+  .ssl-info.showit {
+    display: none;
+  }
+
+  .ssl-info {
+    width: 250px;
+    padding: 20px 10px 10px;
+    border: 1px solid #e3e3e3;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 13px;
+    color: #444;
+    margin-top: 25px;
+  }
+
+  .ssl-info h4 {
+    font-size: 13px;
+  }
+
+  .siteseal {
+    padding: 10px;
+  }
+
+  .personal-info-bubble {
+    left: -250px;
+  }
+
+  .employment-info-bubble {
+    left: -200px;
+  }
+
+  .banking-info-bubble {
+    left: -255px;
+  }
+
+  .security-info-bubble {
+    left: -255px;
+  }
+
+  .pre-form {
+    padding-bottom: 120px;
+  }
+
+  .hero-content h2 {
+    font-size: 3.6em;
+  }
+
+  .hero-content h3 {
+    font-size: 2.2em;
+  }
+
+  .pre-form .field {
+    width: 170px;
+    display: inline-block;
+  }
+
+  .application-form {
+    width: 650px;
+  }
+
+  .application-form.form-only {
+    width: 100% !important;
+  }
+
+  #oa-form-container > div > div > main > div > div > div > div > div {
+    width: 650px;
+  }
+
+  .paydate { /*full form*/
+    text-align: left;
+    width: 100%;
+  }
+
+  .paydate-label { /*full form*/
+    width: 48%;
+  }
+
+  .credit-linkout {
+    padding: 5px;
+    font-size: .65em;
+  }
+
+  .application .credit-linkout {
+    /*padding-left: 0; original form*/
+    padding-left: 20px;
+  }
+
+
+  .preform-submit {
+    display: inline-block;
+    padding-left: 5px;
+  }
+
+  .preform-button {
+    width: 115px;
+  }
+
+  .submit-terms {
+    font-size: .9em;
+  }
+
+  .application-processing-step h1 {
+    font-size: 2.4em;
+  }
+
+  .application-processing-step h2 {
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .progress-timer {
+    font-size: 12em;
+  }
+
+  .application-processing-step h4 {
+    font-size: 1.2em;
+  }
+
+  .consent-checkbox {
+    padding-left: 20px;
+  }
+}
+
+@media (min-width: 1170px) {
+
+  .application-header > div, .application > div {
+    width: 1170px;
+    margin: auto;
+  }
+
+  .application.form-only > div {
+    width: 100%;
+  }
+
+  .application-form {
+    width: 780px;
+  }
+
+  .application-form.form-only {
+    width: 100% !important;
+  }
+
+  #oa-form-container > div > div > main > div > div > div > div > div {
+    width: 780px;
+  }
+
+  .application-progressbar {
+    right: 100px;
+  }
+
+  .personal-info-bubble {
+    left: -375px;
+  }
+
+  .employment-info-bubble {
+    left: -315px;
+  }
+
+  .banking-info-bubble {
+    left: -385px;
+  }
+
+  .security-info-bubble {
+    left: -385px;
+  }
+
+}
+
+.hidden {
+  display: none;
+}
+
+input.error, select.error {
+  border: 1px solid #a94442 !important;
+}
+
+input.success, select.success {
+  border: 1px solid #3c763d !important;
+}
+
+.progress-circle {
+  position: relative;
+  height: 156px;
+}
+
+.progress-circle strong {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 10px;
+  right: 0;
+  top: 63px;
+  font-size: 24px;
+}
+
+.alert.errors {
+  text-align: left;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.alert h4 {
+  margin-top: 0;
+  color: inherit;
+}
+.alert .alert-link {
+  font-weight: bold;
+}
+.alert > p,
+.alert > ul {
+  margin-bottom: 0;
+}
+.alert > p + p {
+  margin-top: 5px;
+}
+.alert-dismissable,
+.alert-dismissible {
+  padding-right: 35px;
+}
+.alert-dismissable .close,
+.alert-dismissible .close {
+  position: relative;
+  top: -2px;
+  right: -21px;
+  color: inherit;
+}
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.alert-success hr {
+  border-top-color: #c9e2b3;
+}
+.alert-success .alert-link {
+  color: #2b542c;
+}
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.alert-info hr {
+  border-top-color: #a6e1ec;
+}
+.alert-info .alert-link {
+  color: #245269;
+}
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.alert-warning hr {
+  border-top-color: #f7e1b5;
+}
+.alert-warning .alert-link {
+  color: #66512c;
+}
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
